@@ -1,0 +1,185 @@
+======================================================================================
+create the following directories relative to where the script is run
+
+m
+tmp
+logs
+profiles
+plots
+
+data/raw_ctdprof
+data/raw_ctdtime
+data/raw_ladcp/cut
+data/raw_nav
+data/raw_sadcp  <-----needs WS1501_codas3_sadcp.mat ??? must change \ to filesep
+
+data/ctdprof
+data/ctdtime
+data/nav
+
+../m/ladcp
+../m/sw
+../m/netcdf
+../m/netcdf/nctype
+../m/netcdf/ncutility
+../m/mexnc
+
+========================================================================================
+add the following files
+./igrf11coeffs.xls
+
+========================================================================================
+
+****m files needed
+
+     ../WS1501/cast_params.m
+     ../WS1501/cruise_params.m
+      ./ctd_rd2.m
+      ./ismac.m
+      ./loading.m
+      ./misc_composefilenames.m
+      ./prepare_cast.m
+      ./prepctdprof.m
+      ./prepctdtime.m
+      ./prepladcp.m
+      ./prepnav.m
+      ./prepsadcp.m
+      ./rdihead.m
+      ./saveres.m
+     ../m/ladcp/bestlag.m
+     ../m/ladcp/bestlag2.m
+     ../m/ladcp/calc_adcp_ctd_lag.m
+     ../m/ladcp/calc_battery.m
+     ../m/ladcp/calc_depth.m
+     ../m/ladcp/calc_ens_av.m
+     ../m/ladcp/calc_rdi_std.m
+     ../m/ladcp/calc_sadcp_av.m
+     ../m/ladcp/calc_shear2.m
+     ../m/ladcp/calc_soundsp.m
+     ../m/ladcp/checkbtrk.m
+     ../m/ladcp/checkinv.m
+     ../m/ladcp/checktilt.m
+     ../m/ladcp/clear_prep.m
+     ../m/ladcp/cos_d.m
+     ../m/ladcp/cutstruct.m
+     ../m/ladcp/default_params.m
+     ../m/ladcp/edit_data.m
+     ../m/ladcp/figload.m
+     ../m/ladcp/findany.m
+     ../m/ladcp/gcolor.m
+     ../m/ladcp/getbtrack.m
+     ../m/ladcp/geterr.m
+     ../m/ladcp/getinv.m
+     ../m/ladcp/gregoria.m
+     ../m/ladcp/improve.m
+     ../m/ladcp/int2str0.m
+     ../m/ladcp/julian.m
+     ../m/ladcp/lanarrow.m
+     ../m/ladcp/lesqchol.m
+     ../m/ladcp/localmax2.m
+     ../m/ladcp/magdev.m
+     ../m/ladcp/meanfilt.m
+     ../m/ladcp/meanmediannan.m
+     ../m/ladcp/mergedata.m
+     ../m/ladcp/misc_cut_profile.m
+     ../m/ladcp/misc_fix_compass.m
+     ../m/ladcp/misc_prepare_rdi.m
+     ../m/ladcp/misc_switchbeams.m
+     ../m/ladcp/nbread.m
+     ../m/ladcp/nmax.m
+     ../m/ladcp/nmean.m
+     ../m/ladcp/nmedian.m
+     ../m/ladcp/nmin.m
+     ../m/ladcp/nstd.m
+     ../m/ladcp/nsum.m
+     ../m/ladcp/num3str.m
+     ../m/ladcp/outlier.m
+     ../m/ladcp/pcolorn.m
+     ../m/ladcp/plot_controls.m
+     ../m/ladcp/plot_menu.m
+     ../m/ladcp/plot_rawinfo.m
+     ../m/ladcp/plot_result.m
+     ../m/ladcp/pos2str.m
+     ../m/ladcp/prepinv.m
+     ../m/ladcp/rdiload.m
+     ../m/ladcp/rditype.m
+     ../m/ladcp/replace.m
+     ../m/ladcp/rms.m
+     ../m/ladcp/save6.m
+     ../m/ladcp/saveprot.m
+     ../m/ladcp/setdefv.m
+     ../m/ladcp/sfigure.m
+     ../m/ladcp/simple_bar.m
+     ../m/ladcp/sin_d.m
+     ../m/ladcp/streamer.m
+     ../m/ladcp/suplabel.m
+     ../m/ladcp/uvrot.m
+     ../m/ladcp/uvwrot.m
+     ../m/ladcp/whoami.m
+     ../m/ladcp/whread.m
+     ../m/ladcp/whread_multi.m
+     ../m/ladcp/xcorr3.m
+     ../m/sw/sw_dpth.m
+     ../m/sw/sw_pres.m
+     ../m/sw/sw_svel.m
+=========================================================================================
+
+
+
+
+
+modified saveres.m and processcast.m
+replaced \ with / 
+
+modified processcast.m
+changed parameter name stn to stnS in function declaration
+!!!!!!figload crashes matlab 2016
+replaced figload by openfig
+
+added 
+stn=str2num(stnS)
+
+as 1st line of code.
+
+modified prepladcp.m 
+removed platform dependent drop to shell copy and replaced it with
+
+% changed to platform independent copyfile Pedro Pena 8.11.16 
+copyfile(['data',filesep,'raw_ladcp',filesep,'cut',filesep,cruise_str,stncaststr,'m.000'],...
+    ['data',filesep,'ladcp',filesep,int2str0(stn,3),filesep,int2str0(stn,3),'DN000.000'])
+copyfile(['data',filesep,'raw_ladcp',filesep,'cut',filesep,cruise_str,stncaststr,'s.000'],...
+    ['data',filesep,'ladcp',filesep,int2str0(stn,3),filesep,int2str0(stn,3),'UP000.000'])
+
+
+also replcaed some \ with filesep
+
+modified prepctdprof and prepctdtime
+
+replaced platform depoendent file seperators with filesep
+
+modified misc_composefilenames.m
+
+changed up to UP and dn to DN lines 40 & 54 & replaced \ and / with filesep
+modified prepnav.m
+
+replaced  / & \ with filesep & added paremthesis to load 
+
+
+********
+need to work on makevelfile.
+
+modified cruise_params.m
+p.name  = [p.cruise_id,'_FINAL_',int2str0(stn,3)];
+
+p.name now is contructed the cruisid variable
+
+modified prepsadcp.m
+replace / with filesep
+
+uncomment return so that we dont do sadcp processing(line 24)
+
+modified prepnav.vis  to read nav.vis file in directly
+%load(['data',filesep,'raw_nav',filesep,'nav_WS1501.mat']);
+navtemp=load(['data',filesep,'raw_nav',filesep,'nav.vis']);
+navgood=[navtemp(:,2),navtemp(:,3),navtemp(:,4)];
+
