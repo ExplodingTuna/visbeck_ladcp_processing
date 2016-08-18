@@ -305,7 +305,7 @@ if isfield(dr,'uerr')==1
 
   % plot profiles of velocity error
   axes('position',[0.82 0.39 0.1 .25])
-
+% function plot_result(dr,d,p,ps,values)
   ue = dr.uerr;
   plot(ue,-dr.z/1000,'k-','linewidth',1.5)
   hold on
@@ -321,7 +321,7 @@ end
 
 %
 % add single ping accuracy
-%
+%% function plot_result(dr,d,p,ps,values)
 if isfield(dr,'ensemble_vel_err')==1
   plot(dr.ensemble_vel_err,-dr.z/1000,'-b')
   ax(2) = max([2.5*nmedian(ue),2.5*nmedian(dr.ensemble_vel_err)]);
@@ -333,7 +333,7 @@ end
 %
 % plot position of CTD
 %
-subplot(326)
+subplot(326)% function plot_result(dr,d,p,ps,values)
 xctd = dr.xctd;
 yctd = dr.yctd;
 ii = fix(linspace(1,length(xctd),10));

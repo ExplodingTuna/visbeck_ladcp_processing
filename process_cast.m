@@ -1,4 +1,4 @@
-function [] = process_cast(stnS,ctd_lag,extraarg)
+function [] = process_cast(stnS,ctd_lagS,extraarg)
 % function [] = process_cast(stn,extraarg)
 %
 % Process LADCP cast, including GPS, SADCP, and BT data.
@@ -30,10 +30,18 @@ function [] = process_cast(stnS,ctd_lag,extraarg)
 % When passed as an argument from the command line, the MRC interprets
 % the value as a strng rather than a number. This check will allow both
 % strings and numbers to be passed
+
 if isnumeric(stnS) %Pedro Pena 8.11.16
     stn=stnS;
 else
     stn=str2num(stnS)
+end
+
+
+if isnumeric(ctd_lagS) %Pedro Pena 8.11.16
+    ctd_lag=ctd_lagS;
+else
+    ctd_lag=str2num(ctd_lagS)
 end
 
 if nargin==1
@@ -251,7 +259,7 @@ end
 sfigure(2);
 clf
 % experimental diagnostic of battery voltage
-%
+%plot
 [p,messages] = calc_battery(p,values,messages);
   
 %
@@ -313,6 +321,7 @@ if length(files.res)>1
       if exist(['tmp',filesep,int2str(j),'.fig'],'file')
         %figload(['tmp',filesep,int2str(j),'.fig'],2)
         openfig(['tmp',filesep,int2str(j),'.fig']); %Pedro Pena 8.18.16
+        close gcf; % added by Thomas Sevilla 8.18.16
         %% lines added by RHS 03DEC2013
         if j>2
             orient landscape;
