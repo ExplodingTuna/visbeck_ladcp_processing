@@ -11,7 +11,7 @@ function [] = process_cast(stnS,ctd_lagS,extraarg)
 %                               useful to speed up testing
 %
 % version 0.10  last change 31.10.2013
- 
+
 % G.Krahmann, IFM-GEOMAR
 
 % orient statements for figure saving     GK, 14.07.2008  0.1-->0.2
@@ -37,11 +37,12 @@ else
     stn=str2num(stnS)
 end
 
-
-if isnumeric(ctd_lagS) %Pedro Pena 8.11.16
-    ctd_lag=ctd_lagS;
-else
-    ctd_lag=str2num(ctd_lagS)
+if nargin > 1
+    if isnumeric(ctd_lagS) %Pedro Pena 8.11.16
+        ctd_lag=ctd_lagS;
+    else
+        ctd_lag=str2num(ctd_lagS)
+    end
 end
 
 if nargin==1
@@ -70,8 +71,8 @@ end
 % clear already loaded and saved data for reloading and reprocessing
 %
 if stn<0
-  clear_prep(-stn);
-  return
+    clear_prep(-stn);
+    return
 end
 
 
@@ -85,7 +86,7 @@ cast_params;
 files = misc_composefilenames(p,stn);
 
 
-% 
+%
 % prepare the various data files for easy loading
 %
 % [values] = prepare_cast(stn);
@@ -100,7 +101,7 @@ files = misc_composefilenames(p,stn);
 
 tic;					% start timer
 
-% 
+%
 % plot the display menu
 %
 plot_menu
@@ -108,7 +109,7 @@ drawnow
 
 
 %
-% convolution of the loading routines for the 
+% convolution of the loading routines for the
 % various data sets
 %
 [data,messages] = loading(files,data,messages,p,ctd_lag);
@@ -120,27 +121,27 @@ drawnow
 [data,p,messages,values] = mergedata(data,p,messages,values);
 
 
-% 
+%
 % improve the data quality by removing spikes etc
 %
 [data,p,values,messages] = improve(data,p,values,messages);
 if isempty(data)
-  disp('>   Processing is stopped.')
-  return
+    disp('>   Processing is stopped.')
+    return
 end
 
 
 %
 % extract the bottom track
 %
-[data,p,messages] = getbtrack(data,p,values,messages);  
+[data,p,messages] = getbtrack(data,p,values,messages);
 
 
 %
-% Find the depth and bottom and surface using ADCP data 
+% Find the depth and bottom and surface using ADCP data
 %
 % This needs to be done twice. First run without sound speed
-% correction. Then apply the depth dependent sound speed 
+% correction. Then apply the depth dependent sound speed
 % correction. And then recalculate the depths.
 %
 [data,p,values,messages] = calc_depth(data,p,values,messages);
@@ -185,8 +186,8 @@ drawnow
 [di,p,data] = calc_ens_av(data,p,values);
 drawnow
 if length(di.time_jul)<2
-  disp('>   Processing is stopped.')
-  return
+    disp('>   Processing is stopped.')
+    return
 end
 
 
@@ -194,8 +195,8 @@ end
 % remove super ensemble outliers
 %
 if ps.outlier>0 | p.offsetup2down>0
-  [messages,p,dr,de,der] = lanarrow(messages,values,di,p,ps);
-%  [messages,p,dr1,de1,der1] = lanarrow(messages,values,di1,p,ps);
+    [messages,p,dr,de,der] = lanarrow(messages,values,di,p,ps);
+    %  [messages,p,dr1,de1,der1] = lanarrow(messages,values,di1,p,ps);
 end
 
 
@@ -203,14 +204,14 @@ end
 % once we have a first guess profile we recompute the super ensemble
 %
 if (p.offsetup2down>0 & length(data.izu)>0)
-%  keyboard
-  [p,data,messages] = prepinv(messages,data,p,dr,values);
-%  [p,data1,messages] = prepinv_with_old_rotation_options(messages,data1,p,dr1,values);
-  [di,p,data] = calc_ens_av(data,p,values);
+    %  keyboard
+    [p,data,messages] = prepinv(messages,data,p,dr,values);
+    %  [p,data1,messages] = prepinv_with_old_rotation_options(messages,data1,p,dr1,values);
+    [di,p,data] = calc_ens_av(data,p,values);
 end
 
- 
-% 
+
+%
 %  take advantage of presolve if it existed  ?? GK
 %  call the main inversion routine
 %
@@ -220,24 +221,24 @@ drawnow
 
 %
 % check inversion constraints
-% 
+%
 p = checkinv(dr,de,der,p,ps,values);
-if isfield(de,'bvel') 
-  p = checkbtrk(data,di,de,dr,p); 
+if isfield(de,'bvel')
+    p = checkbtrk(data,di,de,dr,p);
 end
 
 
 %
-% Compute 'old fashioned' shear based solution 
+% Compute 'old fashioned' shear based solution
 %  two choices, fisrt us all data
 %  second use super ensemble data
 %
 if ps.shear>0
-  if ps.shear==1
-    [ds,dr,ps,p,messages] = calc_shear2(data,p,ps,dr,messages);
-  else
-    [ds,dr,ps,p,messages] = calc_shear2(di,p,ps,dr,messages);
-  end
+    if ps.shear==1
+        [ds,dr,ps,p,messages] = calc_shear2(data,p,ps,dr,messages);
+    else
+        [ds,dr,ps,p,messages] = calc_shear2(di,p,ps,dr,messages);
+    end
 end
 
 
@@ -248,40 +249,40 @@ plot_result(dr,data,p,ps,values)
 drawnow
 
 
-%  
+%
 % Convert p.warn to one line of text with newline characters
 %
 p.warnings = [];
 for n = 1:size(messages.warnp,1)
-  p.warnings = [p.warnings deblank(messages.warnp(n,:)) char(10)];
+    p.warnings = [p.warnings deblank(messages.warnp(n,:)) char(10)];
 end
- 
+
 sfigure(2);
 clf
 % experimental diagnostic of battery voltage
 %plot
 [p,messages] = calc_battery(p,values,messages);
-  
+
 %
 % complete task by repeating the most important warnings
 %
 if size(messages.warn,1) + size(messages.warnp,1) > 2
-  disp(' ')
-  disp(messages.warn)
-  disp(' ')
-  disp(messages.warnp)
-  for j=1:size(messages.warn,1)
-    text(0,1.1-j/10,messages.warn(j,:),'color','r','fontsize',14,'fontweight','bold')
-  end
-  for j=1:size(messages.warnp,1)
-    text(0,1.1-(size(messages.warn,1)+1+j)/10,messages.warnp(j,:),'color','r','fontsize',14,'fontweight','bold')
-  end
-  axis off
+    disp(' ')
+    disp(messages.warn)
+    disp(' ')
+    disp(messages.warnp)
+    for j=1:size(messages.warn,1)
+        text(0,1.1-j/10,messages.warn(j,:),'color','r','fontsize',14,'fontweight','bold')
+    end
+    for j=1:size(messages.warnp,1)
+        text(0,1.1-(size(messages.warn,1)+1+j)/10,messages.warnp(j,:),'color','r','fontsize',14,'fontweight','bold')
+    end
+    axis off
 else
-  text(0,1.1-1/10,'LADCP profile OK','color','g','fontsize',30,'fontweight','bold')
-  axis off
+    text(0,1.1-1/10,'LADCP profile OK','color','g','fontsize',30,'fontweight','bold')
+    axis off
 end
-  
+
 streamer([p.name,' Figure 11']);
 savefig('tmp/11')
 
@@ -293,85 +294,91 @@ savefig('tmp/11')
 disp(' ')
 disp('SAVING RESULTS')
 if length(files.res)>1
-  
-  %
-  % save results to ASCII, MATLAB and NETCDF files
-  %
-  saveres(data,dr,p,ps,files,values)
-%  da = savearch(values,dr,data,p,ps,f);
-
-  %
-  % save plots
-  %
-  % handle newer matlab versions
-  if version('-release')>=14
-     imac = 0;
-  else
-    imac = ismac;
-  end
-
-  if noplots==0
-      %replaced '\' with filesep  pedro pena 8.10.2016
-     if ~exist(['plots',filesep,int2str0(p.ladcp_station,3)])
-         mkdir(['plots',filesep,int2str0(p.ladcp_station,3)])
-     end 
-      
-    for n = 1:length(p.saveplot)
-      j = p.saveplot(n);
-      if exist(['tmp',filesep,int2str(j),'.fig'],'file')
-        %figload(['tmp',filesep,int2str(j),'.fig'],2)
-        openfig(['tmp',filesep,int2str(j),'.fig']); %Pedro Pena 8.18.16
-        close gcf; % added by Thomas Sevilla 8.18.16
-        %% lines added by RHS 03DEC2013
-        if j>2
-            orient landscape;
-        end
-        %% end lines added...
-      end
-      warning off
-      if imac
-        if findstr(p.print_formats,'ps')
-          eval(['print -depsc ',files.plots,'_' int2str(j) '.eps '])
-        end
-      else
-        if findstr(p.print_formats,'ps')
-          eval(['print -dpsc2 ',files.plots,'_' int2str(j) '.ps '])
-          %% lines added by RHS 25NOV2013
-          if j==1
-              eval(['print -dpsc2 ',files.plots,'_report.ps '])
-          else
-              eval(['print -dpsc2 -append ',files.plots,'_report.ps '])
-          end
-          %% end lines added...
-        end
-      end
-      if findstr(p.print_formats,'jpg')
-        eval(['print -djpeg ',files.plots,'_' int2str(j) '.jpg '])
-      end
-      warning on
+    
+    %
+    % save results to ASCII, MATLAB and NETCDF files
+    %
+    saveres(data,dr,p,ps,files,values)
+    %  da = savearch(values,dr,data,p,ps,f);
+    
+    %
+    % save plots
+    %
+    % handle newer matlab versions
+    if version('-release')>=14
+        imac = 0;
+    else
+        imac = ismac;
     end
-  end
-  
-  %% lines added by RHS 25NOV2013
-  if findstr(p.print_formats,'ps')
-       pdf_string = ['! ps2pdf ',files.plots,'_report.ps ',files.plots,'_report.pdf'];
-       eval(pdf_string);
-  end
-      
-  % save a protocol
-  saveprot
-
-  % save full information into mat file
-  if p.savemat==1
-    disp(['    Saving full information to ',files.res,'_full.mat'])
-    save6([files.res,'_full.mat'])
-  end
-  
+    
+    if noplots==0
+        %replaced '\' with filesep & modifed mkdir   pedro pena 8.10.2016
+        if ~exist(['plots',filesep,int2str0(p.ladcp_station,3)])
+            mkdir('plots',int2str0(p.ladcp_station,3));
+        end
+        
+        
+        for n = 1:length(p.saveplot)
+            j = p.saveplot(n);
+            if exist(['tmp',filesep,int2str(j),'.fig'],'file')
+                %figload(['tmp',filesep,int2str(j),'.fig'],2)
+                openfig(['tmp',filesep,int2str(j),'.fig']); %Pedro Pena 8.18.16
+                
+                %% lines added by RHS 03DEC2013
+                if j>2
+                    orient landscape;
+                end
+                %% end lines added...
+            end
+            warning off
+            if imac
+                if findstr(p.print_formats,'ps')
+                    eval(['print -depsc ',files.plots,'_' int2str(j) '.eps '])
+                    
+                end
+            else
+                if findstr(p.print_formats,'ps')
+                    eval(['print -dpsc2 ',files.plots,'_' int2str(j) '.ps'])
+                    %% lines added by RHS 25NOV2013
+                    if j==1
+                        eval(['print -dpsc2 ',files.plots,'_report.ps'])
+                    else
+                        eval(['print -dpsc2 -append ',files.plots,'_report.ps'])
+                    end
+                    %% end lines added...
+                end
+            end
+            if findstr(p.print_formats,'jpg')
+                eval(['print -djpeg ',files.plots,'_' int2str(j) '.jpg '])
+            end
+            warning on
+            close gcf;
+        end
+    end
+    
+    %% lines added by RHS 25NOV2013
+    if findstr(p.print_formats,'ps')
+        %pdf_string = ['! ps2pdf ',files.plots,'_report.ps ',files.plots,'_report.pdf'];
+        %eval(pdf_string);
+        pdf_string = ['ps2pdf ',files.plots,'_report.ps ',files.plots,'_report.pdf']; % Pedro Pena 8.18.16
+        system(pdf_string);
+        
+    end
+    
+    % save a protocol
+    saveprot
+    
+    % save full information into mat file
+    if p.savemat==1
+        disp(['    Saving full information to ',files.res,'_full.mat'])
+        save6([files.res,'_full.mat'])
+    end
+    
 end
 
 % switch to final result figure
 plot_controls(1)
-    
+
 
 %----------------------------------------------------------------------
 % FINAL STEP: CLEAN UP

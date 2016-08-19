@@ -358,5 +358,6 @@ title('Weights based on various parameters')
 
 streamer([p.name,' Figure 16']);
 savefig('tmp/16')
+%hgsave('tmp/16')
 
 
