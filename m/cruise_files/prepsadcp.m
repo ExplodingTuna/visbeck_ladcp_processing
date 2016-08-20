@@ -21,7 +21,7 @@ function [] = prepsadcp(stn,values,p)
 
 
 % % pause 
-if p.use_sadcp == 0 % sadcp processing can be turned off in default_params.m Pedro Pena 8.19.2016
+if p.use_sadcp == 0 % sadcp processing can be turned off in default_params.cfg Pedro Pena 8.19.2016
      disp('AT SEA PROCESSING. NO SADCP!!!')
     return
 end 

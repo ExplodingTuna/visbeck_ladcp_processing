@@ -115,8 +115,8 @@ p.avdz = ps.dz;		% pre-average data
 % NOTE, IF USING A DOWNWARD-LOOKING WH150, YOU MUST COMMENT OUT:
 % p.edit_mask_dn_bins...
 %
-p.edit_mask_up_bins = [1];
-p.edit_mask_dn_bins = [1];
+%p.edit_mask_up_bins = [1];
+%p.edit_mask_dn_bins = [1];
 %
 % p.rotup2down
 %
@@ -132,7 +132,7 @@ p.edit_mask_dn_bins = [1];
 %p.maxlag=50;
 % p.tiltmax
 %p.tiltmax=[20 4]; % for BB % FOR CHEESY POOF ONLY
-p.tiltmax=[30 4]; % for WH
+%p.tiltmax=[30 4]; % for WH
 
 %p.tiltmax=[90 20];
 
@@ -151,7 +151,7 @@ p.tiltmax=[30 4]; % for WH
 % ps.smoofac = 0;%
 % p.smallfac
 % (recommended) uncomment the following:
-ps.smallfac = [1 0];
+%ps.smallfac = [1 0];
 % ps.sadcpfac	
 %ps.sadcpfac=5;
 %

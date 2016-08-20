@@ -127,8 +127,8 @@ end
 %--------------------------------------------------------------
 
 % preset start and end time vectors
-params.time_start = [];
-params.time_end = [];
+params.time_start = str2num(get_cruise_variable_value(cruiseVars,'time_start'));
+params.time_end = str2num(get_cruise_variable_value(cruiseVars,'time_end'));
 
 
 %
@@ -340,7 +340,7 @@ params.offsetup2down = str2num(get_cruise_variable_value(cruiseVars,'offsetup2do
 % DEPTH of the start, bottom and end of the profile
 % positive downwards
 %
-params.zpar = [0 NaN 0];
+params.zpar = str2num(get_cruise_variable_value(cruiseVars,'zpar'));
 
 
 %
@@ -402,7 +402,7 @@ params.extra_blank_1200 = str2num(get_cruise_variable_value(cruiseVars,'extra_bl
 %
 % 2: very strong  3: medium  4:only largest outliers
 %
-params.outlier = [4,3];
+params.outlier = str2num(get_cruise_variable_value(cruiseVars,'outlier_detect'));
 
 % default for p.outlier_n is number of profiles in 5 minutes
 % p=setdefv(p,'outlier_n',100);
@@ -425,7 +425,7 @@ params.wlim = str2double(get_cruise_variable_value(cruiseVars,'wlim'));
 % [22  (max tilt allowed) 
 %  4 (maximum tilt difference between pings allowed)]
 % WH systems have reported decent profiles with up to 35 deg tilt ...
-params.tiltmax = [22 4];
+params.tiltmax = str2num(get_cruise_variable_value(cruiseVars,'tiltmax'));
 
 %
 % TILT  reduce weight for large tilts
@@ -518,7 +518,7 @@ params.tiltcor = str2num(get_cruise_variable_value(cruiseVars,'tiltcor'));
 % Give bin number for the best W to compute depth of the ADCP
 %	default uses bin 2-3 but be careful when up/down instruments
 %	are used. The good bins are in the middle! 
-params.trusted_i = [2:5];
+params.trusted_i = str2num(get_cruise_variable_value(cruiseVars,'trusted_i'));
 
 
 %
@@ -570,7 +570,7 @@ params.savecdf = str2num(get_cruise_variable_value(cruiseVars,'savecdf'));
 %   14 : Target Strength
 %   15 : Correlation
 %   16 : Weights
-params.saveplot = [1:16];
+params.saveplot = str2num(get_cruise_variable_value(cruiseVars,'saveplot'));
 
 
 
@@ -612,7 +612,7 @@ ps.smoofac = str2num(get_cruise_variable_value(cruiseVars,'smoofac'));
 % disabled by default
 % use the command    ps = rmfield(ps,'smallfac');  
 % to enable the automatic version
-ps.smallfac = [1,0];
+ps.smallfac = str2num(get_cruise_variable_value(cruiseVars,'smallfac'));
 
 % weight bottom track data with distance of bottom
 %  use Gaussian with offset (btrk_weight_nblen(1) * bin)
@@ -705,7 +705,7 @@ ps.drag_lag_depth = str2num(get_cruise_variable_value(cruiseVars,'drag_lag_depth
 % comparison
 % units are [cm/s cm/s m m] (depth is negative)
 %
-params.plot_range = [nan,nan,nan,0];
+params.plot_range = str2num(get_cruise_variable_value(cruiseVars,'plot_range'));
 
 
 %
@@ -720,8 +720,8 @@ params.btrk_plot_range = str2num(get_cruise_variable_value(cruiseVars,'btrk_plot
 %
 % Set list of bins to always remove from data.
 %
-params.edit_mask_dn_bins = [];
-params.edit_mask_up_bins = [];
+params.edit_mask_dn_bins = str2num(get_cruise_variable_value(cruiseVars,'edit_mask_dn_bins'));
+params.edit_mask_up_bins = str2num(get_cruise_variable_value(cruiseVars,'edit_mask_up_bins'));
 
 
 %
@@ -729,8 +729,8 @@ params.edit_mask_up_bins = [];
 % this will be done already at the loading stage and should very rarely be
 % necessary
 %
-params.edit_hardremove_mask_dn_bins = [];
-params.edit_hardremove_mask_up_bins = [];
+params.edit_hardremove_mask_dn_bins = str2num(get_cruise_variable_value(cruiseVars,'edit_hardremove_mask_dn_bins'));
+params.edit_hardremove_mask_up_bins = str2num(get_cruise_variable_value(cruiseVars,'edit_hardremove_mask_up_bins'));
 
 
 %
@@ -791,7 +791,7 @@ params.edit_PPI_max_hab = str2num(get_cruise_variable_value(cruiseVars,'edit_PPI
 % adjacent ensembles intact, i.e. use something like [1 1 0 0] and
 % [0 0 1 1].
 %
-params.edit_skip_ensembles = [];
+params.edit_skip_ensembles = str2num(get_cruise_variable_value(cruiseVars,'edit_skip_ensembles'));
 
 
 
@@ -824,14 +824,14 @@ params.edit_mask_last_bin = str2num(get_cruise_variable_value(cruiseVars,'edit_m
 
 
 messages.warn = get_cruise_variable_value(cruiseVars,'warn');
-messages.warnp = get_cruise_variable_value(cruiseVars,'warnp');
+messages.warnp = str2num(get_cruise_variable_value(cruiseVars,'messages_warnp'));
 
 
 % misc other
 
 % LADCP cast number
 params.ladcp_cast = str2num(get_cruise_variable_value(cruiseVars,'ladcp_cast'));
-params.warnp = [];
+params.warnp =get_cruise_variable_value(cruiseVars,'warnp');
 
 %
 % serial numbers of instruments
@@ -866,13 +866,13 @@ params.print_formats = get_cruise_variable_value(cruiseVars,'print_formats');
 % the two values are for down and up looking instruments
 % if there is only a single value, it will be applied to both
 %
-params.minimum_correlation_threshold = [0,0];
+params.minimum_correlation_threshold = str2num(get_cruise_variable_value(cruiseVars,'minimum_correlation_threshold'));
 
 
 %
 % multiply the weight of up and/or down looker by a factor
 %
-params.down_up_weight_factors = [1,1];
+params.down_up_weight_factors = str2num(get_cruise_variable_value(cruiseVars,'down_up_weight_factors'));
 
 
 %
@@ -883,21 +883,21 @@ params.down_up_weight_factors = [1,1];
 %
 params.remove_first_pings_of_uplooker = str2num(get_cruise_variable_value(cruiseVars,'remove_first_pings_of_uplooker'));
 
-params.set_lag_up2down = nan;
+params.set_lag_up2down = str2num(get_cruise_variable_value(cruiseVars,'set_lag_up2down'));
 
 
 %
 % override the data derived heading offset between the up and down-looking
 % instruments
 %
-params.set_hdg_offset = nan;
+params.set_hdg_offset = str2num(get_cruise_variable_value(cruiseVars,'set_hdg_offset'));
 
 
 %
 % Should you know the heading dependent deviation of the downlooker
 % you can correct it here.
 %
-params.down_deviation_table = [];
+params.down_deviation_table = str2num(get_cruise_variable_value(cruiseVars,'down_deviation_table'));
 
 
 %
