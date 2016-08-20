@@ -19,9 +19,13 @@ function [] = prepsadcp(stn,values,p)
 % if you do no have SADCP data to be used in the
 % LADCP processing, uncomment the next two lines. Otherwise edit the following.
 
- disp('AT SEA PROCESSING. NO SADCP!!!')
-% % pause
- return
+
+% % pause 
+if p.use_sadcp == 0 % sadcp processing can be turned off in default_params.m Pedro Pena 8.19.2016
+     disp('AT SEA PROCESSING. NO SADCP!!!')
+    return
+end 
+
 
 % first copy the SADCP files to the raw SADCP data directory
 % data/raw_sadcp

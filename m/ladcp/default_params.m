@@ -19,6 +19,7 @@
 % several new parameters                     GK, 12.07.2013  0.5-->0.6
 % timoff_downlooker                          GK, 02.12.2013  0.7-->0.8
 
+
 % params.software = 'GEOMAR LADCP software: Version 10.20: 2014-05-13';
 params.software = 'GEOMAR LADCP software: Version 10.20: 2014-05-13 (Modified for NOAA/AOML, May 15, 2014)';
 
@@ -32,20 +33,24 @@ params.whoami = whoami;
 % extract cruise id from upper directory name
 %
 pd = pwd;
-params.name = 'unknown_cruise_id';
-if exist('logs')==7
-  if ispc
-    ind = findstr(pd,'\');
-  else
-    ind = findstr(pd,'/');
-  end
-  if ~isempty(ind)
-    params.name = pd(ind(end)+1:end);
-  else
-    params.name = pd;
-  end
-  params.name = [params.name,'_',int2str0(stn,3)];
-end
+params.name = get_cruise_variable_value(cruiseVars,'cruise_id');%added by Pedro Pena 8.19.16
+params.name = [params.name,'_',int2str0(stn,3)]; 
+% commented by Pedro Pena 8.19.16
+% if exist('logs')==7
+%   if ispc
+%     ind = findstr(pd,'\');
+%   else
+%     ind = findstr(pd,'/');
+%   end
+%   if ~isempty(ind)
+%     params.name = pd(ind(end)+1:end);
+%   else
+%     params.name = pd;
+%   end
+% params.name = [params.name,'_',int2str0(stn,3)];
+% end
+
+
 
 if 0
 
@@ -65,12 +70,12 @@ dn_file_fmt     = '%03dDN000.000';
 up_file_fmt     = '%03dUP000.000';
 f.ladcpdo = sprintf([f.raw_dir '/' stn_fmt '/' dn_file_fmt],stn,stn);
 if (~exist(f.ladcpdo,'file')) 
-  dn_file_fmt     = '%03ddn000.000';
+  dn_file_fmt     = '%03dDN000.000';
   f.ladcpdo = sprintf([f.raw_dir '/' stn_fmt '/' dn_file_fmt],stn,stn);
 end;
 f.ladcpup = sprintf([f.raw_dir '/' stn_fmt '/' up_file_fmt],stn,stn);
 if (~exist(f.ladcpup,'file')) 
-  up_file_fmt     = '%03dup000.000';
+  up_file_fmt     = '%03dUP000.000';
   f.ladcpup = sprintf([f.raw_dir '/' stn_fmt '/' up_file_fmt],stn,stn);
 end;
 if ~isfield(f,'ladcpup') 
@@ -135,7 +140,7 @@ params.ladcp_station = stn;
 % restrict time range to profile and disregard data close to surface
 % p.cut = 0 dont restrict
 % p.cut > 0 restrict time to adcp depth below a depth of p.cut
-params.cut = 10;
+params.cut = str2num(get_cruise_variable_value(cruiseVars,'cut'));
 
 
 % manually set POSITION of the start and end point
@@ -159,7 +164,7 @@ params.lon_for_calc = nan;
 % the ship can rotate !).
 % 30 m is a reasonable number.
 %
-params.nav_error = 30;
+params.nav_error = str2num(get_cruise_variable_value(cruiseVars,'nav_error'));
  
 
 % SUPER ENSEMBLES 
@@ -182,14 +187,14 @@ params.nav_error = 30;
 %
 % p.avens will take precedence over p.avdz
 %
-params.avdz = -1;
+params.avdz = str2num(get_cruise_variable_value(cruiseVars,'avdz'));
 
 
 %
 % p.avens overrides p.avdz and sets a fixed number of ensembles to average
 % default NAN means that it is not used
 %
-params.avens = NaN;
+params.avens = str2num(get_cruise_variable_value(cruiseVars,'avens'));
 
 
 %
@@ -206,8 +211,8 @@ params.avens = NaN;
 % software can override your command, e.g. in case some
 % necessary data is missing or all BTRK are bad.
 %
-params.btrk_mode = 3;
-params.btrk_used = 0;	
+params.btrk_mode = str2num(get_cruise_variable_value(cruiseVars,'btrk_mode'));
+params.btrk_used = str2num(get_cruise_variable_value(cruiseVars,'btrk_used'));	
 
 
 %
@@ -230,14 +235,14 @@ params.btrk_used = 0;
 % the CLIVAR P02 cruise. It was derived by trial and error, involving
 % stations 2 and 32.
 %
-params.btrk_ts = 30;
+params.btrk_ts = str2num(get_cruise_variable_value(cruiseVars,'btrk_ts'));
 
 
 %
 % p.btrk_below gives binoffset used below target strength maximum
 % to make bottom track velocity
 %
-params.btrk_below = 0.5;
+params.btrk_below = str2double(get_cruise_variable_value(cruiseVars,'btrk_below'));
 
 
 %
@@ -258,7 +263,7 @@ params.btrk_below = 0.5;
 %
 % maximum allowed difference between reference layer W and W bottom track
 %
-params.btrk_wlim = 0.05;
+params.btrk_wlim = str2double(get_cruise_variable_value(cruiseVars,'btrk_wlim'));
 
 
 %
@@ -267,20 +272,20 @@ params.btrk_wlim = 0.05;
 % turned on (1), if the routine recognizes a large number of
 % bad (equal 0) RDI distances to the bottom
 %
-params.bottomdist = 0;
+params.bottomdist = str2num(get_cruise_variable_value(cruiseVars,'bottomdist'));
 
 
 %
 % p.surfdist = 1 use surface reflections of up looking ADCP to get start
 % depth
 %
-params.surfdist = 1;
+params.surfdist = str2num(get_cruise_variable_value(cruiseVars,'surfdist'));
 
 
 %
 % MAGNETIC deviation in degree
 %
-params.magdev = 0;
+params.magdev = str2double(get_cruise_variable_value(cruiseVars,'magdev'));
 
 
 %
@@ -290,7 +295,7 @@ params.magdev = 0;
 % fix_compass:2 means up looker gets down compass + hdg_offset
 % fix_compass:3 means down looker gets up compass + hdg_offset
 % 
-params.fix_compass = 0;
+params.fix_compass = str2num(get_cruise_variable_value(cruiseVars,'fix_compass'));
 
 
 %
@@ -304,7 +309,7 @@ params.fix_compass = 0;
 %
 % params.up2down==1 will resample the uplooker onto the downlooker
 %
-params.up2down = 1;
+params.up2down = str2num(get_cruise_variable_value(cruiseVars,'up2down'));
 
 %
 % give compass offset in addition to declination (1) for down (2) for up
@@ -322,13 +327,13 @@ params.up2down = 1;
 %    4 rotate down-looking velocities to up heading
 %        (use if you suspect that the down heading is bad)
 %    5 no rotation applied to compensate for compass differences
-params.rotup2down = 1;
+params.rotup2down = str2num(get_cruise_variable_value(cruiseVars,'rotup2down'));
 
 
 % Offset correction
 % if 1 remove velocity offset between up and down looking ADCP
 % this will correct errors due to tilt biases etc.
-params.offsetup2down = 1;
+params.offsetup2down = str2num(get_cruise_variable_value(cruiseVars,'offsetup2down'));
 
 
 %
@@ -342,7 +347,7 @@ params.zpar = [0 NaN 0];
 % maximum number of bins to be used
 % 0 : all will get used 
 %
-params.maxbinrange = 0;
+params.maxbinrange = str2num(get_cruise_variable_value(cruiseVars,'maxbinrange'));
 
 
 %
@@ -351,8 +356,8 @@ params.maxbinrange = 0;
 % If you have good times set it to 10... if your time base is questionable
 % you can set it 100 or more
 %
-params.ctdmaxlag = 150;
-params.ctdmaxlagnp = 600;
+params.ctdmaxlag = str2num(get_cruise_variable_value(cruiseVars,'ctdmaxlag'));
+params.ctdmaxlagnp = str2num(get_cruise_variable_value(cruiseVars,'ctdmaxlagnp'));
 
 
 %
@@ -363,11 +368,11 @@ params.ctdmaxlagnp = 600;
 % params.forced_adcp_ctd_lag;
 
 % save individual target strength p.ts_save=[1 2 3 4]
-params.ts_save = 0;
+params.ts_save = str2num(get_cruise_variable_value(cruiseVars,'ts_save'));
 % save individual correlation p.cm_save=[1 2 3 4]
-params.cm_save = 0;
+params.cm_save = str2num(get_cruise_variable_value(cruiseVars,'cm_save'));
 % save individual percent good pings p.pg_save=[1 2 3 4]
-params.pg_save = 0;
+params.pg_save = str2num(get_cruise_variable_value(cruiseVars,'pg_save'));
 
 
 %
@@ -375,7 +380,7 @@ params.pg_save = 0;
 % it thus needs to be averaged before being used
 % this gives the number of values to be averaged
 %
-params.nav_1200 = 4;
+params.nav_1200 = str2num(get_cruise_variable_value(cruiseVars,'nav_1200'));
 
 
 %
@@ -383,8 +388,8 @@ params.nav_1200 = 4;
 % high error velocities result when measured in the eddy tail of the rosette
 % this parameter sets the threshold of values to be discarded
 %
-params.error_limit_1200 = 20;	% not used GK
-params.extra_blank_1200 = 5;		% extra blank in meters
+params.error_limit_1200 = str2num(get_cruise_variable_value(cruiseVars,'error_limit_1200'));	% not used GK
+params.extra_blank_1200 = str2num(get_cruise_variable_value(cruiseVars,'extra_blank_1200'));		% extra blank in meters
 
 
 %
@@ -407,14 +412,14 @@ params.outlier = [4,3];
 
 %SPIKES
 % 	maximum value for abs(V-error) velocity
-params.elim = 0.5;
+params.elim = str2double(get_cruise_variable_value(cruiseVars,'elim'));
 % 	maximum value for horizontal velocity 
-params.vlim = 2.5;
+params.vlim = str2double(get_cruise_variable_value(cruiseVars,'vlim'));
 % 	minimum value for %-good
-params.pglim = 0;
+params.pglim = str2double(get_cruise_variable_value(cruiseVars,'pglim'));
 %	maximum value for W difference between the mean W and actual
 %        W(z) for each profile. 
-params.wlim = 0.20;
+params.wlim = str2double(get_cruise_variable_value(cruiseVars,'wlim'));
 
 % TILT  flag data with large tilt or tilt differences as bad
 % [22  (max tilt allowed) 
@@ -434,7 +439,7 @@ params.tiltmax = [22 4];
 %
 % a tilt_weight of 20 appears to be more gentle, GK
 %
-params.tilt_weight = 10;
+params.tilt_weight = str2num(get_cruise_variable_value(cruiseVars,'tilt_weight'));
 
 
 %
@@ -446,7 +451,7 @@ params.tilt_weight = 10;
 % Should the LADCP slave system have a different offset, it
 % will be handled by the data shifting of the slave.
 %
-params.timoff = 0;
+params.timoff = str2num(get_cruise_variable_value(cruiseVars,'timoff'));
 
 
 %
@@ -462,8 +467,8 @@ params.timoff = 0;
 % There will be a paused control plot to compare the vertical
 % velicities.
 %
-params.timoff_uplooker = 0;
-params.timoff_downlooker = 0;
+params.timoff_uplooker = str2num(get_cruise_variable_value(cruiseVars,'timoff_uplooker'));
+params.timoff_downlooker = str2num(get_cruise_variable_value(cruiseVars,'timoff_downlooker'));
 
 
 %
@@ -473,7 +478,7 @@ params.timoff_downlooker = 0;
 % slave were not properly set a much larger number might
 % be necessary
 %
-params.maxlag = 20;
+params.maxlag = str2num(get_cruise_variable_value(cruiseVars,'maxlag'));
 
 
 %
@@ -483,7 +488,7 @@ params.maxlag = 20;
 % it will automatically turn on, if the bestlag found has a correlation
 % of less than 0.9
 %
-params.bestlag_testing_on = 0;
+params.bestlag_testing_on = str2num(get_cruise_variable_value(cruiseVars,'bestlag_testing_on'));
 
 
 %
@@ -491,7 +496,7 @@ params.bestlag_testing_on = 0;
 % prevented the lag determination routine from finding the correct lag.
 % Here one can force the routine to also use 3 beam data.
 %
-params.use_3beam_w_for_lag = 0;
+params.use_3beam_w_for_lag = str2num(get_cruise_variable_value(cruiseVars,'use_3beam_w_for_lag'));
 
 
 %
@@ -499,7 +504,7 @@ params.use_3beam_w_for_lag = 0;
 % tiny amount the routine will not automatically resample the uplooker onto the
 % downlooker timing. This can be forced by setting the following parameter to 1.
 %
-params.force_resample_uplooker = 0;
+params.force_resample_uplooker = str2num(get_cruise_variable_value(cruiseVars,'force_resample_uplooker'));
 
 
 % apply tilt correction
@@ -507,7 +512,7 @@ params.force_resample_uplooker = 0;
 % tiltcor(2)=down-rol bias
 % tiltcor(3)=up-pitch bias
 % tiltcor(4)=up-rol bias
-params.tiltcor = 0;
+params.tiltcor = str2num(get_cruise_variable_value(cruiseVars,'tiltcor'));
 
 
 % Give bin number for the best W to compute depth of the ADCP
@@ -520,7 +525,7 @@ params.trusted_i = [2:5];
 % SET ambiguity velocity used [m/s]
 % not used for anything, but stored in the archival data !? GK
 %
-params.ambiguity = 2.5;
+params.ambiguity = str2double(get_cruise_variable_value(cruiseVars,'ambiguity'));
 
 
 %
@@ -538,14 +543,14 @@ params.ambiguity = 2.5;
 %
 % 1 clears the pressure records
 %
-params.clear_ladcp_pressure = 0;
-params.weight_ladcp_pressure = 0.1;
+params.clear_ladcp_pressure = str2num(get_cruise_variable_value(cruiseVars,'clear_ladcp_pressure'));
+params.weight_ladcp_pressure = str2double(get_cruise_variable_value(cruiseVars,'weight_ladcp_pressure'));
 
 % Write matlab file
-params.savemat = 0;
+params.savemat = str2num(get_cruise_variable_value(cruiseVars,'savemat'));
 
 % Write netcdf file
-params.savecdf = 1;
+params.savecdf = str2num(get_cruise_variable_value(cruiseVars,'savecdf'));
 
 % Save Plots 
 % Save figure numbers to ps file
@@ -577,31 +582,31 @@ params.saveplot = [1:16];
 % compute shear based solution
 % ps.shear=2  ; use super ensemble
 % ps.shear=1  ; use raw data
-ps.shear = 1;
+ps.shear = str2num(get_cruise_variable_value(cruiseVars,'shear'));
 
 
 % decide how to weigh data 
 % 1 : use super ensemble std 
 % 0 : use correlation based field
-ps.std_weight = 1;
+ps.std_weight = str2num(get_cruise_variable_value(cruiseVars,'std_weight'));
 
 
 % Weight for the barotropic constraint
-ps.barofac = 1;
+ps.barofac = str2num(get_cruise_variable_value(cruiseVars,'barofac'));
 
 % Weight for the bottom track constraint
-ps.botfac = 1; 
+ps.botfac = str2num(get_cruise_variable_value(cruiseVars,'botfac'));
 
 % Additionally process up and down cast seperately.
 % This gives just an extra consistency and quality check.
-ps.down_up = 1;
+ps.down_up = str2num(get_cruise_variable_value(cruiseVars,'down_up'));
 
 % Depth resolution for final profile
 %	default one bin length
 % ps=setdefv(ps,'dz',medianan(abs(diff(di.izm(:,1)))));
 
 % Smoothing of the final profile
-ps.smoofac = 0;
+ps.smoofac = str2num(get_cruise_variable_value(cruiseVars,'smoofac'));
 
 % Request that shears are small  (experts only)
 % disabled by default
@@ -617,7 +622,7 @@ ps = setdefv(ps,'btrk_weight_nblen',[0 0]);
 
 % Weight for SADCP data
 % ps.sadcpfac=1 about equal weight for SDACP profile
-ps.sadcpfac = 1;
+ps.sadcpfac = str2num(get_cruise_variable_value(cruiseVars,'sadcpfac'));
 
 % The following parameter (slack time for including SADCP data outside
 % LADCP-cast time interval) is by default set to 5 minutes. On CLIVAR_P02
@@ -626,7 +631,7 @@ ps.sadcpfac = 1;
 % This led to SADCP data outliers, which increases the standard deviation,
 % which makes the inversion reject all SADCP data (low weight).
 
-params.sadcp_dtok    = 0;            % no time slack for SADCP near ends of stn
+params.sadcp_dtok = str2num(get_cruise_variable_value(cruiseVars,'sadcp_dtok'));            % no time slack for SADCP near ends of stn
 
 
 %
@@ -634,7 +639,7 @@ params.sadcp_dtok    = 0;            % no time slack for SADCP near ends of stn
 % default is to use the data. This is just a simple switch
 % to simplify testing of results
 %
-params.use_sadcp = 1;
+params.use_sadcp = str2num(get_cruise_variable_value(cruiseVars,'use_sadcp'));
 
 
 % average over data within how many standard deviations
@@ -642,11 +647,11 @@ ps=setdefv(ps,'shear_stdf',2);
 
 
 % the minimum weight a bin must have to be accepted for shear
-ps.shear_weightmin = 0.1;
+ps.shear_weightmin = str2double(get_cruise_variable_value(cruiseVars,'shear_weightmin'));
 
 
 % restrict inversion to one instrument only 1: up+dn, 2:dn only  3:up only
-ps.up_dn_looker = 1;
+ps.up_dn_looker = str2double(get_cruise_variable_value(cruiseVars,'up_dn_looker'));
 
 
 % super ensemble velocity error
@@ -664,33 +669,33 @@ ps.up_dn_looker = 1;
 % How to solve the inverse
 %     ps.solve = 0  Cholseky transform
 %              = 1  Moore Penrose Inverse give error for solution
-ps.solve = 1; 
+ps.solve = str2num(get_cruise_variable_value(cruiseVars,'solve')); 
 
 
 % Threshold for minimum weight, data with smaller weights
 %  	will be ignored
-ps.weightmin = 0.05;
+ps.weightmin = str2double(get_cruise_variable_value(cruiseVars,'weightmin'));
 
 % Change the weights by 
 %	weight=weight^ps.weightpower 
-ps.weightpower = 1; 
+ps.weightpower = str2num(get_cruise_variable_value(cruiseVars,'weightpower')); 
 
 % Remove 1% of outliers (values in a superensemble deviating most from 
 % the inversion result) after solving the inversion
 % ps.outlier defines how many times 1% is removed and the
 % inversion is recalculated.
-ps.outlier = 1; 
+ps.outlier = str2num(get_cruise_variable_value(cruiseVars,'outlier')); 
 
 
 % Weight for the cable drag constraint
 % only for experts
-ps.dragfac = 0; 
-ps.drag_tilt_vel = 0.5;
+ps.dragfac = str2num(get_cruise_variable_value(cruiseVars,'dragfac')); 
+ps.drag_tilt_vel = str2double(get_cruise_variable_value(cruiseVars,'drag_tilt_vel'));
 
 % average ctdvel back in time to take the inertia of wire into account
 % smooth over max of 20 minutes for depth ~ 2000m
-ps.drag_lag_tim = 20;
-ps.drag_lag_depth = 2000;
+ps.drag_lag_tim = str2num(get_cruise_variable_value(cruiseVars,'drag_lag_tim'));
+ps.drag_lag_depth = str2num(get_cruise_variable_value(cruiseVars,'drag_lag_depth'));
 
 
 % 
@@ -706,7 +711,7 @@ params.plot_range = [nan,nan,nan,0];
 %
 % set the maximum distance for the bottom track velocity plot
 %
-params.btrk_plot_range = 400;
+params.btrk_plot_range = str2num(get_cruise_variable_value(cruiseVars,'btrk_plot_range'));
 
 %
 % PARAMETERS FOR EDIT_DATA
@@ -732,7 +737,7 @@ params.edit_hardremove_mask_up_bins = [];
 % Set to 1 to remove side-lobe contaminated data near seabed and
 % surface.
 %
-params.edit_sidelobes = 1;
+params.edit_sidelobes = str2num(get_cruise_variable_value(cruiseVars,'edit_sidelobes'));
 
 
 %
@@ -750,7 +755,7 @@ params.edit_sidelobes = 1;
 % has been normalized to handle different instruments 
 % old values from pre-10 versions will not work !!!  GK
 %
-params.edit_spike_filter_max_curv = 0.1;
+params.edit_spike_filter_max_curv = str2double(get_cruise_variable_value(cruiseVars,'edit_spike_filter_max_curv'));
 
 
 %
@@ -758,14 +763,14 @@ params.edit_spike_filter_max_curv = 0.1;
 % NB: using the spike filter seems to work more robustly, as long
 %     as staggered pings are used.
 %
-params.edit_PPI = 0;
+params.edit_PPI = str2num(get_cruise_variable_value(cruiseVars,'edit_PPI'));
 
 
 %
 % PPI layer thickness in meters; the value is taken directly from Eric
 % Firing's default (2*clip_margin = 180m).
 %
-params.edit_PPI_layer_thickness = 180;
+params.edit_PPI_layer_thickness = str2num(get_cruise_variable_value(cruiseVars,'edit_PPI_layer_thickness'));
 
 
 %
@@ -773,7 +778,7 @@ params.edit_PPI_layer_thickness = 180;
 % an observed parameter and depends on the clarity of the water.
 % Check Figure 14 to see whether this should be changed.
 %
-params.edit_PPI_max_hab = 1000;
+params.edit_PPI_max_hab = str2num(get_cruise_variable_value(cruiseVars,'edit_PPI_max_hab'));
 
 
 %
@@ -795,7 +800,7 @@ params.edit_skip_ensembles = [];
 % master and slave has been developed. This is by default off, as
 % we assume that the system is run synchronous
 %
-params.detect_asynchronous = 0;
+params.detect_asynchronous = str2num(get_cruise_variable_value(cruiseVars,'detect_asynchronous'));
 
 
 %
@@ -805,8 +810,8 @@ params.detect_asynchronous = 0;
 % if  0    : will be calculated, if data is available
 %     nan  : will not be used
 %
-params.zbottom = 0;
-params.zbottomerror = 0;
+params.zbottom = str2num(get_cruise_variable_value(cruiseVars,'zbottom'));
+params.zbottomerror = str2num(get_cruise_variable_value(cruiseVars,'zbottomerror'));
 
 
 %
@@ -815,17 +820,17 @@ params.zbottomerror = 0;
 % fringes of the data in the leftmost subplot are colored. 
 % With this parameter this data is always discarded. 
 %
-params.edit_mask_last_bin = 0; 
+params.edit_mask_last_bin = str2num(get_cruise_variable_value(cruiseVars,'edit_mask_last_bin')); 
 
 
-messages.warn = 'LADCP WARNINGS';
-messages.warnp = 'LADCP processing warnings: ';
+messages.warn = get_cruise_variable_value(cruiseVars,'warn');
+messages.warnp = get_cruise_variable_value(cruiseVars,'warnp');
 
 
 % misc other
 
 % LADCP cast number
-params.ladcp_cast = 1;
+params.ladcp_cast = str2num(get_cruise_variable_value(cruiseVars,'ladcp_cast'));
 params.warnp = [];
 
 %
@@ -833,8 +838,8 @@ params.warnp = [];
 % this is just used in one plot
 % overwrite them in cruise_params.m
 %
-params.down_sn = nan;
-params.up_sn = nan;
+params.down_sn = str2num(get_cruise_variable_value(cruiseVars,'down_sn'));
+params.up_sn = str2num(get_cruise_variable_value(cruiseVars,'up_sn'));
 
 
 %
@@ -842,7 +847,7 @@ params.up_sn = nan;
 % this will be added in rdiload to the distance of the
 % first bin from the uplooking instrument
 % 
-params.dist_up_down = 0;
+params.dist_up_down = str2num(get_cruise_variable_value(cruiseVars,'dist_up_down'));
 
 
 %
@@ -850,7 +855,7 @@ params.dist_up_down = 0;
 % can be multiple ones, separated by comma
 % e.g.  params.print_formats = 'ps,jpg';
 %
-params.print_formats = 'jpg';
+params.print_formats = get_cruise_variable_value(cruiseVars,'print_formats');
 
 
 %
@@ -876,7 +881,7 @@ params.down_up_weight_factors = [1,1];
 % we are here removing these first pings. Just increase the number
 % and the first pings will be removed
 %
-params.remove_first_pings_of_uplooker = 0;
+params.remove_first_pings_of_uplooker = str2num(get_cruise_variable_value(cruiseVars,'remove_first_pings_of_uplooker'));
 
 params.set_lag_up2down = nan;
 
@@ -901,9 +906,9 @@ params.down_deviation_table = [];
 % often bad beams contain already NaN as data, but sometimes it is just bad
 % and one has to overwrite it.
 %
-params.beam2earth_allow_3beam_solutions = 1;
-params.beam2earth_bad_up_beam = nan;
-params.beam2earth_bad_down_beam = nan;
+params.beam2earth_allow_3beam_solutions = str2num(get_cruise_variable_value(cruiseVars,'beam2earth_allow_3beam_solutions'));
+params.beam2earth_bad_up_beam = str2num(get_cruise_variable_value(cruiseVars,'beam2earth_bad_up_beam'));
+params.beam2earth_bad_down_beam = str2num(get_cruise_variable_value(cruiseVars,'beam2earth_bad_down_beam'));
 
 
 disp(params.software);                       % show version

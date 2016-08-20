@@ -57,6 +57,17 @@ if nargin>2
 end
 
 
+%=========================================================================
+%This for loop loads the contents cruise_params.cfg into matrix cruiseVars
+fileToRead=['cfg',filesep,'cruise_params.cfg'];
+fid=fopen(fileToRead,'r');
+cruiseVars=textscan(fid,'%s%s','Delimiter','=','CommentStyle','#');
+%get_cruise_variable_value(cruiseVars,'')
+fclose(fid);
+%=========================================================================
+
+
+
 %
 % check current directory
 %
@@ -96,7 +107,17 @@ files = misc_composefilenames(p,stn);
 % load RDI data
 % and perform some simple processing steps
 %
+
+% override automatically detected Serial Numbers
+% and use the oned from cruise_params.cfg  added by Pedro Pena 8.20.16
+override_sn = str2num(get_cruise_variable_value(cruiseVars,'override_sn'))
+
 [data,values,messages,p,files] = rdiload(files,p,messages,values);
+
+if override_sn == 1
+    values.inst_serial(1) = str2num(get_cruise_variable_value(cruiseVars,'down_sn'));
+    values.inst_serial(2) = str2num(get_cruise_variable_value(cruiseVars,'up_sn'));
+end
 [data,messages] = misc_prepare_rdi(data,p,messages);
 
 tic;					% start timer
