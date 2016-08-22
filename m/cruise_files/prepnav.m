@@ -1,4 +1,4 @@
-function prepnav(stn,values)
+function prepnav(stn,values,files)
 % function prepnav(stn,values)
 %
 % prepare navigational data for LADCP
@@ -26,7 +26,7 @@ function prepnav(stn,values)
 % data = [data.latitude,data.longitude];
 
 %load(['data',filesep,'raw_nav',filesep,'nav_WS1501.mat']);
-navtemp=load(['data',filesep,'raw_nav',filesep,'nav.vis']);
+navtemp=load([files.raw_nav_dir,filesep,'nav.vis']);
 navgood=[navtemp(:,2),navtemp(:,3),navtemp(:,4)];
 data.latitude=navgood(:,2);
 data.longitude=navgood(:,3);
@@ -53,5 +53,5 @@ data = [data.latitude,data.longitude];
 % data = data(good,:);
 
 % store data in the standard location
-savefile=['save6 data',filesep,'nav',filesep,'nav',int2str0(stn,3),' timnav data'];
+savefile=['save6 ',files.nav_dir,filesep,'nav',int2str0(stn,3),' timnav data'];
 eval(savefile)

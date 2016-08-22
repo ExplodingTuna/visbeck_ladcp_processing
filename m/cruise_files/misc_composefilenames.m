@@ -1,4 +1,4 @@
-function [f] = misc_composefilenames(params,stn);
+function [f] = misc_composefilenames(params,stn)
 % function [f] = misc_composefilenames(params,stn);
 %
 % compose the output filenames, this can't be done earlier
@@ -14,17 +14,36 @@ function [f] = misc_composefilenames(params,stn);
 
 % moved stuff from default_params.m to here    GK, 08.11.2012  0.1-->0.2
 
-% directory names
 
-f.logs_dir        = 'logs';
-f.plots_dir       = ['plots',filesep,int2str0(stn,3)]; %% line modified by RHS 25NOV2013
-f.prof_dir        = ['profiles',filesep,int2str0(stn,3)]; %% line modified by RHS 25NOV2013
-f.raw_dir         = ['data',filesep,'raw_ladcp'];
-f.ctd_ts_dir      = ['data',filesep,'ctdtime'];
-f.ctd_prof_dir    = ['data',filesep,'ctdprof'];
-f.nav_dir         = ['data',filesep,'nav'];
-f.sadcp_dir       = ['data',filesep,'sadcp'];
-f.ladcp_dir       = ['data',filesep,'ladcp'];  %% line added by RHS 25NOV2013
+%=========================================================================
+% This piece loads the contents cruise_params.cfg into
+% cell matrix 'cruiseVars'
+fileToRead=['cfg',filesep,'cruise_params.cfg'];
+fid=fopen(fileToRead,'r');
+cruiseVars=textscan(fid,'%s%s','Delimiter','=','CommentStyle','#');
+%get_cruise_variable_value(cruiseVars,'')
+fclose(fid);
+%=========================================================================
+
+% directory names made relative Pedro Pena 8.21.16
+
+
+
+f.working_directory=get_cruise_variable_value(cruiseVars,'working_directory');
+f.data_directory=[f.working_directory,filesep,'data'];
+f.logs_dir        = [f.working_directory,filesep,'logs'];
+f.plots_dir       = [f.working_directory,filesep,'plots',filesep,int2str0(stn,3)]; %% line modified by RHS 25NOV2013
+f.prof_dir        = [f.working_directory,filesep,'profiles',filesep,int2str0(stn,3)]; %% line modified by RHS 25NOV2013
+f.ctd_ts_dir      = [f.data_directory,filesep,'ctdtime'];
+f.raw_ctd_ts_dir  = [f.data_directory,filesep,'raw_ctdtime'];
+f.ctd_prof_dir    = [f.data_directory,filesep,'ctdprof'];
+f.raw_ctd_prof_dir= [f.data_directory,filesep,'raw_ctdprof'];
+f.nav_dir         = [f.data_directory,filesep,'nav'];
+f.raw_nav_dir     = [f.data_directory,filesep,'raw_nav'];
+f.sadcp_dir       = [f.data_directory,filesep,'sadcp'];
+f.raw_sadcp_dir   = [f.data_directory,filesep,'raw_sadcp'];
+f.ladcp_dir       = [f.data_directory,filesep,'ladcp'];  %% line added by RHS 25NOV2013
+f.raw_dir         = [f.data_directory,filesep,'raw_ladcp'];
 
 % file names
 stn_fmt         = '%03d';

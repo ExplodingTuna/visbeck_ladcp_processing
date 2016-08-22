@@ -70,7 +70,7 @@ end
 % first check for NaNs
 %
 % YOU MUST MODIFY THE LINE BELOW BEFORE PROCESSING!!!
-load(['data',filesep,'raw_sadcp',filesep,'WS1501_codas3_sadcp.mat']);
+load([f.raw_sadcp_dir,filesep,'WS1501_codas3_sadcp.mat']);
 
 % adp = adp_os75nb_only
 
@@ -115,5 +115,5 @@ z_sadcp = z_sadcp;
 
 
 % store the data
-save6(['data',filesep,'sadcp',filesep,'sadcp',int2str0(stn,3)],...
+save6([f.sadcp_dir,filesep,'sadcp',int2str0(stn,3)],...
 	'tim_sadcp','lon_sadcp','lat_sadcp','u_sadcp','v_sadcp','z_sadcp')

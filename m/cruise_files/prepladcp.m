@@ -1,4 +1,4 @@
-function [file] = prepladcp(stn)
+function [file] = prepladcp(stn,files)
 % function [file] = prepladcp(stn)
 %
 % prepare LADCP data for LADCP processing
@@ -31,22 +31,22 @@ stncaststr = sprintf('%03d_01',stn);
 
 
 
-  if ~exist(['data',filesep,'ladcp',filesep,int2str0(stn,3)])
-    mkdir(['data',filesep,'ladcp',filesep,int2str0(stn,3)])
+  if ~exist([files.ladcp_dir ,filesep,int2str0(stn,3)])
+    mkdir([files.ladcp_dir ,filesep,int2str0(stn,3)])
   end
   
-  if ~exist(['data',filesep,'raw_ladcp',filesep,'cut',filesep,int2str0(stn,3)])
-    mkdir(['data',filesep,'raw_ladcp',filesep,'cut',filesep,int2str0(stn,3)])
+  if ~exist([files.raw_dir,filesep,'cut',filesep,int2str0(stn,3)])
+    mkdir([files.raw_dir,filesep,'cut',filesep,int2str0(stn,3)])
   end
 
 %eval(['!del data\raw_ladcp\',int2str0(stn,3),'\*.000'])
 %eval(['! copy data\raw_ladcp\cut\',cruise_str,stncaststr,'m.000 data\ladcp\',int2str0(stn,3),'\',int2str0(stn,3),'DN000.000'])
 %eval(['! copy data\raw_ladcp\cut\',cruise_str,stncaststr,'s.000 data\ladcp\',int2str0(stn,3),'\',int2str0(stn,3),'UP000.000'])
 % changed to platform independent copyfile Pedro Pena 8.11.16 
-copyfile(['data',filesep,'raw_ladcp',filesep,'cut',filesep,cruise_str,stncaststr,'m.000'],...
-    ['data',filesep,'ladcp',filesep,int2str0(stn,3),filesep,int2str0(stn,3),'DN000.000'])
-copyfile(['data',filesep,'raw_ladcp',filesep,'cut',filesep,cruise_str,stncaststr,'s.000'],...
-    ['data',filesep,'ladcp',filesep,int2str0(stn,3),filesep,int2str0(stn,3),'UP000.000'])
+copyfile([files.raw_dir,filesep,'cut',filesep,cruise_str,stncaststr,'m.000'],...
+    [files.ladcp_dir,filesep,int2str0(stn,3),filesep,int2str0(stn,3),'DN000.000'])
+copyfile([files.raw_dir,filesep,'cut',filesep,cruise_str,stncaststr,'s.000'],...
+    [files.ladcp_dir,filesep,int2str0(stn,3),filesep,int2str0(stn,3),'UP000.000'])
 
 % set file name
-file = ['data',filesep,'ladcp',filesep,int2str0(stn,3)];
+file = [files.ladcp_dir,filesep,int2str0(stn,3)];

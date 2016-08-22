@@ -88,6 +88,8 @@ if stn<0
 end
 
 
+
+
 %
 % Initialize the processing by loading parameters
 % and make sure that we have no leftovers from previous processings
@@ -102,7 +104,7 @@ files = misc_composefilenames(p,stn);
 % prepare the various data files for easy loading
 %
 % [values] = prepare_cast(stn);
-[values] = prepare_cast(stn,p); % added p variable RHS MAY 2014
+[values] = prepare_cast(stn,p,files); % added p variable RHS MAY 2014
 
 %
 % load RDI data
