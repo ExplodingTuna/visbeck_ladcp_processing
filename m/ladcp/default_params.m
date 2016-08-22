@@ -150,11 +150,11 @@ params.cut = str2num(get_cruise_variable_value(cruiseVars,'cut'));
 % manually set POSITION of the start and end point
 % [degree lat, minute lat, degree lon, minute lon]
 %  i.e. [-59 -30.5697 -44 -22.4986]
-params.pose = [0 0 0 0]*nan;
-params.poss = [0 0 0 0]*nan;
-params.position_fixed = 0;
-params.lat_for_calc = nan;
-params.lon_for_calc = nan;
+params.pose = str2num(get_cruise_variable_value(cruiseVars,'pose'));
+params.poss = str2num(get_cruise_variable_value(cruiseVars,'poss'));
+params.position_fixed = str2num(get_cruise_variable_value(cruiseVars,'position_fixed'));
+params.lat_for_calc = str2num(get_cruise_variable_value(cruiseVars,'lat_for_calc'));
+params.lon_for_calc = str2num(get_cruise_variable_value(cruiseVars,'lon_for_calc'));
 
 
 %
