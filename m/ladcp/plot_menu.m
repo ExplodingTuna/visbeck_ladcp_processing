@@ -7,9 +7,9 @@
 % changed location of windows for OSX     GK, 15.07.2008  0.2-->0.3
 % use sfigure instead of figure           GK, 16.11.2012  0.3-->0.4
 
-dd = dir('tmp/*.fig');
+dd = dir(['tmp',filesep,'*.fig']);
 for n=1:length(dd)
-  delete(['tmp/',dd(n).name])
+  delete(['tmp',filesep,dd(n).name])
 end
 global mh
 

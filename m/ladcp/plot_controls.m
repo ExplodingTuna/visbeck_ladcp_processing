@@ -15,7 +15,7 @@ global mh
 
 sfigure(2);
 clf
-figload(['tmp/',int2str(fig),'.fig'])
+figload(['tmp',filesep,int2str(fig),'.fig'])
 
 sfigure(1);
 for n=1:length(mh)

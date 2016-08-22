@@ -408,4 +408,4 @@ text(0.54,10,[' Zbottom  ',int2str(p.zbottom),' [m]'])
 suplabel([p.name,' Figure 13'],'t');
 
 orient tall
-savefig('tmp/13');
+hgsave(['tmp',filesep,'13']);

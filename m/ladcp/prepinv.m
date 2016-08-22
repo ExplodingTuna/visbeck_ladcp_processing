@@ -163,7 +163,7 @@ if values.up==1
   axis([[-1 1]*tiltmax [-1 1]*5])
 
   suplabel([p.name,' Figure 6'],'t');
-  savefig('tmp/6')
+  hgsave(['tmp',filesep,'6'])
 
 
 
@@ -266,7 +266,7 @@ if values.up==1
     title('Tilt error [degree] consistent with offset')
  
     streamer([p.name,' Figure 10']);
-    savefig('tmp/10')
+    hgsave(['tmp',filesep,'10'])
 
     disp('    Adjusted for velocity offset in up and down looking ADCP')
 
@@ -370,7 +370,7 @@ if values.up==1
     xlabel('ensemble')
 
     streamer([p.name,' Figure 5']);
-    savefig('tmp/5')
+    hgsave(['tmp',filesep,'5'])
 
     if isfield(d,'hdg_rot_down')
       disp('    Rotated earlier, using only difference ')
@@ -443,7 +443,7 @@ ylabel('Bin #');
 title('Weights based on various parameters');
 
 streamer([p.name,' Figure 16']);
-savefig('tmp/16')
+hgsave(['tmp',filesep,'16'])
 
 
 

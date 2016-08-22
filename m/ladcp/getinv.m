@@ -193,7 +193,7 @@ else
   wm  = weight_matrix_supens_std_based;
 
 end
-figload('tmp/16.fig',2)
+figload(['tmp',filesep,'16.fig'],2)
 subplot(3,1,3);
 imagesc(weight_matrix_supens_std_based);
 csc = caxis;
@@ -203,7 +203,7 @@ ylabel('Bin #');
 title('Weights based on standard deviation of super ensembles')
 
 streamer([p.name,' Figure 16']);
-savefig('tmp/16')
+hgsave(['tmp',filesep,'16'])
 
 wm = reshape(wm,nt*nbin,1);
 
@@ -698,7 +698,7 @@ grid
 set(gca,'fontsize',10)
 streamer([p.name,'  Figure 7']);
 orient tall
-savefig('tmp/7')
+hgsave(['tmp',filesep,'7'])
 
 % compute velocity error
 der = geterr(dr,di,p,iplot);

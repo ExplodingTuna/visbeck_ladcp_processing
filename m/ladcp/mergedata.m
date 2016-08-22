@@ -326,7 +326,7 @@ if ~isempty(data.ctdtime_data)
     grid
     
     streamer([params.name,'   Figure 8']);
-    savefig('tmp/8')
+    hgsave(['tmp',filesep,'8'])
 
     % in difference to the case when the ADCP is shifted onto the
     % CTD data, this case here is always assumed good

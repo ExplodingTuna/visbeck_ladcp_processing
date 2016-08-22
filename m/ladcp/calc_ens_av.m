@@ -343,7 +343,7 @@ if length(data.zd) > 0
   bin_no = [bin_no 1:length(data.zd)]; 
 end
 
-figload('tmp/16.fig',2)
+figload(['tmp',filesep,'16.fig'],2)
 subplot(3,1,2);
 imagesc([1:size(di.ts,2)],bin_no,...
 	[di.weight(1:length(data.zu),:); ...
@@ -357,7 +357,7 @@ ylabel('Bin #');
 title('Weights based on various parameters')
 
 streamer([p.name,' Figure 16']);
-savefig('tmp/16')
+hgsave(['tmp',filesep,'16'])
 %hgsave('tmp/16')
 
 

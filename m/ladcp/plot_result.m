@@ -368,4 +368,4 @@ axis off
 
 
 orient tall
-savefig('tmp/1');
+hgsave(['tmp',filesep,'1']);

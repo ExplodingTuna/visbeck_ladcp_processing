@@ -279,7 +279,7 @@ if isfield(d,'xmv')
   set(gca,'yaxislocation','right')
 end
 
-savefig('tmp/2')
+hgsave(['tmp',filesep,'2'])
 
 
 

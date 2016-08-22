@@ -308,7 +308,7 @@ else
 end
 
 streamer([p.name,' Figure 11']);
-savefig('tmp/11')
+hgsave(['tmp',filesep,'11']);
 
 
 %----------------------------------------------------------------------
@@ -345,8 +345,8 @@ if length(files.res)>1
         for n = 1:length(p.saveplot)
             j = p.saveplot(n);
             if exist(['tmp',filesep,int2str(j),'.fig'],'file')
-                %figload(['tmp',filesep,int2str(j),'.fig'],2)
-                openfig(['tmp',filesep,int2str(j),'.fig']); %Pedro Pena 8.18.16
+                figload(['tmp',filesep,int2str(j),'.fig'],2)
+                %openfig(['tmp',filesep,int2str(j),'.fig']); %Pedro Pena 8.18.16
                 
                 %% lines added by RHS 03DEC2013
                 if j>2
@@ -376,7 +376,7 @@ if length(files.res)>1
                 eval(['print -djpeg ',files.plots,'_' int2str(j) '.jpg '])
             end
             warning on
-            close gcf;
+            %close gcf;
         end
     end
     
