@@ -52,30 +52,38 @@ up_file_fmt     = '%03dUP000.000';
 
 % line commented out by RHS 25NOV2013
 % f.ladcpdo = sprintf([f.raw_dir '/' stn_fmt '/' dn_file_fmt],stn,stn); %
-
 % line added by RHS 25NOV2013: replaced / with filesep Pedro Pena 8.12.16
-f.ladcpdo = sprintf([f.ladcp_dir, filesep, stn_fmt ,filesep ,dn_file_fmt],stn,stn); %
+t0=sprintf([stn_fmt],stn);
 
-if (~exist(f.ladcpdo,'file')) 
-  dn_file_fmt     = '%03dDN000.000'; % changed dn to DN Pedro Pena 8.11.16
+t1=sprintf([dn_file_fmt],stn);
+f.ladcpdo = [f.ladcp_dir, filesep, t0 ,filesep ,t1]; %
+
+if (exist(f.ladcpdo,'file')) %exist was being negated Pedor Pena 8.22.16
+  dn_file_fmt     = '%03ddn000.000'; % changed dn to DN Pedro Pena 8.11.16
 
   % line commented out and added by RHS 25NOV2013  replaced / with filesep Pedro Pena 8.12.16
 %  f.ladcpdo = sprintf([f.raw_dir '/' stn_fmt '/' dn_file_fmt],stn,stn);
-  f.ladcpdo = sprintf([f.ladcp_dir , filesep,  stn_fmt , filesep,  dn_file_fmt],stn,stn);
+t1=sprintf([dn_file_fmt],stn);
+f.ladcpdo = [f.ladcp_dir, filesep, t0 ,filesep ,t1]; %
 
 end;
 
   % line commented out and added by RHS 25NOV2013   replaced / with filesep Pedro Pena 8.12.16
 % f.ladcpup = sprintf([f.raw_dir '/' stn_fmt '/' up_file_fmt],stn,stn);
-f.ladcpup = sprintf([f.ladcp_dir , filesep,  stn_fmt , filesep,  up_file_fmt],stn,stn);
+%f.ladcpup = sprintf([f.ladcp_dir , filesep,  stn_fmt , filesep,  up_file_fmt],stn,stn);
+
+t1=sprintf([up_file_fmt],stn);
+f.ladcpup = [f.ladcp_dir, filesep, t0 ,filesep ,t1]; %
 
 
-if (~exist(f.ladcpup,'file')) 
-  up_file_fmt     = '%03dUP000.000'; % changed up to UP Pedro Pena 8.11.16
+if (exist(f.ladcpup,'file')) %exist was being negated Pedor Pena 8.22.16
+  up_file_fmt     = '%03dup000.000'; % changed up to UP Pedro Pena 8.11.16
 
   % line commented out and added by RHS 25NOV2013   replaced / with filesep Pedro Pena 8.12.16
 %  f.ladcpup = sprintf([f.raw_dir '/' stn_fmt '/' up_file_fmt],stn,stn);
-  f.ladcpup = sprintf([f.ladcp_dir , filesep,  stn_fmt , filesep,  up_file_fmt],stn,stn);
+  %f.ladcpup = sprintf([f.ladcp_dir , filesep,  stn_fmt , filesep,  up_file_fmt],stn,stn);
+  t1=sprintf([up_file_fmt],stn);
+f.ladcpup = [f.ladcp_dir, filesep, t0 ,filesep ,t1]; %
 
 end;
 if ~isfield(f,'ladcpup') 
