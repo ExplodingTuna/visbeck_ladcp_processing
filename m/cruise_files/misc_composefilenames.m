@@ -15,6 +15,7 @@ function [f] = misc_composefilenames(params,stn);
 % moved stuff from default_params.m to here    GK, 08.11.2012  0.1-->0.2
 
 % directory names
+
 f.logs_dir        = 'logs';
 f.plots_dir       = ['plots',filesep,int2str0(stn,3)]; %% line modified by RHS 25NOV2013
 f.prof_dir        = ['profiles',filesep,int2str0(stn,3)]; %% line modified by RHS 25NOV2013
@@ -62,10 +63,16 @@ if ~isfield(f,'ladcpup')
   f.ladcpup = ''; 
 end;
    %replaced / with filesep Pedro Pena 8.12.16
-f.nav = ['data',filesep,'nav',filesep,'nav',int2str0(stn,3),'.mat'];
-f.ctdprof = ['data',filesep,'ctdprof',filesep,'ctdprof',int2str0(stn,3),'.mat'];
-f.ctdtime = ['data',filesep,'ctdtime',filesep,'ctdtime',int2str0(stn,3),'.mat'];
-f.sadcp = ['data',filesep,'sadcp',filesep,'sadcp',int2str0(stn,3),'.mat'];
+% f.nav = ['data',filesep,'nav',filesep,'nav',int2str0(stn,3),'.mat'];
+% f.ctdprof = ['data',filesep,'ctdprof',filesep,'ctdprof',int2str0(stn,3),'.mat'];
+% f.ctdtime = ['data',filesep,'ctdtime',filesep,'ctdtime',int2str0(stn,3),'.mat'];
+% f.sadcp = ['data',filesep,'sadcp',filesep,'sadcp',int2str0(stn,3),'.mat'];
+
+f.nav = [f.nav_dir,filesep,'nav',int2str0(stn,3),'.mat'];
+f.ctdprof = [f.ctd_prof_dir,filesep,'ctdprof',int2str0(stn,3),'.mat'];
+f.ctdtime = [f.ctd_ts_dir,filesep,'ctdtime',int2str0(stn,3),'.mat'];
+f.sadcp = [f.sadcp_dir,filesep,'sadcp',int2str0(stn,3),'.mat'];
+
 
 % file name for results (extensions will be added by software)
 %  *.bot            bottom referenced ASCII data

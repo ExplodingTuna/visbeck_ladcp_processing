@@ -52,8 +52,8 @@ p.correct_year = str2num(get_cruise_variable_value(cruiseVars,'correct_year'));
 %
 % this is just used in one plot
 %
-p.down_sn = 2222222; %MASTER
-p.up_sn = 3333333; % SLAVE
+%p.down_sn = 2222222; %MASTER
+%p.up_sn = 3333333; % SLAVE
 
 
 %

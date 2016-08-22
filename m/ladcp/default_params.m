@@ -52,64 +52,68 @@ params.name = [params.name,'_',int2str0(stn,3)];
 
 
 
-if 0
+%if 0
 
-% directory names
-f.logs_dir        = 'logs';
-f.plots_dir       = 'plots';
-f.prof_dir        = 'profiles';
-f.raw_dir         = 'data/raw_ladcp';
-f.ctd_ts_dir      = 'data/ctdtime';
-f.ctd_prof_dir    = 'data/ctdprof';
-f.nav_dir         = 'data/nav';
-f.sadcp_dir       = 'data/sadcp';
+% % directory names
+% f.logs_dir        = 'logs';
+% f.plots_dir       = ['plots',filesep,int2str0(stn,3)]; %% line modified by RHS 25NOV2013
+% f.prof_dir        = ['profiles',filesep,int2str0(stn,3)]; %% line modified by RHS 25NOV2013
+% f.raw_dir         = ['data',filesep,'raw_ladcp'];
+% f.ctd_ts_dir      = ['data',filesep,'ctdtime'];
+% f.ctd_prof_dir    = ['data',filesep,'ctdprof'];
+% f.nav_dir         = ['data',filesep,'nav'];
+% f.sadcp_dir       = ['data',filesep,'sadcp'];
+% f.ladcp_dir       = ['data',filesep,'ladcp'];  %% line added by RHS 25NOV2013
 
-% file names
-stn_fmt         = '%03d';
-dn_file_fmt     = '%03dDN000.000';
-up_file_fmt     = '%03dUP000.000';
-f.ladcpdo = sprintf([f.raw_dir '/' stn_fmt '/' dn_file_fmt],stn,stn);
-if (~exist(f.ladcpdo,'file')) 
-  dn_file_fmt     = '%03dDN000.000';
-  f.ladcpdo = sprintf([f.raw_dir '/' stn_fmt '/' dn_file_fmt],stn,stn);
-end;
-f.ladcpup = sprintf([f.raw_dir '/' stn_fmt '/' up_file_fmt],stn,stn);
-if (~exist(f.ladcpup,'file')) 
-  up_file_fmt     = '%03dUP000.000';
-  f.ladcpup = sprintf([f.raw_dir '/' stn_fmt '/' up_file_fmt],stn,stn);
-end;
-if ~isfield(f,'ladcpup') 
-  f.ladcpup = ''; 
-end;
 
-% check for multiple file cases
-count = 1;
-while exist(f.ladcpdo(end,:),'file')
-  nname = f.ladcpdo(end,:);
-  nname(end-[6:-1:4]) = int2str0(count,3);
-  if exist(nname,'file')
-    f.ladcpdo(end+1,:) = nname;
-    count = count+1;
-  else
-    break
-  end
-end
-count = 1;
-while exist(f.ladcpup(end,:),'file')
-  nname = f.ladcpup(end,:);
-  nname(end-[6:-1:4]) = int2str0(count,3);
-  if exist(nname,'file')
-    f.ladcpup(end+1,:) = nname;
-    count = count+1;
-  else
-    break
-  end
-end
 
-f.nav = ['data/nav/nav',int2str0(stn,3),'.mat'];
-f.ctdprof = ['data/ctdprof/ctdprof',int2str0(stn,3),'.mat'];
-f.ctdtime = ['data/ctdtime/ctdtime',int2str0(stn,3),'.mat'];
-f.sadcp = ['data/sadcp/sadcp',int2str0(stn,3),'.mat'];
+
+% % file names
+% stn_fmt         = '%03d';
+% dn_file_fmt     = '%03dDN000.000';
+% up_file_fmt     = '%03dUP000.000';
+% f.ladcpdo = sprintf([f.raw_dir,filesep,stn_fmt,filesep,dn_file_fmt],stn,stn);
+% if (~exist(f.ladcpdo,'file')) 
+%   dn_file_fmt     = '%03dDN000.000';
+%   f.ladcpdo = sprintf([f.raw_dir,filesep,stn_fmt,filesep,dn_file_fmt],stn,stn);
+% end;
+% f.ladcpup = sprintf([f.raw_dir,filesep,stn_fmt,filesep,up_file_fmt],stn,stn);
+% if (~exist(f.ladcpup,'file')) 
+%   up_file_fmt     = '%03dUP000.000';
+%   f.ladcpup = sprintf([f.raw_dir,filesep,stn_fmt,filesep,up_file_fmt],stn,stn);
+% end;
+% if ~isfield(f,'ladcpup') 
+%   f.ladcpup = ''; 
+% end;
+
+% % check for multiple file cases
+% count = 1;
+% while exist(f.ladcpdo(end,:),'file')
+%   nname = f.ladcpdo(end,:);
+%   nname(end-[6:-1:4]) = int2str0(count,3);
+%   if exist(nname,'file')
+%     f.ladcpdo(end+1,:) = nname;
+%     count = count+1;
+%   else
+%     break
+%   end
+% end
+% count = 1;
+% while exist(f.ladcpup(end,:),'file')
+%   nname = f.ladcpup(end,:);
+%   nname(end-[6:-1:4]) = int2str0(count,3);
+%   if exist(nname,'file')
+%     f.ladcpup(end+1,:) = nname;
+%     count = count+1;
+%   else
+%     break
+%   end
+% end
+
+% f.nav = [f.nav_dir,filesep,'nav',int2str0(stn,3),'.mat'];
+% f.ctdprof = [f.ctdprof_dir,filesep,'ctdprof',int2str0(stn,3),'.mat'];
+% f.ctdtime = [f.ctdtime_dir,filesep,'ctdtime',int2str0(stn,3),'.mat'];
+% f.sadcp = [f.sadcp,filesep,'sadcp',int2str0(stn,3),'.mat'];
 
 % file name for results (extensions will be added by software)
 %  *.bot            bottom referenced ASCII data
@@ -119,7 +123,7 @@ f.sadcp = ['data/sadcp/sadcp',int2str0(stn,3),'.mat'];
 %  *.log            ASCII log file of processing
 %  *.txt            ASCII short log file
 %  *.ps             post-script figure of result 
-end
+%end
 
 
 %--------------------------------------------------------------

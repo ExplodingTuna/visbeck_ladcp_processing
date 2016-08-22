@@ -58,7 +58,8 @@ end
 
 
 %=========================================================================
-%This for loop loads the contents cruise_params.cfg into matrix cruiseVars
+% This piece loads the contents cruise_params.cfg into
+% cell matrix 'cruiseVars'
 fileToRead=['cfg',filesep,'cruise_params.cfg'];
 fid=fopen(fileToRead,'r');
 cruiseVars=textscan(fid,'%s%s','Delimiter','=','CommentStyle','#');
@@ -67,15 +68,15 @@ fclose(fid);
 %=========================================================================
 
 
-
+% commented Pedro Pena 8.21.16
 %
 % check current directory
 %
-if exist('logs')~=exist(pwd);
-    disp('>   This directory is not prepared for the LADCP software ')
-    disp('>   Sorry EXIT ')
-    return
-end
+%if exist('logs')~=exist(pwd);
+%    disp('>   This directory is not prepared for the LADCP software ')
+%    disp('>   Sorry EXIT ')
+%    return
+%end
 
 
 %
@@ -109,7 +110,7 @@ files = misc_composefilenames(p,stn);
 %
 
 % override automatically detected Serial Numbers
-% and use the oned from cruise_params.cfg  added by Pedro Pena 8.20.16
+% and use the ones from cruise_params.cfg  added by Pedro Pena 8.20.16
 override_sn = str2num(get_cruise_variable_value(cruiseVars,'override_sn'))
 
 [data,values,messages,p,files] = rdiload(files,p,messages,values);
