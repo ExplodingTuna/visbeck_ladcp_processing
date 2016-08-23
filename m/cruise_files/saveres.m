@@ -29,9 +29,9 @@ end
 % %
 
 
-%% lines added by RHS 25NOV2013
-if ~exist(['profiles/',int2str0(p.ladcp_station,3)])
-    eval(['!mkdir profiles/',int2str0(p.ladcp_station,3)])
+%% lines added by RHS 25NOV2013 modified by Pedro Pena 8.22.16
+if ~exist(f.prof_dir)
+    mkdir(f.prof_dir)
 end
 save6([f.res,'.mat'],'ts','dr','p','ps','f','values')
 
