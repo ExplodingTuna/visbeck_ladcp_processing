@@ -8,7 +8,7 @@ function [values] = prepctdtime(stn,values,files,cruiseVars)
 cruise_id=get_cruise_variable_value(cruiseVars,'cruise_id');
 cruise_id_prefix=get_cruise_variable_value(cruiseVars,'cruise_id_prefix');
 cruise_id_suffix=get_cruise_variable_value(cruiseVars,'cruise_id_suffix');
-fName=[cruise_id_prefix,cruise_id,'_time',cruise_id_suffix];
+fName=[cruise_id_prefix,cruise_id,'_time_',cruise_id_suffix];
 cnv=ctd_rd2([files.raw_ctd_ts_dir,filesep,fName,int2str0(stn,2),'.cnv'],'NMEA');
 
 data = [cnv.prDM, cnv.t090C, cnv.sal00];
