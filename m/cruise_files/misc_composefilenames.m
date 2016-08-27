@@ -15,16 +15,6 @@ function [f] = misc_composefilenames(params,stn,cruiseVars)
 % moved stuff from default_params.m to here    GK, 08.11.2012  0.1-->0.2
 
 
-% %=========================================================================
-% % This piece loads the contents cruise_params.cfg into
-% % cell matrix 'cruiseVars'
-% fileToRead=['cfg',filesep,'cruise_params.cfg'];
-% fid=fopen(fileToRead,'r');
-% cruiseVars=textscan(fid,'%s%s','Delimiter','=','CommentStyle','#');
-% %get_cruise_variable_value(cruiseVars,'')
-% fclose(fid);
-% %=========================================================================
-
 % directory names made relative Pedro Pena 8.21.16
 
 
@@ -57,35 +47,35 @@ t0=sprintf([stn_fmt],stn);
 
 t1=sprintf([dn_file_fmt],stn);
 f.ladcpdo = [f.ladcp_dir, filesep, t0 ,filesep ,t1]; %
-
-if (exist(f.ladcpdo,'file') == 0) %exist was being negated Pedor Pena 8.22.16
-  dn_file_fmt     = '%03ddn000.000'; % changed dn to DN Pedro Pena 8.11.16
-
-  % line commented out and added by RHS 25NOV2013  replaced / with filesep Pedro Pena 8.12.16
-%  f.ladcpdo = sprintf([f.raw_dir '/' stn_fmt '/' dn_file_fmt],stn,stn);
-t1=sprintf([dn_file_fmt],stn);
-f.ladcpdo = [f.ladcp_dir, filesep, t0 ,filesep ,t1]; %
-
-end;
-
-  % line commented out and added by RHS 25NOV2013   replaced / with filesep Pedro Pena 8.12.16
-% f.ladcpup = sprintf([f.raw_dir '/' stn_fmt '/' up_file_fmt],stn,stn);
-%f.ladcpup = sprintf([f.ladcp_dir , filesep,  stn_fmt , filesep,  up_file_fmt],stn,stn);
-
-t1=sprintf([up_file_fmt],stn);
-f.ladcpup = [f.ladcp_dir, filesep, t0 ,filesep ,t1]; %
-
-
-if (exist(f.ladcpup,'file') == 0 ) %exist was being negated Pedor Pena 8.22.16
-  up_file_fmt     = '%03dup000.000'; % changed up to UP Pedro Pena 8.11.16
-
-  % line commented out and added by RHS 25NOV2013   replaced / with filesep Pedro Pena 8.12.16
-%  f.ladcpup = sprintf([f.raw_dir '/' stn_fmt '/' up_file_fmt],stn,stn);
-  %f.ladcpup = sprintf([f.ladcp_dir , filesep,  stn_fmt , filesep,  up_file_fmt],stn,stn);
+% % % 
+% % % if (~exist(f.ladcpdo,'file') == 0) %exist was being negated Pedor Pena 8.22.16
+% % %   dn_file_fmt     = '%03ddn000.000'; % changed dn to DN Pedro Pena 8.11.16
+% % % 
+% % %   % line commented out and added by RHS 25NOV2013  replaced / with filesep Pedro Pena 8.12.16
+% % % %  f.ladcpdo = sprintf([f.raw_dir '/' stn_fmt '/' dn_file_fmt],stn,stn);
+% % % t1=sprintf([dn_file_fmt],stn);
+% % % f.ladcpdo = [f.ladcp_dir, filesep, t0 ,filesep ,t1]; %
+% % % 
+% % % end;
+% % % 
+% % %   % line commented out and added by RHS 25NOV2013   replaced / with filesep Pedro Pena 8.12.16
+% % % % f.ladcpup = sprintf([f.raw_dir '/' stn_fmt '/' up_file_fmt],stn,stn);
+% % % %f.ladcpup = sprintf([f.ladcp_dir , filesep,  stn_fmt , filesep,  up_file_fmt],stn,stn);
+% % % 
+% % % t1=sprintf([up_file_fmt],stn);
+% % % f.ladcpup = [f.ladcp_dir, filesep, t0 ,filesep ,t1]; %
+% % % 
+% % % 
+% % % if (~exist(f.ladcpup,'file') == 0 ) %exist was being negated Pedor Pena 8.22.16
+% % %   up_file_fmt     = '%03dup000.000'; % changed up to UP Pedro Pena 8.11.16
+% % % 
+% % %   % line commented out and added by RHS 25NOV2013   replaced / with filesep Pedro Pena 8.12.16
+% % % %  f.ladcpup = sprintf([f.raw_dir '/' stn_fmt '/' up_file_fmt],stn,stn);
+% % %   %f.ladcpup = sprintf([f.ladcp_dir , filesep,  stn_fmt , filesep,  up_file_fmt],stn,stn);
   t1=sprintf([up_file_fmt],stn);
 f.ladcpup = [f.ladcp_dir, filesep, t0 ,filesep ,t1]; %
 
-end;
+% % % end;
 if ~isfield(f,'ladcpup') 
   f.ladcpup = ''; 
 end;
