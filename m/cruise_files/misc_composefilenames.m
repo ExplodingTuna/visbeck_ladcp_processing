@@ -20,6 +20,10 @@ function [f] = misc_composefilenames(params,stn,cruiseVars)
 
 
 f.working_directory=get_cruise_variable_value(cruiseVars,'working_directory');
+if (f.working_directory == '.')
+    f.working_directory =pwd();
+end
+
 f.data_directory=[f.working_directory,filesep,'data'];
 f.logs_dir        = [f.working_directory,filesep,'logs'];
 f.plots_dir       = [f.working_directory,filesep,'plots',filesep,int2str0(stn,3)]; %% line modified by RHS 25NOV2013
