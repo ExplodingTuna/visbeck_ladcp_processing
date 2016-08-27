@@ -193,7 +193,8 @@ else
   wm  = weight_matrix_supens_std_based;
 
 end
-figload(['tmp',filesep,'16.fig'],2)
+figload(['tmp',filesep,'16.fig'],2);
+%openfig(['tmp',filesep,'16.fig'],2);
 subplot(3,1,3);
 imagesc(weight_matrix_supens_std_based);
 csc = caxis;

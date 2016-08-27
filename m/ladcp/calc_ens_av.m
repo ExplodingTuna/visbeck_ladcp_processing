@@ -344,6 +344,7 @@ if length(data.zd) > 0
 end
 
 figload(['tmp',filesep,'16.fig'],2)
+%openfig(['tmp',filesep,'16.fig'],2)
 subplot(3,1,2);
 imagesc([1:size(di.ts,2)],bin_no,...
 	[di.weight(1:length(data.zu),:); ...

@@ -1,4 +1,4 @@
-function [values] = prepare_cast(stn,p,files)
+function [values] = prepare_cast(stn,p,files,cruiseVars)
 % function [values] = prepare_cast(stn)
 %
 % prepare input data (CTD, LADCP, SADCP, NAV) so that it is digestible
@@ -74,7 +74,7 @@ values.initial = [];
 if exist([files.ctd_prof_dir,filesep,'ctdprof',int2str0(stn,3),'.mat'],'file')
   disp(['    Found previously prepared CTD-PROFILE data.'])
 else
-  [values] = prepctdprof(stn,values,files);
+  [values] = prepctdprof(stn,values,files,cruiseVars);
 end
 if exist([files.ctd_prof_dir,filesep,'ctdprof',int2str0(stn,3),'.mat'],'file')
   values.ctdprofdata=1;
@@ -92,7 +92,7 @@ end
 if exist([files.ctd_ts_dir,filesep,'ctdtime',int2str0(stn,3),'.mat'],'file')
   disp(['    Found previously prepared CTD-TIME data.'])
 else
-  [values] = prepctdtime(stn,values,files);
+  [values] = prepctdtime(stn,values,files,cruiseVars);
 end
 if exist([files.ctd_ts_dir,filesep,'ctdtime',int2str0(stn,3),'.mat'],'file')
    values.ctdtimedata=1;
@@ -128,7 +128,7 @@ end
 if exist([files.nav_dir,filesep,'nav',int2str0(stn,3),'.mat'],'file')
   disp(['    Found previously prepared NAV data.'])
 else
-  prepnav(stn,values,files);
+  prepnav(stn,values,files,cruiseVars);
 end
 if exist([files.nav_dir,filesep,'nav',int2str0(stn,3),'.mat'],'file')
    values.navdata=1;
@@ -142,7 +142,7 @@ end
 % data files are supposed to be in
 % 'data/raw_ladcp/STN'
 % where STN is the 3-digit station number
-prepladcp(stn,files);
+prepladcp(stn,files,cruiseVars);
 
 % prepare SADCP data 
 % this is to bring the SADCP data into the proper variables
@@ -158,7 +158,7 @@ prepladcp(stn,files);
 if exist([files.sadcp_dir,filesep,'sadcp',int2str0(stn,3),'.mat'],'file')
   disp('    Found previously prepared SADCP data.')
 else
-  prepsadcp(stn,values,p);
+  prepsadcp(stn,values,p,cruiseVars);
 end
 if exist([files.sadcp_dir,filesep,'sadcp',int2str0(stn,3),'.mat'],'file')
   values.sadcpdata=1;

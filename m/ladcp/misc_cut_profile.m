@@ -222,8 +222,8 @@ hgsave(['tmp',filesep,'4']) % Pedro Pena 8.17.16
 %
 % add information of the cut profile to figure 8
 %
-figload(['tmp',filesep,'8.fig'],2)
-
+figload(['tmp',filesep,'8.fig'],2);
+%openfig(['tmp',filesep,'8.fig'],2);
 if ~isempty(data.ctdtime_data)
   subplot(211)
   plot((time_all-data.ctdtime_time(1))*24,-z_all,'b')

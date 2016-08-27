@@ -1,4 +1,4 @@
-function prepnav(stn,values,files)
+function prepnav(stn,values,files,cruiseVars)
 % function prepnav(stn,values)
 %
 % prepare navigational data for LADCP

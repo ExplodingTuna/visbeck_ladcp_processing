@@ -1,4 +1,4 @@
-function [file] = prepladcp(stn,files)
+function [file] = prepladcp(stn,files,cruiseVars)
 % function [file] = prepladcp(stn)
 %
 % prepare LADCP data for LADCP processing
@@ -25,7 +25,7 @@ function [file] = prepladcp(stn,files)
 % pause
 % return
 % YOU MUST EDIT THIS FILE PRIOR TO PROCESSING YOUR CRUISE!
-cruise_str = 'WS1501_';
+cruise_str = ['WS1501','_'];
 cruisedir = 'WS1501';
 stncaststr = sprintf('%03d_01',stn);
 
@@ -42,6 +42,7 @@ stncaststr = sprintf('%03d_01',stn);
 %eval(['!del data\raw_ladcp\',int2str0(stn,3),'\*.000'])
 %eval(['! copy data\raw_ladcp\cut\',cruise_str,stncaststr,'m.000 data\ladcp\',int2str0(stn,3),'\',int2str0(stn,3),'DN000.000'])
 %eval(['! copy data\raw_ladcp\cut\',cruise_str,stncaststr,'s.000 data\ladcp\',int2str0(stn,3),'\',int2str0(stn,3),'UP000.000'])
+
 % changed to platform independent copyfile Pedro Pena 8.11.16 
 copyfile([files.raw_dir,filesep,'cut',filesep,cruise_str,stncaststr,'m.000'],...
     [files.ladcp_dir,filesep,int2str0(stn,3),filesep,int2str0(stn,3),'DN000.000'])

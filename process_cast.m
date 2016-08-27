@@ -97,14 +97,15 @@ end
 default_params;
 cruise_params;
 cast_params;
-files = misc_composefilenames(p,stn);
+files = misc_composefilenames(p,stn,cruiseVars);
 
 
 %
 % prepare the various data files for easy loading
 %
 % [values] = prepare_cast(stn);
-[values] = prepare_cast(stn,p,files); % added p variable RHS MAY 2014
+cruise_id=get_cruise_variable_value(cruiseVars,'cruise_id');%added by Pedro Pena 8.19.16
+[values] = prepare_cast(stn,p,files,cruiseVars); % added p variable RHS MAY 2014
 
 %
 % load RDI data
@@ -345,7 +346,7 @@ if length(files.res)>1
         for n = 1:length(p.saveplot)
             j = p.saveplot(n);
             if exist(['tmp',filesep,int2str(j),'.fig'],'file')
-                figload(['tmp',filesep,int2str(j),'.fig'],2)
+                figload(['tmp',filesep,int2str(j),'.fig'],2);
                 %openfig(['tmp',filesep,int2str(j),'.fig']); %Pedro Pena 8.18.16
                 
                 %% lines added by RHS 03DEC2013

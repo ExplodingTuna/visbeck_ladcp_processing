@@ -1,4 +1,4 @@
-function [] = prepsadcp(stn,values,p)
+function [] = prepsadcp(stn,values,p,cruiseVars)
 % function [] = prepsadcp(stn,values)
 %
 % prepare Ship-ADCP data for LADCP processing
