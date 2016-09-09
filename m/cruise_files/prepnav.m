@@ -26,7 +26,13 @@ function prepnav(stn,values,files,cruiseVars)
 % data = [data.latitude,data.longitude];
 
 %load(['data',filesep,'raw_nav',filesep,'nav_WS1501.mat']);
-navtemp=load([files.raw_nav_dir,filesep,'nav.vis']);
+
+cruise_id=get_cruise_variable_value(cruiseVars,'cruise_id');
+cruise_id_prefix=get_cruise_variable_value(cruiseVars,'cruise_id_prefix');
+cruise_id_suffix=get_cruise_variable_value(cruiseVars,'cruise_id_suffix');
+fName=[cruise_id_prefix,cruise_id,'_nav',cruise_id_suffix,'.vis'];
+
+navtemp=load([files.raw_nav_dir,filesep,fName]);
 navgood=[navtemp(:,1),navtemp(:,2),navtemp(:,3)];
 data.latitude=navgood(:,2);
 data.longitude=navgood(:,3);
