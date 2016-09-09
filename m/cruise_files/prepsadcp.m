@@ -1,4 +1,4 @@
-function [] = prepsadcp(stn,values,p,cruiseVars)
+function [] = prepsadcp(stn,values,p,files,cruiseVars)
 % function [] = prepsadcp(stn,values)
 %
 % prepare Ship-ADCP data for LADCP processing
@@ -70,7 +70,13 @@ end
 % first check for NaNs
 %
 % YOU MUST MODIFY THE LINE BELOW BEFORE PROCESSING!!!
-load([f.raw_sadcp_dir,filesep,'WS1501_codas3_sadcp.mat']);
+
+cruise_id=get_cruise_variable_value(cruiseVars,'cruise_id');
+cruise_id_prefix=get_cruise_variable_value(cruiseVars,'cruise_id_prefix');
+cruise_id_suffix=get_cruise_variable_value(cruiseVars,'cruise_id_suffix');
+fName=[cruise_id_prefix,cruise_id,'_codas3_sadcp',cruise_id_suffix,'.mat'];
+
+load([files.raw_sadcp_dir,filesep,fName]);
 
 % adp = adp_os75nb_only
 
@@ -115,5 +121,5 @@ z_sadcp = z_sadcp;
 
 
 % store the data
-save6([f.sadcp_dir,filesep,'sadcp',int2str0(stn,3)],...
+save6([files.sadcp_dir,filesep,'sadcp',int2str0(stn,3)],...
 	'tim_sadcp','lon_sadcp','lat_sadcp','u_sadcp','v_sadcp','z_sadcp')

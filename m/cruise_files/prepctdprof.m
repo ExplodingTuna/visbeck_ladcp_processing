@@ -12,7 +12,7 @@ cruise_id_prefix=get_cruise_variable_value(cruiseVars,'cruise_id_prefix');
 cruise_id_suffix=get_cruise_variable_value(cruiseVars,'cruise_id_suffix');
 fName=[cruise_id_prefix,cruise_id,'_profile_',cruise_id_suffix];
 
-cnv=ctd_rd2([files.raw_ctd_prof_dir,filesep,fName,int2str0(stn,2),'.cnv'],'NMEA');
+cnv=ctd_rd2([files.raw_ctd_prof_dir,filesep,fName,int2str0(stn,3),'.cnv'],'NMEA');
 
 
 ctdprof = [cnv.prDM, cnv.t090C, cnv.sal00];

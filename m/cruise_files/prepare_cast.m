@@ -158,7 +158,7 @@ prepladcp(stn,files,cruiseVars);
 if exist([files.sadcp_dir,filesep,'sadcp',int2str0(stn,3),'.mat'],'file')
   disp('    Found previously prepared SADCP data.')
 else
-  prepsadcp(stn,values,p,cruiseVars);
+  prepsadcp(stn,values,p,files,cruiseVars);
 end
 if exist([files.sadcp_dir,filesep,'sadcp',int2str0(stn,3),'.mat'],'file')
   values.sadcpdata=1;

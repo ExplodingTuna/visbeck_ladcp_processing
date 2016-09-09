@@ -27,7 +27,7 @@ function prepnav(stn,values,files,cruiseVars)
 
 %load(['data',filesep,'raw_nav',filesep,'nav_WS1501.mat']);
 navtemp=load([files.raw_nav_dir,filesep,'nav.vis']);
-navgood=[navtemp(:,2),navtemp(:,3),navtemp(:,4)];
+navgood=[navtemp(:,1),navtemp(:,2),navtemp(:,3)];
 data.latitude=navgood(:,2);
 data.longitude=navgood(:,3);
 timnav=navgood(:,1)+1+julian([2015,1,0,0,0,0]);
