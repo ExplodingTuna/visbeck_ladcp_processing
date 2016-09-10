@@ -57,7 +57,7 @@ if exist(file,'file')
 
 
 
-  if get_matlab_version() >= 7.2
+  if get_matlab_version > 7.1
 
 
     sfigure(2);

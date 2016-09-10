@@ -33,35 +33,42 @@ function jd = date2jd(varargin)
 %   URL:         http://home.online.no/~pjacklam
 
 nargsin = nargin;
+
 if get_matlab_version < 9 % Pedro Pena 8.17.16
+    
     error(nargchk(0, 6, nargsin));% nargchck will be released in future versions
+    
 else
+    
     narginchk(0, 6); % Pedro Pena 8.17.16
-    if nargsin
-        argv = {1 1 1 0 0 0};
-        argv(1:nargsin) = varargin;
-    else
-        argv = num2cell(clock);
-    end
-    [year, month, day, hour, minute, second] = deal(argv{:});
+    
 end
+
+if nargsin
+    argv = {1 1 1 0 0 0};
+    argv(1:nargsin) = varargin;
+else
+    argv = num2cell(clock);
+end
+[year, month, day, hour, minute, second] = deal(argv{:});
+
 if nargin==1
-  second = year(:,6);
-  minute = year(:,5);
-  hour = year(:,4);
-  day = year(:,3);
-  month = year(:,2);
-  year = year(:,1);
+    second = year(:,6);
+    minute = year(:,5);
+    hour = year(:,4);
+    day = year(:,3);
+    month = year(:,2);
+    year = year(:,1);
 end
 
-   % The following algorithm is a modified version of the one found in the
-   % Calendar FAQ.
+% The following algorithm is a modified version of the one found in the
+% Calendar FAQ.
 
-   a = floor((14 - month)/12);
-   y = year + 4800 - a;
-   m = month + 12*a - 3;
+a = floor((14 - month)/12);
+y = year + 4800 - a;
+m = month + 12*a - 3;
 
-   % For a date in the Gregorian calendar:
-   jd = day + floor((153*m + 2)/5) ...
-        + y*365 + floor(y/4) - floor(y/100) + floor(y/400) - 32045 ...
-        + ( second + 60*minute + 3600*hour )/86400;
+% For a date in the Gregorian calendar:
+jd = day + floor((153*m + 2)/5) ...
+    + y*365 + floor(y/4) - floor(y/100) + floor(y/400) - 32045 ...
+    + ( second + 60*minute + 3600*hour )/86400;
