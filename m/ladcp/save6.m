@@ -58,7 +58,9 @@ v = version;
 %v=v(1:idx(1)-1);
 %v=str2num(v);
 % changed this GK
-v = str2num(v(1));
+% added better version check Pedro Pena 9.10.16
+% v = str2num(v(1));
+v=get_matlab_version;
 if v<4
   v2 = ver;
   save version_info v2 v
