@@ -193,7 +193,15 @@ else
   wm  = weight_matrix_supens_std_based;
 
 end
-figload(['tmp',filesep,'16.fig'],2);
+
+
+if is_octave < 1
+    figExt ='fig';
+else
+    figExt ='ofig';
+end
+
+figload(['tmp',filesep,'16.',figExt],2);
 %openfig(['tmp',filesep,'16.fig'],2);
 subplot(3,1,3);
 imagesc(weight_matrix_supens_std_based);
@@ -359,7 +367,7 @@ z = [1:nz]'*ps.dz;
 
 A1o = A1;
 A2o = Aocean;
-do = d;
+d0 = d;
 
 %### add weights to data
 [Aocean,A1,d,idoc,iupc] = lainweig(Aocean,A1,d,wm);
@@ -755,7 +763,7 @@ if nargout>2
   de.A = [Aocean,A1];
   de.A1o = A1o;
   de.A2o = A2o;
-  de.do = do;
+  de.d0 = d0;
   de.jprof = jprof;
   de.jbin = jbin;
 end

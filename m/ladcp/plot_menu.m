@@ -6,8 +6,16 @@
 
 % changed location of windows for OSX     GK, 15.07.2008  0.2-->0.3
 % use sfigure instead of figure           GK, 16.11.2012  0.3-->0.4
+% modified for octave  Pedro Pena
 
-dd = dir(['tmp',filesep,'*.fig']);
+
+if is_octave < 1
+    figExt ='fig';
+else
+    figExt ='ofig';
+end
+dd = dir(['tmp',filesep,'*.',figExt])
+
 for n=1:length(dd)
   delete(['tmp',filesep,dd(n).name])
 end

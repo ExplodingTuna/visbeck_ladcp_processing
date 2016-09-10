@@ -252,8 +252,10 @@ if sum(isfinite(bua_rdi))>0
   y([1,end]) = 0;
   ys = sum(y);
   [x,y] = stairs(x,y);
-  fill(x,y/max(y)*30-50,'-g')
-  plot([0 0]+meanmediannan(bua_rdi,6),ax(3:4),'-g')
+  %fill(x,y/max(y)*30-50,'-g')
+  fill(x,y/max(y)*30-50,'g')%9.10.16 Pedro Pena
+  %plot([0 0]+meanmediannan(bua_rdi,6),ax(3:4),'-g')
+  plot([0 0]+meanmediannan(bua_rdi,6),ax(3:4),'g')%9.10.16 Pedro Pena
   text(tx2,-40,['RDI n: ',int2str(ys)])
   text(0.1,-10,[' bias ',num3str(meanmediannan(bua_rdi,6),6,3)],'color','g')
 end
@@ -262,8 +264,10 @@ end
 y([1,end]) = 0;
 ys = sum(y);
 [x,y] = stairs(x,y);
-fill(x,y/max(y)*30-100,'-b')
-plot([0 0]+meanmediannan(bua_own,6),ax(3:4),'-b')
+%fill(x,y/max(y)*30-100,'-b')
+fill(x,y/max(y)*30-100,'b')% Pedro Pena 9.10.16
+%plot([0 0]+meanmediannan(bua_own,6),ax(3:4),'-b')
+plot([0 0]+meanmediannan(bua_own,6),ax(3:4),'b')%Pedro PEna
 text(tx2,-90,[' own n: ',int2str(ys)])
 text(0.1,-60,[' bias ',num3str(meanmediannan(bua_own,6),6,3)],'color','b')
 
@@ -271,7 +275,8 @@ text(0.1,-60,[' bias ',num3str(meanmediannan(bua_own,6),6,3)],'color','b')
 y([1,end]) = 0;
 ys = sum(y);
 [x,y] = stairs(x,y);
-fill(x,y/max(y)*30-150,'-r')
+%fill(x,y/max(y)*30-150,'-r')
+fill(x,y/max(y)*30-150,'r')% Pedro Pena 9.10.16
 text(tx2,-140,['Sup. ens. n: ',int2str(ys)])
 text(0.1,-110,[' bias ',num3str(p.btrk_u_bias,6,3)],'color','r')
 title([' U bot-tr mean U_{ctd} : ',num3str(-nmean(real(de.uctd(:,1))),4,2),...
@@ -297,8 +302,10 @@ if sum(isfinite(bva_rdi))>0
   y([1,end]) = 0;
   ys = sum(y);
   [x,y] = stairs(x,y);
-  fill(x,y/max(y)*30-50,'-g')
-  plot([0 0]+meanmediannan(bva_rdi,6),ax(3:4),'-g')
+  %fill(x,y/max(y)*30-50,'-g')
+  fill(x,y/max(y)*30-50,'g')%Pedro Pena 9.10.16
+  %plot([0 0]+meanmediannan(bva_rdi,6),ax(3:4),'-g')
+   plot([0 0]+meanmediannan(bva_rdi,6),ax(3:4),'g')%Pedro Pena
   text(tx2,-40,[' RDI n: ',int2str(ys)])
   text(0.1,-10,[' bias ',num3str(meanmediannan(bva_rdi,6),6,3)],'color','g')
 end
@@ -307,8 +314,10 @@ end
 y([1,end]) = 0;
 ys = sum(y);
 [x,y] = stairs(x,y);
-fill(x,y/max(y)*30-100,'-b')
-plot([0 0]+meanmediannan(bva_own,6),ax(3:4),'-b')
+%fill(x,y/max(y)*30-100,'-b')
+fill(x,y/max(y)*30-100,'b')%Pedro Pena 9.10.16
+%plot([0 0]+meanmediannan(bva_own,6),ax(3:4),'-b')
+plot([0 0]+meanmediannan(bva_own,6),ax(3:4),'b')%Pedro Pena
 text(tx2,-90,[' own n: ',int2str(ys)])
 text(0.1,-60,[' bias ',num3str(meanmediannan(bva_own,6),6,3)],'color','b')
 
@@ -316,7 +325,8 @@ text(0.1,-60,[' bias ',num3str(meanmediannan(bva_own,6),6,3)],'color','b')
 y([1,end]) = 0;
 ys = sum(y);
 [x,y] = stairs(x,y);
-fill(x,y/max(y)*30-150,'-r')
+%fill(x,y/max(y)*30-150,'-r')
+fill(x,y/max(y)*30-150,'r')%Pedro Pena 9.10.16
 text(tx2,-140,['Sup. ens. n: ',int2str(ys)])
 text(0.1,-110,[' bias ',num3str(p.btrk_v_bias,6,3)],'color','r')
 title([' V bot-tr mean V_{ctd} : ',num3str(-nmean(imag(de.uctd(:,1))),4,2),...
@@ -349,8 +359,10 @@ if sum(isfinite(bwa_rdi))>0
   y([1,end]) = 0;
   ys = sum(y);
   [x,y]=stairs(x,y);
-  fill(x,y/max(y)*30-50,'-g')
-  plot([0 0]+meanmediannan(bwa_rdi,6),ax(3:4),'-g')
+  %fill(x,y/max(y)*30-50,'-g')
+  fill(x,y/max(y)*30-50,'g')%Pedro Pena 9.10.16
+  %plot([0 0]+meanmediannan(bwa_rdi,6),ax(3:4),'-g')
+   plot([0 0]+meanmediannan(bwa_rdi,6),ax(3:4),'g')%Pedro Pena 9.10.16
   text(tx2,-40,[' RDI n: ',int2str(ys)])
   text(0.1,-10,[' bias ',num3str(meanmediannan(bva_rdi,6),6,3)],'color','g')
 end
@@ -359,8 +371,10 @@ end
 y([1,end]) = 0;
 ys = sum(y);
 [x,y] = stairs(x,y);
-fill(x,y/max(y)*30-100,'-b')
-plot([0 0]+meanmediannan(bwa_own,6),ax(3:4),'-b')
+%fill(x,y/max(y)*30-100,'-b')
+fill(x,y/max(y)*30-100,'b')%Pedro Pena 9.10.16
+%plot([0 0]+meanmediannan(bwa_own,6),ax(3:4),'-b')
+plot([0 0]+meanmediannan(bwa_own,6),ax(3:4),'b')%Pedro Pena 9.10.16
 text(tx2,-90,[' own n: ',int2str(ys)])
 text(0.1,-60,[' bias ',num3str(meanmediannan(bwa_own,6),6,3)],'color','b')
 
@@ -368,7 +382,8 @@ text(0.1,-60,[' bias ',num3str(meanmediannan(bwa_own,6),6,3)],'color','b')
 y([1,end]) = 0;
 ys = sum(y);
 [x,y] = stairs(x,y);
-fill(x,y/max(y)*30-150,'-r')
+%fill(x,y/max(y)*30-150,'-r')
+fill(x,y/max(y)*30-150,'r')%Pedro Pena
 text(tx2,-140,['Sup. ens. n: ',int2str(ys)])
 text(0.1,-110,[' bias ',num3str(p.btrk_w_bias,6,3)],'color','r')
 text(-0.3,-154,['W diff: ',num3str(p.btrk_wdiff,6,3),' [m/s]'])

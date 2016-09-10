@@ -341,12 +341,17 @@ if length(files.res)>1
         if ~exist(['plots',filesep,int2str0(p.ladcp_station,3)])
             mkdir('plots',int2str0(p.ladcp_station,3));
         end
-        
+
+        if is_octave < 1
+            figExt ='fig';
+        else
+            figExt ='ofig';
+        end
         
         for n = 1:length(p.saveplot)
             j = p.saveplot(n);
-            if exist(['tmp',filesep,int2str(j),'.fig'],'file')
-                figload(['tmp',filesep,int2str(j),'.fig'],2);
+            if exist(['tmp',filesep,int2str(j),'.',figExt],'file')
+                figload(['tmp',filesep,int2str(j),'.',figExt],2);
                 %openfig(['tmp',filesep,int2str(j),'.fig']); %Pedro Pena 8.18.16
                 
                 %% lines added by RHS 03DEC2013

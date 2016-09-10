@@ -343,7 +343,13 @@ if length(data.zd) > 0
   bin_no = [bin_no 1:length(data.zd)]; 
 end
 
-figload(['tmp',filesep,'16.fig'],2)
+if is_octave < 1
+    figExt ='fig';
+else
+    figExt ='ofig';
+end
+
+figload(['tmp',filesep,'16.',figExt],2)
 %openfig(['tmp',filesep,'16.fig'],2)
 subplot(3,1,2);
 imagesc([1:size(di.ts,2)],bin_no,...

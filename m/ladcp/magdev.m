@@ -29,9 +29,17 @@ function  [dev,d,h,i,f,x,y,z]=magdev(flat,flon,elevkm,year);
 %
 % read the coefficients
 %
-fname = 'igrf11coeffs.xls';
+fname = 'igrf11coeffs';
 warning off			% avoid non-sensical warning in >=R14
-gh = xlsread(fname);
+
+if is_octave < 1
+    fname =[fname,'.xls']
+    gh = xlsread(fname);
+else
+    fname =[fname,'.csv']
+    gh = dlmread(['m',filesep,'ladcp',filesep,'igrf11coeffs.csv'],',');
+end
+
 warning on
 
 %

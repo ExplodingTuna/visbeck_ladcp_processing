@@ -15,7 +15,14 @@ global mh
 
 sfigure(2);
 clf
-figload(['tmp',filesep,int2str(fig),'.fig']);
+
+if is_octave < 1
+    figExt ='fig';
+else
+    figExt ='ofig';
+end
+
+figload(['tmp',filesep,int2str(fig),'.',figExt]);
 %openfig(['tmp',filesep,int2str(fig),'.fig']);
 
 sfigure(1);

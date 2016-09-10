@@ -57,21 +57,24 @@ if exist(file,'file')
 
 
 
-  if get_matlab_version > 7.1
-
-
+if get_matlab_version > 7.1 && is_octave < 1
+    
+    
     sfigure(2);
     clf
     % some code 'taken' from importfig.m at mathworks user site
     ImportFig=hgload(file,struct('visible','off'));
-    ImportFigAxes=get(ImportFig,'Children'); 
+    ImportFigAxes=get(ImportFig,'Children');
     cmap = get(ImportFig,'Colormap');
     NewSubplotAxes=copyobj(ImportFigAxes,2);
     set(2,'colormap',cmap);
     delete(ImportFig);
-
+    
     return
-  end
+else
+    hgload(file);%added for octave Pedro Pena
+    return
+end
 
 
   eval(['load ',file,' -mat']);
