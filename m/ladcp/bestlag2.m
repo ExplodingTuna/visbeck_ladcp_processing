@@ -97,7 +97,9 @@ for n=1:4			% remove outliers that degrade correlation
   aa1 = aa1(good);
   aa2 = aa2(good);
 end
-co = corrcoef(aa1,aa2);
+%co = corrcoef(aa1,aa2);
+co = corrcoef([aa1,aa2]); % modified to make compatible with both matlab and 
+%octave Pedro Pena 9.10.16
 co = co(1,2);
 
 
