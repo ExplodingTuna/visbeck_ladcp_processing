@@ -86,7 +86,8 @@ hold on
 ax = axis;
 plot(ax(1:2),[0 0],'-k')
 axis(ax) 
-colorbar('horiz')
+colorbar('SouthOutside');% Pedro Pena 9.10.2016
+%colorbar('horiz')
 
 
 %
