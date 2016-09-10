@@ -27,9 +27,14 @@ function [year, month, day, hour, minute, second] = jd2date(jd)
 %   E-mail:      pjacklam@online.no
 %   URL:         http://home.online.no/~pjacklam
 
-   nargsin = nargin;
-   error(nargchk(1, 1, nargsin));   
-   %narginchk(1, 1); %Pedro Pena 
+nargsin = nargin;
+if get_matlab_version < 9 % Pedro Pena 8.17.16
+    error(nargchk(1, 1, nargsin));% nargchck will be released in future versions
+else
+    narginchk(1, 1); %Pedro Pena
+end
+
+   %
    % Adding 0.5 to JD and taking FLOOR ensures that the date is correct.
    % Here are some sample values:
    %
@@ -87,9 +92,12 @@ function [hour, minute, second] = days2hms(days)
 %   Time-stamp:  2002-03-03 12:52:02 +0100
 %   E-mail:      pjacklam@online.no
 %   URL:         http://home.online.no/~pjacklam
-
-   error(nargchk(1, 1, nargin));   
-   %narginchk(1, 1); % Pedro Pena 8.17.16
+if get_matlab_version < 9 % Pedro Pena 8.17.16
+    error(nargchk(1, 1, nargin));  % nargchck will be released in future versions
+else
+    
+    narginchk(1, 1); % Pedro Pena 8.17.16
+end
 
    second = 86400 * days;
    hour   = fix(second/3600);           % get number of hours

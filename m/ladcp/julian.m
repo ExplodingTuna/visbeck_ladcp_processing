@@ -32,17 +32,19 @@ function jd = date2jd(varargin)
 %   E-mail:      pjacklam@online.no
 %   URL:         http://home.online.no/~pjacklam
 
-   nargsin = nargin;
-  error(nargchk(0, 6, nargsin));
-   %narginchk(0, 6); % Pedro Pena 8.17.16
-   if nargsin
-      argv = {1 1 1 0 0 0};
-      argv(1:nargsin) = varargin;
-   else
-      argv = num2cell(clock);
-   end
-   [year, month, day, hour, minute, second] = deal(argv{:});
-
+nargsin = nargin;
+if get_matlab_version < 9 % Pedro Pena 8.17.16
+    error(nargchk(0, 6, nargsin));% nargchck will be released in future versions
+else
+    narginchk(0, 6); % Pedro Pena 8.17.16
+    if nargsin
+        argv = {1 1 1 0 0 0};
+        argv(1:nargsin) = varargin;
+    else
+        argv = num2cell(clock);
+    end
+    [year, month, day, hour, minute, second] = deal(argv{:});
+end
 if nargin==1
   second = year(:,6);
   minute = year(:,5);
