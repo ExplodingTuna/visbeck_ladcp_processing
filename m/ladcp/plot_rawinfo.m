@@ -287,7 +287,7 @@ hgsave(['tmp',filesep,'2'])
 
 
 %=============================================
-function checkbeam(t,ax,do)
+function checkbeam(t,ax,d0)
 % check beam performance
 %
 % it looks like 
@@ -304,7 +304,7 @@ bl = size(t,1);			% this seems to have been a bug
 iend = fix(bl/2):bl;
 
 tax = mean(ax(1:2));
-if do
+if d0
   tay = ax(3);
   tflag = 'bottom';
 else
