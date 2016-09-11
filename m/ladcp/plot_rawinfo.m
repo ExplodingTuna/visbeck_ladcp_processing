@@ -270,8 +270,7 @@ end
 if isfield(d,'xmv')
   subplot(816)
   plot(d.xmv(1,:))
-  text(length(d.xmv)/2,mean(d.xmv(1,:)),[' mean: ',...
-	num2str(fix(values.xmv(1)*10)/10)])
+  text(length(d.xmv)/2,mean(d.xmv(1,:)),[' mean: ',num2str(fix(values.xmv(1)*10)/10)])
   ylabel('X-mit volt down')
   xlabel('ensemble')
   ax = axis;

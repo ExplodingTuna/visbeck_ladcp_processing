@@ -36,7 +36,7 @@ nargsin = nargin;
 
 if get_matlab_version < 9 % Pedro Pena 8.17.16
     
-    error(nargchk(0, 6, nargsin));% nargchck will be released in future versions
+    error(nargchk(0, 6, nargsin));% nargchck will be removed in future versions
     
 else
     

@@ -39,7 +39,14 @@ function [msg,x,y,xx,yy,linetype,plottype,barwidth,arg8] = makebars(varargin)
 x = []; y=[]; xx=[]; yy=[]; linetype=[]; plottype=[]; barwidth=[];
 arg8 = [];
 
-msg = nargchk(1,5,nargin);
+msg='';
+
+if get_matlab_version < 9 % Pedro Pena 8.17.16
+    msg = nargchk(1,5,nargin);% nargchck will be removed in future versions
+else
+    narginchk(1, 5); %Pedro Pena
+end
+
 if ~isempty(msg), return, end
 
 barwidth = .8; % Normalized width of bar.

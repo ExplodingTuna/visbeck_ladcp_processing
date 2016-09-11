@@ -14,7 +14,7 @@ if is_octave < 1
 else
     figExt ='ofig';
 end
-dd = dir(['tmp',filesep,'*.',figExt])
+dd = dir(['tmp',filesep,'*.',figExt]);
 
 for n=1:length(dd)
   delete(['tmp',filesep,dd(n).name])

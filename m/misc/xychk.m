@@ -13,7 +13,14 @@ function [msg,x,y,xi] = xychk(varargin)
 %   Copyright 1984-2003 The MathWorks, Inc.
 %   $Revision: 1.22.4.2 $  $Date: 2003/05/01 20:42:53 $
 
-error(nargchk(1, 3, nargin));
+
+
+if get_matlab_version < 9 % Pedro Pena 8.17.16
+    error(nargchk(1, 3, nargin));% nargchck will be removed in future versions
+else
+    narginchk(1, 3); %Pedro Pena
+end
+
 
 nin = nargin; x = []; y = []; xi = [];
 

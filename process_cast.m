@@ -336,7 +336,8 @@ if length(files.res)>1
         imac = ismac;
     end
     
-    if noplots==0
+%    if noplots==0
+     if findstr(p.print_formats,'none') < 1 %Pedo Pena
         %replaced '\' with filesep & modifed mkdir   pedro pena 8.10.2016
         if ~exist(['plots',filesep,int2str0(p.ladcp_station,3)])
             mkdir('plots',int2str0(p.ladcp_station,3));
@@ -379,7 +380,12 @@ if length(files.res)>1
                 end
             end
             if findstr(p.print_formats,'jpg')
-                eval(['print -djpeg ',files.plots,'_' int2str(j) '.jpg '])
+                if is_octave < 1
+                    eval(['print -djpeg ',files.plots,'_' int2str(j) '.jpg '])
+                else
+                    eval(['print -djpg ',files.plots,'_' int2str(j) '.jpg '])
+                end
+                
             end
             warning on
             %close gcf;
