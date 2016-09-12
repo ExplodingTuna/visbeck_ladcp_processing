@@ -339,7 +339,7 @@ if length(files.res)>1
     end
     
 %    if noplots==0
-     if findstr(p.print_formats,'none') < 1 %Pedo Pena
+     if isempty(findstr(p.print_formats,'none')) %Pedo Pena
         %replaced '\' with filesep & modifed mkdir   pedro pena 8.10.2016
         if ~exist(['plots',filesep,int2str0(p.ladcp_station,3)])
             mkdir('plots',int2str0(p.ladcp_station,3));

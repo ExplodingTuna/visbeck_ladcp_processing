@@ -23,7 +23,7 @@ global mh
 
 % handle newer matlab versions
 % if version('-release')>=14
-if get_matlab_version > 8.4
+if get_matlab_version > 8.4 % Pedro Pena 9.12.16
     imac = 0;
 else
     imac = ismac;
@@ -42,9 +42,10 @@ set(gcf,'position',[220,10+imac*100,800,696],'numbertitle','off',...
 
 % create the menu
 sfigure(1);
+if is_octave <1
 fh(1) = uicontrol('style','frame','position',[10,10,150,600]);
 fh(2) = uicontrol('style','frame','position',[10,620,150,120]);
-
+end
 th(1) = uicontrol('style','text','position',[15,705,140,30],...
 	'horizontalalignment','center','string','LADCP',...
 	'fontsize',14);
