@@ -52,3 +52,7 @@ cn(2:3:end,2:3:end) = c;
 
 % display matrix
 h = pcolor(xn,yn,cn);
+% in some versions of matlab greater than 7.2 the plots can't
+% be seen because the edgle lines blot them out.
+% the following line removes the edgelines.
+set(h, 'EdgeColor', 'none'); % Pedro Pena Thomas Sevilla 9.12.16

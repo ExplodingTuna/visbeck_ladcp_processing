@@ -35,6 +35,9 @@ end
 % top subplot with vertical velocities for all bins
 %
 subplot(411)
+if isfield(params,'name')
+  streamer([params.name,' Figure 2']);
+end
 z = -d.izm(:,1)+d.z(1);
 zz = [];
 rw = [];
@@ -86,7 +89,11 @@ hold on
 ax = axis;
 plot(ax(1:2),[0 0],'-k')
 axis(ax) 
-colorbar('SouthOutside');% Pedro Pena 9.10.2016
+if get_matlab_version > 7.2
+colorbar('location','eastoutside');% Pedro Pena 9.10.2016
+else
+colorbar('location','southoutside');% Pedro Pena 9.10.2016    
+end
 %colorbar('horiz')
 
 
@@ -113,9 +120,9 @@ end
 
 ylabel('range [m]')
 xlabel('ensemble')
-if isfield(params,'name')
-  streamer([params.name,' Figure 2']);
-end
+% if isfield(params,'name')
+%   streamer([params.name,' Figure 2']);
+% end
 title(' W as function of bindepth and time')
 
 
@@ -277,6 +284,7 @@ if isfield(d,'xmv')
   ax(2) = length(d.z);
   axis(ax)
   set(gca,'yaxislocation','right')
+
 end
 
 hgsave(['tmp',filesep,'2'])
