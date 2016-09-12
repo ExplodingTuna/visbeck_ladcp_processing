@@ -23,7 +23,7 @@ global mh
 
 % handle newer matlab versions
 % if version('-release')>=14
-if get_matlab_version > 8.4 % Pedro Pena 9.12.16
+if get_matlab_version > 8.04 % Pedro Pena 9.12.16
     imac = 0;
 else
     imac = ismac;

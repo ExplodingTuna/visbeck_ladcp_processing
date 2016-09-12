@@ -55,7 +55,7 @@ end
 if nargin < 2, whichLabel = 'x';  end
 if nargin < 1, help(mfilename); return; end
 
-if get_matlab_version < 7.2
+if get_matlab_version < 7.02
     v1=isstr(text);
     v2=isstr(whichLabel);
     else

@@ -237,7 +237,7 @@ n = length(h);
 h = fliplr(h);
 d = 0;
 for i=1:n
-    if get_matlab_version < 7.2
+    if get_matlab_version < 7.02
     v=isstr(h(i));
     else
     v=ischar(h(i));

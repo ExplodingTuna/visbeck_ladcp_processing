@@ -18,7 +18,7 @@ function outtext=int2str0(x,nfill,fillstr);
 % swapped argeuments			G.K. LDEO Oct 2004
 %debug_on_warning(1);
 
-if get_matlab_version < 7.2
+if get_matlab_version < 7.02
     v=isstr(nfill);
     else
     v=ischar(nfill);

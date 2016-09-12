@@ -56,7 +56,7 @@ if exist(file,'file')
     %   if v1>=7 & v2>3
     
     
-    if get_matlab_version >= 7.3
+    if get_matlab_version >= 7.03
         if is_octave < 1
             sfigure(2);
             clf

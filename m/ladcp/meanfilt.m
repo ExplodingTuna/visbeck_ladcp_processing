@@ -34,7 +34,7 @@ if k==0
   stdy = nan*x;
   return
 end
-if get_matlab_version < 7.2
+if get_matlab_version < 7.02
     v=isstr(dim);
     else
     v=ischar(dim);

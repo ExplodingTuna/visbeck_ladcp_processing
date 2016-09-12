@@ -31,7 +31,7 @@ if ndims(x) == 2 & length(x) > 1
    end
 else
     
-if get_matlab_version < 7.2
+if get_matlab_version < 7.02
     v=isstr(x);
     else
     v=ischar(x);

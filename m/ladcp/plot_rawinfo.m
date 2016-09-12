@@ -89,7 +89,7 @@ hold on
 ax = axis;
 plot(ax(1:2),[0 0],'-k')
 axis(ax) 
-if get_matlab_version > 7.2
+if get_matlab_version > 7.02
 colorbar('location','eastoutside');% Pedro Pena 9.10.2016
 else
 colorbar('location','southoutside');% Pedro Pena 9.10.2016    
