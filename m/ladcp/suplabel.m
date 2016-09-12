@@ -55,7 +55,15 @@ end
 if nargin < 2, whichLabel = 'x';  end
 if nargin < 1, help(mfilename); return; end
 
-if ~isstr(text) | ~isstr(whichLabel)
+if get_matlab_version < 7.2
+    v1=isstr(text);
+    v2=isstr(whichLabel);
+    else
+    v2=ischar(whichLabel);
+    v1=ischar(text);
+end
+
+if ~v1 || ~v2
   error('text and whichLabel must be strings')
 end
 whichLabel=lower(whichLabel);

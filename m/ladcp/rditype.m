@@ -237,7 +237,13 @@ n = length(h);
 h = fliplr(h);
 d = 0;
 for i=1:n
-  if isstr(h(i)),
+    if get_matlab_version < 7.2
+    v=isstr(h(i));
+    else
+    v=ischar(h(i));
+    end
+
+  if v,
     p(i) = str2num(h(i)).*(2^(i-1));
   else
     p(i) = h(i).*(2^(i-1));

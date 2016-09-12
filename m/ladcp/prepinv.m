@@ -182,8 +182,8 @@ if values.up==1
         [ib,it] = size(d.ru);
         z = -d.izm+d.ru*0;
         ii = find(z>=min(dr.z) & z<=max(dr.z));
-        l.uoce(:,1) = interp1q(dr.z,dr.u,z(ii));
-        l.uoce(:,2) = interp1q(dr.z,dr.v,z(ii));
+        l.uoce(:,1) = interp1(dr.z,dr.u,z(ii));
+        l.uoce(:,2) = interp1(dr.z,dr.v,z(ii));
         [prof,bin] = meshgrid(1:it,1:ib);
         l.ru = full(sparse(bin(ii),prof(ii),l.uoce(:,1)));
         l.rv = full(sparse(bin(ii),prof(ii),l.uoce(:,2)));

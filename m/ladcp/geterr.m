@@ -38,8 +38,8 @@ if min(d.time_jul)<tim(1) | max(d.time_jul)>tim(end)
     vctd1 = vctd1([1:end,end]);
   end
 end
-uctd = -interp1q(tim',uctd1',d.time_jul');
-vctd = -interp1q(tim',vctd1',d.time_jul');
+uctd = -interp1(tim',uctd1',d.time_jul');
+vctd = -interp1(tim',vctd1',d.time_jul');
 
 [ib,it] = size(d.ru);
 
@@ -60,8 +60,8 @@ dz = diff(d.izm(:,1))';
 
 ii = find(z>=min(dr.z) & z<=max(dr.z));
 
-uoce = interp1q(dr.z,dr.u,z(ii));
-voce = interp1q(dr.z,dr.v,z(ii));
+uoce = interp1(dr.z,dr.u,z(ii));
+voce = interp1(dr.z,dr.v,z(ii));
 
 [prof,bin] = meshgrid([1:it],[1:ib]);
 
@@ -229,7 +229,7 @@ if iplot
   plot(d.ru(iz,:)-l.ru_ctd(iz,:),l.izm(iz,:),'b.','markersize',3)
   plot(dr.u,-dr.z,'-r')
   plot([l.u_oce_m'+l.u_oce_s', l.u_oce_m'-l.u_oce_s'],-l.z_oce','-g')
-  if isfield(dr,'u_shear_method')& length(dr.z)==length(dr.u_shear_method)
+  if isfield(dr,'u_shear_method')&& length(dr.z)==length(dr.u_shear_method)
     plot(dr.u_shear_method+nmean(dr.u),-dr.z,'-k')
   end
   ax = [ca,ax(3:4)];
@@ -270,7 +270,7 @@ if iplot
   plot(d.rv(iz,:)-l.rv_ctd(iz,:),l.izm(iz,:),'b.','markersize',3)
   plot(dr.v,-dr.z,'-r')
   plot([l.v_oce_m'+l.v_oce_s', l.v_oce_m'-l.v_oce_s'],-l.z_oce','-g')
-  if isfield(dr,'v_shear_method')& length(dr.z)==length(dr.v_shear_method)
+  if isfield(dr,'v_shear_method')&& length(dr.z)==length(dr.v_shear_method)
     plot(dr.v_shear_method+nmean(dr.v),-dr.z,'-k')
   end
   ax = [ca,ax(3:4)];

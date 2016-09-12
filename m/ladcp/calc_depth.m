@@ -89,7 +89,7 @@ data.ladcp_z_simple = -zz;
 %
 % us as first guess if no CTD time series are present
 %
-if isempty(data.ctdtime_data) & values.ladcpdepth<0
+if isempty(data.ctdtime_data) && values.ladcpdepth<0
  data.z = -zz;
 end
 
@@ -164,7 +164,7 @@ end
 %
 % extract surface distance to find start depth
 %
-if isfield(data,'hsurf') & params.surfdist
+if isfield(data,'hsurf') && params.surfdist
   if sum(isfinite(data.hsurf))>10
     [zmax,ibot] = max(-data.z);
     % start depth
@@ -275,7 +275,7 @@ if 1
       data.bvel(ibad,:) = NaN;
     else
       disp('    Not enough data to determine water depth.')
-      if params.zbottom~=0 & ~isnan(params.zbottom)
+      if params.zbottom~=0 && ~isnan(params.zbottom)
         disp('    Found preset water depth')
         zbottom = params.zbottom;
       else
@@ -311,7 +311,7 @@ end
 %
 % check if bottom is shallower that maxctd-depth an
 %
-if ((zbottom-values.maxdepth<-(values.maxdepth*0.01+10) &...
+if ((zbottom-values.maxdepth<-(values.maxdepth*0.01+10) &&...
 	 isfinite(zbottom)) |...
        	params.zbottomerror > 20 )
   disp('    Found no bottom')

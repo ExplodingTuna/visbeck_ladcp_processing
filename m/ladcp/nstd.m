@@ -1,4 +1,4 @@
-function y = std(x,flag,dim)
+function y = nstd(x,flag,dim)
 %NSTD   Standard deviation, ignoring NaN.
 %   Same as STD, but NaN's are ignored.
 %

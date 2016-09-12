@@ -27,6 +27,6 @@ if ~isfield(values,'ctd_time')
 end
 
 % store data at the standard location
-save6([files.ctd_ts_dir,filesep,'ctdtime',int2str0(stn,3)],'timctd data')
+save6([files.ctd_ts_dir,filesep,'ctdtime',int2str0(stn,3),'.mat'],'timctd data')
 
 

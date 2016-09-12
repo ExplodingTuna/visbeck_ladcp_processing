@@ -1,4 +1,4 @@
-function [result]=sind(argu)
+function [result]=sin_d(argu)
 % function [result]=sind(argu)
 %
 % sine with degrees as argument

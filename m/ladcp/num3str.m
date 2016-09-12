@@ -30,7 +30,14 @@ if ndims(x) == 2 & length(x) > 1
       end
    end
 else
-   if isstr(x)
+    
+if get_matlab_version < 7.2
+    v=isstr(x);
+    else
+    v=ischar(x);
+end    
+    
+   if v
       t = x;
    else
       t = sprintf(['%',int2str(n),'.',int2str(m),'f'],x);

@@ -33,18 +33,21 @@ function save6( varargin )
 %
 % change / \ according to unix/mac or win systems
 %
+
 tmp = varargin{1};
-if ispc==1
-  ind = findstr(tmp,'/');
-  if ~isempty(ind)
-    tmp(ind) = '\';
-  end
-else
-  ind = findstr(tmp,'\');
-  if ~isempty(ind)
-    tmp(ind) = '/';
-  end
-end
+% removed bottom code because it's no longer necessary.
+% since the absolute path is now being passes  Pedro Pena
+% if ispc==1
+%   ind = findstr(tmp,'/');
+%   if ~isempty(ind)
+%     tmp(ind) = '\';
+%   end
+% else
+%   ind = findstr(tmp,'\');
+%   if ~isempty(ind)
+%     tmp(ind) = '/';
+%   end
+% end
 
 %% version testing
 %v = ver;

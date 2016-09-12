@@ -1368,7 +1368,7 @@ for ii=1:ne
 
 end % Big Loop
 
-if p.beam2earth_allow_3beam_solutions & (N_3beam>0 | N_4beam>0)
+if p.beam2earth_allow_3beam_solutions && (N_3beam>0 || N_4beam>0)
   disp(sprintf('>  %d  3-beam solutions calculated (%d%% of total)',...
      N_3beam,round(100*N_3beam/(N_3beam+N_4beam))));
 end

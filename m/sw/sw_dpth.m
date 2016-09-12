@@ -41,16 +41,16 @@ function DEPTHM = sw_dpth(P,LAT)
 %-------------
 [mP,nP] = size(P);
 [mL,nL] = size(LAT);
-if mL==1 & nL==1                    % LAT scalar - fill to size of P
+if mL==1 && nL==1                    % LAT scalar - fill to size of P
   LAT = LAT*ones(size(P));
 
-elseif nP == nL & mL == 1           % LAT is row vector
+elseif nP == nL && mL == 1           % LAT is row vector
   LAT = LAT(ones(1, mP), :);        % Coppy down each column
 
-elseif mP == mL & nL == 1           % LAT is column vector
+elseif mP == mL && nL == 1           % LAT is column vector
   LAT = LAT(:, ones(1, nP));        % Copy across each row
 
-elseif mP == mL & nP == nL
+elseif mP == mL && nP == nL
   % Ok
 
 else

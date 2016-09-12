@@ -1,4 +1,4 @@
-function varargout = rdread(fid)
+function varargout = whread(fid)
 %RDREAD Read RDI BB data.
 %  RDREAD(FID)
 %

@@ -1,4 +1,4 @@
-function [result]=cosd(argu)
+function [result]=cos_d(argu)
 % function [result]=cosd(argu)
 %
 % cosine with degrees as argument

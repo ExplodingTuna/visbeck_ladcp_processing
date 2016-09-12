@@ -88,10 +88,10 @@ elseif nargin == 3
   else
     c = [[c;nan*[1:size(c,2)]],nan*[1:size(c,1)+1]'];
   end
-  if size(x,1)~=1 & size(x,2)~=1
+  if size(x,1)~=1 && size(x,2)~=1
     x = x(1,:);
   end
-  if size(y,1)~=1 & size(y,2)~=1
+  if size(y,1)~=1 && size(y,2)~=1
     y = y(:,1);
   end
   x = x(:)';

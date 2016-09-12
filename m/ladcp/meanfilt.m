@@ -34,12 +34,17 @@ if k==0
   stdy = nan*x;
   return
 end
+if get_matlab_version < 7.2
+    v=isstr(dim);
+    else
+    v=ischar(dim);
+end
 
 % extract options
 if nargin<4
   method='const';
   if nargin==3
-    if isstr(dim)
+    if v
       method = dim;
       dim = 1;
     end

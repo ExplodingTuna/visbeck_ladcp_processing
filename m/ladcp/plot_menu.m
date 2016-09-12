@@ -22,7 +22,8 @@ end
 global mh
 
 % handle newer matlab versions
-if version('-release')>=14
+% if version('-release')>=14
+if get_matlab_version > 8.4
     imac = 0;
 else
     imac = ismac;
@@ -32,11 +33,11 @@ end
 % one for the control menu and one for the actual plots
 sfigure(1);
 clf
-set(gcf,'position',[10,10+imac*100,170,750],'numbertitle','off','menubar',...
+set(gcf,'position',[10,10+imac*100,200,750],'numbertitle','off','menubar',...
 	'none','name','LADCP 1');
 sfigure(2);
 clf
-set(gcf,'position',[190,10+imac*100,800,696],'numbertitle','off',...
+set(gcf,'position',[220,10+imac*100,800,696],'numbertitle','off',...
 	'name','LADCP 2');
 
 % create the menu
@@ -46,13 +47,13 @@ fh(2) = uicontrol('style','frame','position',[10,620,150,120]);
 
 th(1) = uicontrol('style','text','position',[15,705,140,30],...
 	'horizontalalignment','center','string','LADCP',...
-	'fontsize',18);
+	'fontsize',14);
 th(2) = uicontrol('style','text','position',[15,665,140,30],...
 	'horizontalalignment','center','string','processing',...
-	'fontsize',18);	
+	'fontsize',14);	
 th(3) = uicontrol('style','text','position',[15,625,140,30],...
 	'horizontalalignment','center','string','display',...
-	'fontsize',18);	
+	'fontsize',14);	
 	
 mh(1) = uicontrol('style','push','position',[15,585,140,20],...
 	'horizontalalignment','center','string','UV-profiles',...

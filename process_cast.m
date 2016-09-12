@@ -30,7 +30,9 @@ function [] = process_cast(stnS,ctd_lagS,extraarg)
 % When passed as an argument from the command line, the MRC interprets
 % the value as a strng rather than a number. This check will allow both
 % strings and numbers to be passed
-
+if is_octave ==1
+warning ('off', 'Octave:divide-by-zero');
+end
 if isnumeric(stnS) %Pedro Pena 8.11.16
     stn=stnS;
 else
@@ -114,7 +116,7 @@ cruise_id=get_cruise_variable_value(cruiseVars,'cruise_id');%added by Pedro Pena
 
 % override automatically detected Serial Numbers
 % and use the ones from cruise_params.cfg  added by Pedro Pena 8.20.16
-override_sn = str2num(get_cruise_variable_value(cruiseVars,'override_sn'))
+override_sn = str2num(get_cruise_variable_value(cruiseVars,'override_sn'));
 
 [data,values,messages,p,files] = rdiload(files,p,messages,values);
 
@@ -426,4 +428,4 @@ fclose('all');				%  close all files just to make sure
 disp(' ')				% final message
 disp(['    Processing took ',int2str(toc),' seconds'])
 
-save tmp/last_processed
+save(['tmp',filesep,'last_processed.mat']);

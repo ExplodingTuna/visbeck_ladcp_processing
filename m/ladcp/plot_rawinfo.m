@@ -1,4 +1,4 @@
-function plotraw(d,params,values)
+function plot_rawinfo(d,params,values)
 % function plotraw(d,params,values)
 %
 % plot some results

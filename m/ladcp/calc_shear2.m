@@ -1,4 +1,4 @@
-function [ds,dr,ps,p,messages] = getshear(d,p,ps,dr,messages)
+function [ds,dr,ps,p,messages] = calc_shear2(d,p,ps,dr,messages)
 %
 % - compute shear profiles 
 % - use only central difference

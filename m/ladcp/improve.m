@@ -45,7 +45,7 @@ disp('IMPROVE:  apply various improvements to the data')
 %
 % apply magnetic deviation
 %
-if (values.lat==0 & values.lon==0) | isnan(values.lat)
+if (values.lat==0 && values.lon==0) | isnan(values.lat)
   disp('>   NOT correcting for magnetic deviation')
   disp('>     found lat=0 & lon=0 , assuming no position info available')
   disp('>     else, set position in cast_params.m')
@@ -125,7 +125,7 @@ end
 %
 % fix problems with a compass
 %
-if params.fix_compass>0 | ~isempty(params.down_deviation_table)
+if params.fix_compass>0 || ~isempty(params.down_deviation_table)
   [data,params] = misc_fix_compass(data,params);
 end
 

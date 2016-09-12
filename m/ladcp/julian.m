@@ -1,4 +1,4 @@
-function jd = date2jd(varargin)
+function jd = julian(varargin)
 % Modified Julian day number from Gregorian date.
 %
 % check value 2451545.0 = January 1, 2000, 00:00:00

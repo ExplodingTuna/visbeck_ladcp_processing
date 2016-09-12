@@ -1,4 +1,4 @@
-function [ctd,varlabel,names,sensors]=ctd_rd(cnv_file,FMT);
+function [ctd,varlabel,names,sensors]=ctd_rd2(cnv_file,FMT);
 % CTD_RD Reads the SeaBird ASCII .CNV file format
 %
 %  Usage:   CTD=ctd_rd(cnv_file);

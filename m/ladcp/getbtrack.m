@@ -181,7 +181,7 @@ if p.btrk_mode>=1
       d.bvel_own = bv;
       ii = find(isfinite(bv(:,1)+bv(:,2)));
 
-      if (p.btrk_used~=1 & p.btrk_used~=12) | p.btrk_mode==2
+      if (p.btrk_used~=1 && p.btrk_used~=12) | p.btrk_mode==2
         p.btrk_used = 2;
         d.bvel = d.bvel_own;
         disp(['    Created ',int2str(length(ii)),...
@@ -192,7 +192,7 @@ if p.btrk_mode>=1
       end
 
     else
-      if (p.btrk_used~=1 & p.btrk_used~=12)
+      if (p.btrk_used~=1 && p.btrk_used~=12)
         p.btrk_used = -1;
       end
       disp('    Did not find any bottom echos to create own bottom track ')
@@ -278,7 +278,7 @@ function [ts,bcs]=targ(ea,dis,at,bl,eas,ap)
 % make distance matrix if needed
 [lr,lc] = size(ea);
 
-if size(dis,2)==1 | size(dis,1)==1
+if size(dis,2)==1 || size(dis,1)==1
   dis = dis(:);
   dis = repmat(dis,[1,lc]);
 end

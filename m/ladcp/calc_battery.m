@@ -1,4 +1,4 @@
-function [p,messages] = battery(p,values,messages)
+function [p,messages] = calc_battery(p,values,messages)
 % function [p,messages]=battery(p,values,messages)
 % try to find know battery calibration and issue warning if low
 

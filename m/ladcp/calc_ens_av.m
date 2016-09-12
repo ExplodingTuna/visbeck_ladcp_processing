@@ -54,7 +54,7 @@ p = setdefv(p,'superens_std_min',...
 %
 % catch special case of shallow profiles
 %
-if (values.maxdepth<100 & isnan(p.avens)) | (p.avens==1 & p.avdz==0)
+if (values.maxdepth<100 && isnan(p.avens)) || (p.avens==1 & p.avdz==0)
   disp(['    Profile shallower than 100m use fixed ensemble averaging'])
   p.avens = 1;
   p.avdz = 0;
@@ -67,7 +67,7 @@ else
   disp(['    Averaging profiles over (p.avdz) ',num2str(p.avdz),' m'])
 end
 
-if (isnan(p.avdz) | p.avdz<=0 ) & (isnan(p.avens) | p.avens < 2)
+if (isnan(p.avdz) || p.avdz<=0 ) && (isnan(p.avens) || p.avens < 2)
   disp('>   avdz=NAN or 0  => No pre-averaging done !!!')
   di.ru = data.ru;
   di.rv = data.rv;

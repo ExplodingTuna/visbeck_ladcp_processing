@@ -60,7 +60,7 @@ if (ms~=mt) | (ns~=nt)
 end %if
 
 % CHECK OPTIONAL SHAPES FOR P
-if     mp==1  & np==1      % P is a scalar.  Fill to size of S
+if     mp==1  && np==1      % P is a scalar.  Fill to size of S
    P = P(1)*ones(ms,ns);
 elseif np==ns & mp==1      % P is row vector with same cols as S
    P = P( ones(1,ms), : ); %   Copy down each column.

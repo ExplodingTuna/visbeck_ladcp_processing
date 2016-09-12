@@ -16,8 +16,15 @@ function outtext=int2str0(x,nfill,fillstr);
 % added columnwise output , 		G.Krahmann, IfM Kiel, Oct 1993
 % removed bug; added fillstr, 		G.Krahmann, Aug 1995
 % swapped argeuments			G.K. LDEO Oct 2004
+%debug_on_warning(1);
 
-if isstr(nfill)
+if get_matlab_version < 7.2
+    v=isstr(nfill);
+    else
+    v=ischar(nfill);
+end
+
+if v
   dummy = nfill;
   nfill = fillstr;
   fillstr = dummy;
@@ -31,7 +38,7 @@ end
 
 outtext=[];
 s=size(x);
-if ( (s(1)>1) & (s(2)>1) )
+if ( (s(1)>1) && (s(2)>1) )
   error('int2str0 is not able to handle arrays !!')
   return
 end
@@ -45,7 +52,7 @@ if (s(2)==1)
     while (length(dummy)<ll)
       dummy=[fillstr,dummy];
     end
-    outtext=[outtext;dummy];
+    outtext=[int2str(outtext);dummy];
   end
 else
   for i=1:length(x);

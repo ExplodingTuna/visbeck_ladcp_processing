@@ -1,4 +1,4 @@
-function [year, month, day, hour, minute, second] = jd2date(jd)
+function [year, month, day, hour, minute, second] = gregoria(jd)
 % Gregorian calendar date from modified Julian day number.
 %
 % check value 2451545.0 = January 1, 2000, 00:00:00

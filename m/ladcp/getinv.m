@@ -64,7 +64,7 @@ end
 %
 % I do not really understand this !!!!!!!!!!!!  GK
 %
-if p.magdev==0 & values.lat==0 & values.lon==0
+if p.magdev==0 && values.lat==0 && values.lon==0
   warn = [' magnetic deviation given is NAN '];
   messages.warnp = strvcat(messages.warnp,warn);
   p.rot = 0;
@@ -502,7 +502,7 @@ de.type_constraints = [de.type_constraints;'Ship ADCP '];
 % check if position data exist 
 %
 uship_a = values.uship+sqrt(-1)*values.vship;
-if (abs(uship_a)==0 & values.lat==0 & values.lon==0) |...
+if (abs(uship_a)==0 && values.lat==0 && values.lon==0) ||...
 	 ~isfinite(values.lon+values.lat)
   disp('    No position data ');
   ps.barofac = 0;
@@ -539,7 +539,7 @@ de.ctd_constraints = [de.ctd_constraints;sum(abs(A1))-sum(de.ctd_constraints)];
 de.type_constraints = [de.type_constraints;'Small flow'];
 
 %### check if problem is well constrained
-if (psbot==0 & ps.barofac==0 & ps.sadcpfac==0), 
+if (psbot==0 && ps.barofac==0 && ps.sadcpfac==0), 
   disp('    No bottom no barotropic no SADCP constraint => setting mean U,V to zero')
   dr.onlyshear = 1;
   [Aocean,A1,d] = lainocean(Aocean,A1,d);
@@ -585,7 +585,7 @@ dr.ubar = mean(dr.u);
 dr.vbar = mean(dr.v);
 dr.tim = tim;
 dr.tim_hour = (tim-fix(tim(1)))*24;
-if sum(isfinite(slat+slon))>0 | ps.dragfac>0
+if sum(isfinite(slat+slon))>0 || ps.dragfac>0
   dr.shiplon = slon;
   dr.shiplat = slat;
   dr.xship = (slon-slon(1))*60*1852*cos_d(values.lat);
