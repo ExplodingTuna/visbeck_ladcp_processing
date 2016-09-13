@@ -34,7 +34,6 @@ end
 %
 % top subplot with vertical velocities for all bins
 %
-subplot(411)
 if isfield(params,'name')
   streamer([params.name,' Figure 2']);
 end
@@ -61,7 +60,7 @@ if length(iz)>1
   % check for 3-beam solutions
   iw = sum(~isnan(d.raw_w(iz,ind)));
   ie = sum(~isnan(d.raw_e(iz,ind)));
-  i3bu = find(iw>(2*ie));
+  i3bu = find(iw>(2*ie));,'FontWeight','normal'
   n3bu = length(i3bu)/length(ind)*100;
 end
 iz = d.izd;
@@ -77,6 +76,8 @@ if length(iz)>1
   n3bd = length(i3bd)/length(ind)*100;
 end
 
+subplot(8,2,[1,2]);
+
 
 %
 % contour results
@@ -88,9 +89,11 @@ gcolor(ind,zz,nmedian(diff(ind))*ones(1,length(ind)),dz,rw);
 hold on
 ax = axis;
 plot(ax(1:2),[0 0],'-k')
-axis(ax) 
+axis(ax)
+title(' W as function of bindepth and time','FontWeight','normal','FontSize',8)
+subplot(8,2,[3,4]);
 if get_matlab_version > 7.02
-colorbar('location','eastoutside');% Pedro Pena 9.10.2016
+colorbar('location','southoutside');% Pedro Pena 9.10.2016
 else
 colorbar('location','southoutside');% Pedro Pena 9.10.2016    
 end
@@ -123,9 +126,9 @@ xlabel('ensemble')
 % if isfield(params,'name')
 %   streamer([params.name,' Figure 2']);
 % end
-title(' W as function of bindepth and time')
 
 
+subplot(8,2,15);
 %
 % subplot showing beam performance (target strength/echo amplitude)
 %
@@ -133,7 +136,7 @@ title(' W as function of bindepth and time')
 %
 cols = 'brgk';
 if isfield(d,'tsd_m')
-  subplot(427)
+  %subplot(427)
   plot(d.tsd_m(1:length(d.izd),:),-d.zd)
   axis tight
   ax = axis;
@@ -155,7 +158,7 @@ if isfield(d,'tsd_m')
   axis(ax)
   ylabel('distance [m]')
   xlabel('median echo amplitude [dB]')
-  title('Beam Performance (S2N / best beam S2N)')
+  title('Beam Performance (S2N / best beam S2N)','FontSize',8)
 end
 
 
@@ -168,8 +171,9 @@ end
 % less than 30% of the highest correlation of the first bin (of all 4
 % beams)
 %
+subplot(8,2,16);
 if isfield(d,'cmd_m')
-  subplot(428)
+  %subplot(428)
   plot(d.cmd_m(1:length(d.izd),:),-d.zd)
   axis tight
   ax = axis;
@@ -217,7 +221,7 @@ if isfield(d,'cmd_m')
   axis(ax)
   ylabel('distance [m]')
   xlabel('median correlation [ADCP units]')
-  title('Range of good data (>30% of peak corr)')
+  title('Range of good data (>30% of peak corr)','FontSize',8)
   
 end
 
@@ -225,8 +229,9 @@ end
 %
 % subplot showing depth of the package
 %
+subplot(8,2,[5,6]);
 if isfield(d,'z')
-  subplot(813)
+  %subplot(813)
   plot(d.z)
   ylabel('depth')
   ax = axis;
@@ -240,6 +245,7 @@ end
 %
 % subplot showing the tilt of the package
 %
+subplot(8,2,[9,10]);
 if isfield(d,'tilt')
   subplot(814)
   plot(d.tilt(1,:))
@@ -259,8 +265,9 @@ end
 %
 % subplot showing the heading of the package
 %
+subplot(8,2,[11,12]);
 if isfield(d,'hdg')
-  subplot(815)
+  %subplot(815)
   plot(d.hdg(1,:))
   ylabel('heading [deg]')
   ax = axis;
@@ -274,8 +281,9 @@ end
 %
 % subplot showing the transmit voltage of the instruments
 %
+subplot(8,2,[13,14]);
 if isfield(d,'xmv')
-  subplot(816)
+  %subplot(816)
   plot(d.xmv(1,:))
   text(length(d.xmv)/2,mean(d.xmv(1,:)),[' mean: ',num2str(fix(values.xmv(1)*10)/10)])
   ylabel('X-mit volt down')
