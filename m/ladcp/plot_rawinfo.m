@@ -76,7 +76,7 @@ if length(iz)>1
   n3bd = length(i3bd)/length(ind)*100;
 end
 
-subplot(8,2,[1,2]);
+subplot(8,2,[1,2,3,4]);
 
 
 %
@@ -90,16 +90,18 @@ hold on
 ax = axis;
 plot(ax(1:2),[0 0],'-k')
 axis(ax)
-title(' W as function of bindepth and time','FontWeight','normal','FontSize',8)
-subplot(8,2,[3,4]);
-if get_matlab_version > 7.02
-colorbar('location','southoutside');% Pedro Pena 9.10.2016
-else
-colorbar('location','southoutside');% Pedro Pena 9.10.2016    
-end
-%colorbar('horiz')
+title(' W as function of bindepth and time')
 
+subplot(8,2,[5,6]);
 
+c=colorbar('location','southoutside');% Pedro Pena 9.10.2016    
+cbPos=get(c,'position');
+sp=gca;
+spPos=get(sp,'position');
+cbPos(4)=.01;
+
+set(c,'position',cbPos);
+%set(sp,'position',spPos);
 %
 % mark 3-beam solutions
 %
@@ -122,10 +124,10 @@ if n3bd>10
 end
 
 ylabel('range [m]')
-xlabel('ensemble')
-% if isfield(params,'name')
-%   streamer([params.name,' Figure 2']);
-% end
+%xlabel('ensemble')
+ if isfield(params,'name')
+   streamer([params.name,' Figure 2']);
+ end
 
 
 subplot(8,2,15);
@@ -229,7 +231,7 @@ end
 %
 % subplot showing depth of the package
 %
-subplot(8,2,[5,6]);
+subplot(8,2,[7,8]);
 if isfield(d,'z')
   %subplot(813)
   plot(d.z)
@@ -287,7 +289,7 @@ if isfield(d,'xmv')
   plot(d.xmv(1,:))
   text(length(d.xmv)/2,mean(d.xmv(1,:)),[' mean: ',num2str(fix(values.xmv(1)*10)/10)])
   ylabel('X-mit volt down')
-  xlabel('ensemble')
+  %xlabel('ensemble')
   ax = axis;
   ax(2) = length(d.z);
   axis(ax)
