@@ -60,7 +60,7 @@ if length(iz)>1
   % check for 3-beam solutions
   iw = sum(~isnan(d.raw_w(iz,ind)));
   ie = sum(~isnan(d.raw_e(iz,ind)));
-  i3bu = find(iw>(2*ie));,'FontWeight','normal'
+  i3bu = find(iw>(2*ie));
   n3bu = length(i3bu)/length(ind)*100;
 end
 iz = d.izd;
@@ -76,7 +76,7 @@ if length(iz)>1
   n3bd = length(i3bd)/length(ind)*100;
 end
 
-subplot(8,2,[1,2,3,4]);
+subplot(8,2,[1,2,3,4,5,6]);
 
 
 %
@@ -86,21 +86,24 @@ col = jet(64);
 col = ([[1 1 1]; col]);
 colormap(col)
 gcolor(ind,zz,nmedian(diff(ind))*ones(1,length(ind)),dz,rw);
+set(gca,'xAxisLocation','top');
 hold on
 ax = axis;
 plot(ax(1:2),[0 0],'-k')
 axis(ax)
 title(' W as function of bindepth and time')
 
-subplot(8,2,[5,6]);
+%subplot(8,2,[5,6]);
 
 c=colorbar('location','southoutside');% Pedro Pena 9.10.2016    
 cbPos=get(c,'position');
 sp=gca;
 spPos=get(sp,'position');
 cbPos(4)=.01;
+%%axis off
 
-set(c,'position',cbPos);
+%%set(c,'position',cbPos);
+%%set(c,'xAxisLocation','bottom');
 %set(sp,'position',spPos);
 %
 % mark 3-beam solutions

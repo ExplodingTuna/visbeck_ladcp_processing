@@ -39,12 +39,18 @@ if p.fix_compass>0
     
     
     % use tilt sensors to figure out allingment between instruments
+    
+    % octave fminsearch is not compatible old style matlab fminsearch.
+    % parameterized to make it work under octave. Should also work
+    % under matlab but will keep it the same for back compatibility.
+    % Pedro Pena 9.13.16     
     if length(d.izu)>0
         diary off
         if is_octave < 1
             hoff2 = fminsearch('checktilt',0,[],[d.rol(2,:);d.pit(2,:);d.rol(1,:);d.pit(1,:)]);
         else
-            hoff2 = 0; %need to make fminsearch work under octave
+            ct=@(a) checktilt(a,[d.rol(2,:);d.pit(2,:);d.rol(1,:);d.pit(1,:)]);
+            hoff2=fminsearch(ct,0);
         end
         
         diary on

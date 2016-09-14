@@ -95,10 +95,16 @@ if values.up==1
     % check tilt sensors
     % rotate by compass offset
     diary off
+    % octave fminsearch is not compatible old style matlab fminsearch.
+    % parameterized to make it work under octave. Should also work
+    % under matlab but will keep it the same for back compatibility.
+    % Pedro Pena 9.13.16  
     if is_octave < 1
         hdg_offset2 = fminsearch('checktilt',0,[],[d.rol(2,:);d.pit(2,:);d.rol(1,:);d.pit(1,:)]);
     else
-        hdg_offset2 =0; %need to make fminsearch work under octave
+        ct=@(a) checktilt(a,[d.rol(2,:);d.pit(2,:);d.rol(1,:);d.pit(1,:)]);
+        hdg_offset2=fminsearch(ct,0);
+
     end
     diary on
     disp(['    Mean heading offset based on tilt is ',num2str(hdg_offset2),' deg'])
