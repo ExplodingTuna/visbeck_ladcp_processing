@@ -26,6 +26,9 @@ if nargin<2
     fig = gcf;
 end
 
+f=textscan(file,'%s','delimiter','.')
+figName=[f{1}{1},'.pdf'];
+print -dpdf figName;
 % load the figure
 % the following structure name is hardwired for matlab version 6.1
 % it could possibly change. Load a new fig file and add the

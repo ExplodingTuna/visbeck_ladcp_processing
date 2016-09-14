@@ -76,7 +76,7 @@ if length(iz)>1
   n3bd = length(i3bd)/length(ind)*100;
 end
 
-subplot(8,2,[1,2,3,4,5,6]);
+subplot(9,2,[3,4,5,6]);
 
 
 %
@@ -95,11 +95,11 @@ title(' W as function of bindepth and time')
 
 %subplot(8,2,[5,6]);
 
-c=colorbar('location','southoutside');% Pedro Pena 9.10.2016    
-cbPos=get(c,'position');
-sp=gca;
-spPos=get(sp,'position');
-cbPos(4)=.01;
+%c=colorbar('location','southoutside');% Pedro Pena 9.10.2016    
+%cbPos=get(c,'position');
+%sp=gca;
+%spPos=get(sp,'position');
+%cbPos(4)=.01;
 %%axis off
 
 %%set(c,'position',cbPos);
@@ -133,7 +133,7 @@ ylabel('range [m]')
  end
 
 
-subplot(8,2,15);
+subplot(9,2,[15,17]);
 %
 % subplot showing beam performance (target strength/echo amplitude)
 %
@@ -176,7 +176,7 @@ end
 % less than 30% of the highest correlation of the first bin (of all 4
 % beams)
 %
-subplot(8,2,16);
+subplot(9,2,[16,18]);
 if isfield(d,'cmd_m')
   %subplot(428)
   plot(d.cmd_m(1:length(d.izd),:),-d.zd)
@@ -234,7 +234,7 @@ end
 %
 % subplot showing depth of the package
 %
-subplot(8,2,[7,8]);
+subplot(9,2,[7,8]);
 if isfield(d,'z')
   %subplot(813)
   plot(d.z)
@@ -250,9 +250,9 @@ end
 %
 % subplot showing the tilt of the package
 %
-subplot(8,2,[9,10]);
+subplot(9,2,[9,10]);
 if isfield(d,'tilt')
-  subplot(814)
+  %subplot(814)
   plot(d.tilt(1,:))
   hold on
   ax = axis;
@@ -270,7 +270,7 @@ end
 %
 % subplot showing the heading of the package
 %
-subplot(8,2,[11,12]);
+subplot(9,2,[11,12]);
 if isfield(d,'hdg')
   %subplot(815)
   plot(d.hdg(1,:))
@@ -286,7 +286,7 @@ end
 %
 % subplot showing the transmit voltage of the instruments
 %
-subplot(8,2,[13,14]);
+subplot(9,2,[13,14]);
 if isfield(d,'xmv')
   %subplot(816)
   plot(d.xmv(1,:))
