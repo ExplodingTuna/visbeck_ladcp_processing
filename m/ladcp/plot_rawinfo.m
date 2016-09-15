@@ -300,7 +300,7 @@ if isfield(d,'xmv')
 
 end
 
-hgsave(['tmp',filesep,'2'])
+hg_save(['tmp',filesep,'2'])
 
 
 

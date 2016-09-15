@@ -311,7 +311,7 @@ else
 end
 
 streamer([p.name,' Figure 11']);
-hgsave(['tmp',filesep,'11']);
+hg_save(['tmp',filesep,'11']);
 
 
 %----------------------------------------------------------------------
@@ -424,7 +424,7 @@ plot_controls(1)
 
 
 fclose('all');				%  close all files just to make sure
-
+join_images;
 disp(' ')				% final message
 disp(['    Processing took ',int2str(toc),' seconds'])
 

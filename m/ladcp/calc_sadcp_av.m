@@ -217,4 +217,4 @@ ylabel('latitude')
 
 suplabel([params.name,' SADCP'],'t');
 
-hgsave(['tmp',filesep,'9']);
+hg_save(['tmp',filesep,'9']);

@@ -364,7 +364,7 @@ ylabel('Bin #');
 title('Weights based on various parameters')
 
 streamer([p.name,' Figure 16']);
-hgsave(['tmp',filesep,'16'])
+hg_save(['tmp',filesep,'16'])
 %hgsave('tmp/16')
 
 

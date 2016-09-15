@@ -216,7 +216,7 @@ values.vship= values.ydisp / params.dt_profile;
 
 streamer([params.name,'   Figure 4']);
 %hgsave('tmp',filesep,'4')
-hgsave(['tmp',filesep,'4']) % Pedro Pena 8.17.16
+hg_save(['tmp',filesep,'4']) % Pedro Pena 8.17.16
 
 
 %
@@ -248,5 +248,5 @@ end
 
 streamer([params.name,'   Figure 8']);
 %hgsave('tmp',filesep,'8')
-hgsave(['tmp',filesep,'8']) % Pedro Pena 8.17.16
+hg_save(['tmp',filesep,'8']) % Pedro Pena 8.17.16
 

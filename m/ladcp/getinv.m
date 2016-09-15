@@ -212,7 +212,7 @@ ylabel('Bin #');
 title('Weights based on standard deviation of super ensembles')
 
 streamer([p.name,' Figure 16']);
-hgsave(['tmp',filesep,'16'])
+hg_save(['tmp',filesep,'16'])
 
 wm = reshape(wm,nt*nbin,1);
 
@@ -707,7 +707,7 @@ grid
 set(gca,'fontsize',10)
 streamer([p.name,'  Figure 7']);
 orient tall
-hgsave(['tmp',filesep,'7'])
+hg_save(['tmp',filesep,'7'])
 
 % compute velocity error
 der = geterr(dr,di,p,iplot);

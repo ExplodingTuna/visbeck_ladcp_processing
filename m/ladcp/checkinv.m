@@ -112,5 +112,5 @@ if isfield(de,'type_constraints')
   xlabel('super ensemble')
 
   streamer([p.name,'  Figure 12']);
-  hgsave(['tmp',filesep,'12'])
+  hg_save(['tmp',filesep,'12'])
 end
