@@ -1,4 +1,4 @@
-function [di,p,data] = calc_ens_av(data,p,values)
+function [di,p,data] = calc_ens_av(data,p,values,img16)
 % function [di,p,data] = calc_ens_av(data,p,values)
 %
 % LADCP-2 processing software version 9+
@@ -22,6 +22,7 @@ function [di,p,data] = calc_ens_av(data,p,values)
 %
 % general function info
 %
+global fig16h;
 disp(' ')
 disp('CALC_ENS_AV: forming Super-Ensembles')
 
@@ -348,23 +349,25 @@ if is_octave < 1
 else
     figExt ='ofig';
 end
-
-figload(['tmp',filesep,'16.',figExt],2)
-%openfig(['tmp',filesep,'16.fig'],2)
-subplot(3,1,2);
-imagesc([1:size(di.ts,2)],bin_no,...
-	[di.weight(1:length(data.zu),:); ...
-	 ones(1,size(di.weight,2))*NaN; ...
-	 di.weight(size(di.weight,1)-length(data.zd)+1:end,:)...
+if img16
+    %figure 16 is loaded here.
+    sfigure(fig16h);
+    %figload(['tmp',filesep,'16.',figExt],2)
+    %openfig(['tmp',filesep,'16.fig'],2)
+    subplot(3,1,2);
+    imagesc([1:size(di.ts,2)],bin_no,...
+        [di.weight(1:length(data.zu),:); ...
+        ones(1,size(di.weight,2))*NaN; ...
+        di.weight(size(di.weight,1)-length(data.zd)+1:end,:)...
         ]);
-csc = caxis;
-colorbar
-xlabel('Super Ensemble #');
-ylabel('Bin #');
-title('Weights based on various parameters')
-
-streamer([p.name,' Figure 16']);
-hg_save(['tmp',filesep,'16'])
-%hgsave('tmp/16')
-
+    csc = caxis;
+    colorbar
+    xlabel('Super Ensemble #');
+    ylabel('Bin #');
+    title('Weights based on various parameters')
+    
+    streamer([p.name,' Figure 16']);
+    %hg_save(['tmp',filesep,'16'])
+    %hgsave('tmp/16')
+end
 

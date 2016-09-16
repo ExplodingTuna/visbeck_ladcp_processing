@@ -1,4 +1,4 @@
-function [messages,p,dr,ps,de,der]=getinv(messages,values,di,p,ps,dr,iplot)
+function [messages,p,dr,ps,de,der]=getinv(messages,values,di,p,ps,dr,iplot,img16)
 % function [messages,p,dr,ps,de,der]=getinv(messages,values,di,p,ps,dr,iplot)
 %
 % solve linear inverse problem for LADCP profiles
@@ -200,20 +200,22 @@ if is_octave < 1
 else
     figExt ='ofig';
 end
-
-figload(['tmp',filesep,'16.',figExt],2);
-%openfig(['tmp',filesep,'16.fig'],2);
-subplot(3,1,3);
-imagesc(weight_matrix_supens_std_based);
-csc = caxis;
-colorbar
-xlabel('Super Ensemble #');
-ylabel('Bin #');
-title('Weights based on standard deviation of super ensembles')
-
-streamer([p.name,' Figure 16']);
-hg_save(['tmp',filesep,'16'])
-
+if img16
+    %figure 16 is loaded here
+    sfigure(2);
+    %figload(['tmp',filesep,'16.',figExt],2);
+    %openfig(['tmp',filesep,'16.fig'],2);
+    subplot(3,1,3);
+    imagesc(weight_matrix_supens_std_based);
+    csc = caxis;
+    colorbar
+    xlabel('Super Ensemble #');
+    ylabel('Bin #');
+    title('Weights based on standard deviation of super ensembles')
+    
+    streamer([p.name,' Figure 16']);
+    hg_save(['tmp',filesep,'16'])
+end
 wm = reshape(wm,nt*nbin,1);
 
 

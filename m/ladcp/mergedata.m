@@ -39,6 +39,7 @@ function [data,params,messages,values] = mergedata(data,params,messages,values)
 %
 % general function info:
 %
+global fig8h;
 disp(' ')
 disp('MERGEDATA:  merge ADCP, navigational, and CTD-time data')
 
@@ -307,9 +308,11 @@ if ~isempty(data.ctdtime_data)
     ii = [-12:12] + fix( good_range(1)+0.3*diff(good_range) );
     ii = [ii, [-12:12] + fix( good_range(2)-0.3*diff(good_range) )];
     ii = ii( find( ii>0 & ii<length(i1) ) );
+    fig8h=sfigure(3);% third figure used a temp variable. matlab is odd!
     
-    sfigure(2);  
-    
+    %sfigure(fig8h);
+    clf;
+    orient tall;
     subplot(212)
     plot(w(i1(ii)),'-b')
     hold on
@@ -326,11 +329,12 @@ if ~isempty(data.ctdtime_data)
     grid
     
     streamer([params.name,'   Figure 8']);
-    hg_save(['tmp',filesep,'8'])
+    %hg_save(['tmp',filesep,'8'])
 
     % in difference to the case when the ADCP is shifted onto the
     % CTD data, this case here is always assumed good
     disp('    Adjusting CTD time to ADCP time and shift depth record ')
+    %set(fig8h,'Visible','off');
 %    data.ctdtime_time = data.ctdtime_time-lagdt;
 % don't understand why this was here   GK
     if lagdt*86400>10

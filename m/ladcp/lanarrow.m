@@ -30,9 +30,9 @@ ps1.down_up = 0;
 ps1.solve = 0;
 for n=1:ps.outlier
   if n>1
-    [messages,p,dr,ps1,de,der] = getinv(messages,values,di,p,ps1,dr);
+    [messages,p,dr,ps1,de,der] = getinv(messages,values,di,p,ps1,dr,[],0);
   else
-    [messages,p,dr,ps1,de,der] = getinv(messages,values,di,p,ps1);
+    [messages,p,dr,ps1,de,der] = getinv(messages,values,di,p,ps1,[],[],0);
   end
   dif = (di.ru-der.ru_oce-der.ru_ctd).^2+...
          (di.rv-der.rv_oce-der.rv_ctd).^2;

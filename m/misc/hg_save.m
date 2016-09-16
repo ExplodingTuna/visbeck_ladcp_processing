@@ -1,7 +1,12 @@
-function hgsave(varargin)
-if is_octave < 1
-    eval(['print -djpeg ', varargin{1},'.jpg']);
-else
-    eval(['print -djpg ', varargin{1},'.jpg']);
+function hg_save(varargin)
+fName=[varargin{1},'.jpg'];
+if ~exist(fName,'file') || ~isempty(strfind(varargin{1},'16'))
+    if is_octave < 1
+        eval(['print -djpeg ',fName]);
+    else
+        eval(['print -djpg ',fName]);
+    end
 end
-hgsave(varargin{1})
+% if ~isempty(strfind(varargin{1},'16'))
+%     hgsave(varargin{1})
+% end

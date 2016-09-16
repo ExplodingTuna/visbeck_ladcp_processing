@@ -9,11 +9,12 @@
 % modified for octave  Pedro Pena
 
 
-if is_octave < 1
-    figExt ='fig';
-else
-    figExt ='ofig';
-end
+% if is_octave < 1
+%     figExt ='fig';
+% else
+%     figExt ='ofig';
+% end
+figExt='jpg';
 dd = dir(['tmp',filesep,'*.',figExt]);
 
 for n=1:length(dd)

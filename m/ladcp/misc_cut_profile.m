@@ -21,6 +21,8 @@ function [data,params,values,messages]=...
 %
 % general function info
 %
+global fig8h;
+figure(2);
 disp(' ')
 disp('MISC_CUT_PROFILE:  cut raw LADCP data to only the profile part')
 
@@ -217,7 +219,7 @@ values.vship= values.ydisp / params.dt_profile;
 streamer([params.name,'   Figure 4']);
 %hgsave('tmp',filesep,'4')
 hg_save(['tmp',filesep,'4']) % Pedro Pena 8.17.16
-
+set(fig8h,'Visible','on');
 
 %
 % add information of the cut profile to figure 8
@@ -228,7 +230,8 @@ else
     figExt ='ofig';
 end
 
-figload(['tmp',filesep,'8.',figExt],2);
+sfigure(fig8h);
+%figload(['tmp',filesep,'8.',figExt],2);
 %openfig(['tmp',filesep,'8.fig'],2);
 if ~isempty(data.ctdtime_data)
   subplot(211)
@@ -249,4 +252,5 @@ end
 streamer([params.name,'   Figure 8']);
 %hgsave('tmp',filesep,'8')
 hg_save(['tmp',filesep,'8']) % Pedro Pena 8.17.16
+close(fig8h);
 

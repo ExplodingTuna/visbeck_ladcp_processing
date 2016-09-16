@@ -1,4 +1,4 @@
-function [p,d,messages]=prepinv(messages,d,p,dr,values)
+function [p,d,messages]=prepinv(messages,d,p,dr,values,img16)
 % function [p,d,messages]=prepinv(messages,d,p,dr,values)
 %
 % prepare for inverse solver
@@ -21,6 +21,7 @@ function [p,d,messages]=prepinv(messages,d,p,dr,values)
 %
 % general function info
 %
+global fig16h;
 disp(' ')
 disp('PREPINV:  prepare data for inversion')
 
@@ -434,26 +435,28 @@ end
 if length(d.zd) > 0
     bin_no = [bin_no 1:length(d.zd)];
 end
-sfigure(2);
-clf
-orient tall;
-colormap([[1 1 1]; jet(128)]);
-
-subplot(3,1,1);
-imagesc([1:size(d.ts,2)],bin_no,...
-    [d.weight(1:length(d.zu),:); ...
-    ones(1,size(d.ts,2))*NaN; ...
-    d.weight(size(d.ts,1)-length(d.zd)+1:end,:)...
-    ]);
-csc = caxis;
-colorbar
-xlabel('Ensemble #');
-ylabel('Bin #');
-title('Weights based on various parameters');
-
-streamer([p.name,' Figure 16']);
-hg_save(['tmp',filesep,'16'])
-
+if img16
+    %Figure 16 is created here.
+    sfigure(fig16h);
+    clf
+    orient tall;
+    colormap([[1 1 1]; jet(128)]);
+    
+    subplot(3,1,1);
+    imagesc([1:size(d.ts,2)],bin_no,...
+        [d.weight(1:length(d.zu),:); ...
+        ones(1,size(d.ts,2))*NaN; ...
+        d.weight(size(d.ts,1)-length(d.zd)+1:end,:)...
+        ]);
+    csc = caxis;
+    colorbar
+    xlabel('Ensemble #');
+    ylabel('Bin #');
+    title('Weights based on various parameters');
+    
+    streamer([p.name,' Figure 16']);
+    %hg_save(['tmp',filesep,'16'])
+end
 
 
 %--------------------------------------------------

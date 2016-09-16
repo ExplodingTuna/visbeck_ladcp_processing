@@ -15,20 +15,28 @@ global mh
 
 sfigure(2);
 clf
-
+if isempty(fig) 
+fig=gcf;
+end
 if is_octave < 1
     figExt ='fig';
 else
     figExt ='ofig';
 end
+fName=['tmp',filesep,int2str(fig),'.jpg'];
 
-figload(['tmp',filesep,int2str(fig),'.',figExt]);
+if exist(fName,'file')
+    h=imread(fName);
+    imshow(h);
+    orient tall;
+end
+%figload(['tmp',filesep,int2str(fig),'.',figExt]);
 %openfig(['tmp',filesep,int2str(fig),'.fig']);
 
 sfigure(1);
 for n=1:length(mh)
-  if mh(n)~=0
-    set(mh(n),'foregroundcolor',[0,0,0]);
-  end
+    if mh(n)~=0
+        set(mh(n),'foregroundcolor',[0,0,0]);
+    end
 end
 set(mh(fig),'foregroundcolor',[1,0,0]);

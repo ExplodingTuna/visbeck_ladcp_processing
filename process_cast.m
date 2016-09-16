@@ -30,6 +30,9 @@ function [] = process_cast(stnS,ctd_lagS,extraarg)
 % When passed as an argument from the command line, the MRC interprets
 % the value as a strng rather than a number. This check will allow both
 % strings and numbers to be passed
+
+global fig16h; % handle to  figure 16
+global fig8h;  % handle to figure 8
 if is_octave ==1
 warning ('off', 'Octave:divide-by-zero');
 end
@@ -145,6 +148,9 @@ drawnow
 %
 % merge LADCP data with NAV and CTD
 %
+
+fig8h=sfigure(2);
+clf;
 [data,p,messages,values] = mergedata(data,p,messages,values);
 
 
@@ -175,7 +181,7 @@ end
 [data,p,values,messages] = calc_soundsp(data,p,values,messages);
 [data,p,values,messages] = calc_depth(data,p,values,messages);
 drawnow
-
+set(fig8h,'Visible','off');
 
 %
 % cut off the parts before and after the main profile
@@ -198,19 +204,17 @@ drawnow
 plot_rawinfo( data, p, values );
 drawnow
 
-
 %
 % apply some editing of the single bins
 %
 data = edit_data(data,p,values);
 drawnow
 
-
 %
 % form super ensembles
 %
-[p,data,messages] = prepinv(messages,data,p,[],values);
-[di,p,data] = calc_ens_av(data,p,values);
+[p,data,messages] = prepinv(messages,data,p,[],values,0);
+[di,p,data] = calc_ens_av(data,p,values,0);
 drawnow
 if length(di.time_jul)<2
     disp('>   Processing is stopped.')
@@ -231,10 +235,10 @@ end
 % once we have a first guess profile we recompute the super ensemble
 %
 if (p.offsetup2down>0 & length(data.izu)>0)
-    %  keyboard
-    [p,data,messages] = prepinv(messages,data,p,dr,values);
+    fig16h=sfigure(2);
+    [p,data,messages] = prepinv(messages,data,p,dr,values,1);
     %  [p,data1,messages] = prepinv_with_old_rotation_options(messages,data1,p,dr1,values);
-    [di,p,data] = calc_ens_av(data,p,values);
+    [di,p,data] = calc_ens_av(data,p,values,1);
 end
 
 
@@ -242,9 +246,8 @@ end
 %  take advantage of presolve if it existed  ?? GK
 %  call the main inversion routine
 %
-[messages,p,dr,ps,de] = getinv(messages,values,di,p,ps,dr,1);
+[messages,p,dr,ps,de] = getinv(messages,values,di,p,ps,dr,1,1);
 drawnow
-
 
 %
 % check inversion constraints
@@ -274,7 +277,6 @@ end
 %
 plot_result(dr,data,p,ps,values)
 drawnow
-
 
 %
 % Convert p.warn to one line of text with newline characters
@@ -424,7 +426,7 @@ plot_controls(1)
 
 
 fclose('all');				%  close all files just to make sure
-join_images;
+%join_images;
 disp(' ')				% final message
 disp(['    Processing took ',int2str(toc),' seconds'])
 
