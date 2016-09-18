@@ -38,7 +38,7 @@ if ~isempty(data.ctdprof)
   zctd(end) = 1e4;
   data.ctdprof_ss = sw_svel(data.ctdprof(:,3),data.ctdprof(:,2),...
 		data.ctdprof(:,1));
-  data.ss = interp1(-zctd,data.ctdprof_ss,data.z')';
+  data.ss = interp1(-unique(zctd),data.ctdprof_ss,data.z')';
   values.GEN_Sound_sp_calc = '[CTD]';
   
 elseif ~isempty(data.ctdtime_data)

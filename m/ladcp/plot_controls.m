@@ -15,6 +15,7 @@ global mh
 
 sfigure(2);
 clf
+
 if isempty(fig) 
 fig=gcf;
 end
@@ -26,9 +27,18 @@ end
 fName=['tmp',filesep,int2str(fig),'.jpg'];
 
 if exist(fName,'file')
+    clf;
+    ha = axes('units','normalized','position',[0 0 1 1]);
+    % Move the background axes to the bottom
+    %uistack(ha,'bottom');
     h=imread(fName);
-    imshow(h);
-    orient tall;
+    image(h);
+    %set(ha,'handlevisibility','off', 'visible','off');
+
+else
+set(gcf,'Color', 'white')
+text(0.3,0.5,'No Figure Available','fontsize',16,'color','r')
+
 end
 %figload(['tmp',filesep,int2str(fig),'.',figExt]);
 %openfig(['tmp',filesep,int2str(fig),'.fig']);

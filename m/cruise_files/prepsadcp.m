@@ -121,4 +121,4 @@ z_sadcp = z_sadcp;
 
 
 % store the data
-save6([files.sadcp_dir,filesep,'sadcp',int2str0(stn,3)],'.mat','tim_sadcp','lon_sadcp','lat_sadcp','u_sadcp','v_sadcp','z_sadcp')
+save6([files.sadcp_dir,filesep,'sadcp',int2str0(stn,3),'.mat'],'tim_sadcp','lon_sadcp','lat_sadcp','u_sadcp','v_sadcp','z_sadcp')

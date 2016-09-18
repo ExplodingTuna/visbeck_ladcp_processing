@@ -30,13 +30,14 @@ function prepnav(stn,values,files,cruiseVars)
 cruise_id=get_cruise_variable_value(cruiseVars,'cruise_id');
 cruise_id_prefix=get_cruise_variable_value(cruiseVars,'cruise_id_prefix');
 cruise_id_suffix=get_cruise_variable_value(cruiseVars,'cruise_id_suffix');
-fName=[cruise_id_prefix,cruise_id,'_nav',cruise_id_suffix,'.vis'];
+fName=[cruise_id_prefix,cruise_id,'_nav',cruise_id_suffix,'.mat'];
 
-navtemp=load([files.raw_nav_dir,filesep,fName]);
-navgood=[navtemp(:,1),navtemp(:,2),navtemp(:,3)];
+%navtemp=load([files.raw_nav_dir,filesep,fName]);
+load([files.raw_nav_dir,filesep,fName]);
+%navgood=[navtemp(:,1),navtemp(:,2),navtemp(:,3)];
 data.latitude=navgood(:,2);
 data.longitude=navgood(:,3);
-timnav=navgood(:,1)+1+julian([2015,1,0,0,0,0]);
+timnav=navgood(:,1)+1+julian([2014,1,0,0,0,0]);
 data = [data.latitude,data.longitude];
 
 % USE CODAS3 GPS FILE INSTEAD!!!

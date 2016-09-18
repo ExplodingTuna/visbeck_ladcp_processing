@@ -33,13 +33,19 @@ end
 % create 2 windows
 % one for the control menu and one for the actual plots
 sfigure(1);
+pause(0.1);
 clf
-set(gcf,'position',[10,10+imac*100,200,750],'numbertitle','off','menubar',...
+set(gcf,'position',[10,10+imac*100,170,800],'numbertitle','off','menubar',...
 	'none','name','LADCP 1');
+
+
+
 sfigure(2);
+pause(0.1);
 clf
-set(gcf,'position',[220,10+imac*100,800,696],'numbertitle','off',...
+set(gcf,'position',[220,100,700,800],'numbertitle','off',...
 	'name','LADCP 2');
+set(gcf,'Units','inches','Color', 'white');
 
 % create the menu
 sfigure(1);
@@ -50,6 +56,7 @@ end
 th(1) = uicontrol('style','text','position',[15,705,140,30],...
 	'horizontalalignment','center','string','LADCP',...
 	'fontsize',14);
+
 th(2) = uicontrol('style','text','position',[15,665,140,30],...
 	'horizontalalignment','center','string','processing',...
 	'fontsize',14);	
