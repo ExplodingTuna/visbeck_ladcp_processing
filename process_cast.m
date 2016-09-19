@@ -30,7 +30,7 @@ function [] = process_cast(stnS,ctd_lagS,extraarg)
 % When passed as an argument from the command line, the MRC interprets
 % the value as a strng rather than a number. This check will allow both
 % strings and numbers to be passed
-
+tic;					% start timer
 global fig16h; % handle to  figure 16
 global fig8h;  % handle to figure 8
 if is_octave ==1
@@ -129,7 +129,7 @@ if override_sn == 1
 end
 [data,messages] = misc_prepare_rdi(data,p,messages);
 
-tic;					% start timer
+
 
 %
 % plot the display menu

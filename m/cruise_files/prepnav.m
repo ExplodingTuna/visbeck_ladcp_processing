@@ -30,7 +30,7 @@ function prepnav(stn,values,files,cruiseVars)
 cruise_id=get_cruise_variable_value(cruiseVars,'cruise_id');
 cruise_id_prefix=get_cruise_variable_value(cruiseVars,'cruise_id_prefix');
 cruise_id_s=get_cruise_variable_value(cruiseVars,'cruise_id_suffix');
-correct_year=cruise_id_suffix=get_cruise_variable_value(cruiseVars,'correct_year');
+correct_year=str2num(cruise_id_suffix=get_cruise_variable_value(cruiseVars,'correct_year'));
 use_mat_for_nav=cruise_id_suffix=str2num(get_cruise_variable_value(cruiseVars,'use_mat_for_nav'));
 
 
