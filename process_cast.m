@@ -37,7 +37,7 @@ if is_octave ==1
 close all;
 warning ('off', 'Octave:divide-by-zero');
 graphics_toolkit('gnuplot');
-set (0, "defaultaxesfontname", "Helvetica");
+set (0, 'defaultaxesfontname', 'Helvetica');
 end
 if isnumeric(stnS) %Pedro Pena 8.11.16
     stn=stnS;
@@ -148,6 +148,11 @@ end
 % plot the display menu
 %
 if is_octave && ~strcmp(graphics_toolkit,'gnuplot')
+plot_menu(imgFileExt);
+drawnow;
+end
+
+if ~is_octave && ~strcmpi(imgFileExt,'ps') && ~strcmpi(imgFileExt,'pdf')
 plot_menu(imgFileExt);
 drawnow;
 end
@@ -441,6 +446,9 @@ plot_menu(imgFileExt);
 plot_controls('1',imgFileExt);
 end
 
+if ~is_octave && ~strcmpi(imgFileExt,'ps') && ~strcmpi(imgFileExt,'pdf')
+plot_controls(1,imgFileExt);
+end
 
 %----------------------------------------------------------------------
 % FINAL STEP: CLEAN UP

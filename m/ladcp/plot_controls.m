@@ -17,7 +17,7 @@ sfigure(2);
 clf
 
 if isempty(fig) 
-fig='1';
+fig=1;
 end
 
 fName=['tmp',filesep,int2str(fig),'.',figExt];
