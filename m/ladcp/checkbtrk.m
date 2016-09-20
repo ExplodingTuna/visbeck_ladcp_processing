@@ -423,4 +423,4 @@ text(0.54,10,[' Zbottom  ',int2str(p.zbottom),' [m]'])
 suplabel([p.name,' Figure 13'],'t');
 
 orient tall
-hg_save(['tmp',filesep,'13']);
+img_save(['tmp',filesep,'13'],p.print_formats);

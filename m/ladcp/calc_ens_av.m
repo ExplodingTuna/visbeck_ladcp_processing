@@ -367,7 +367,7 @@ if img16
     title('Weights based on various parameters')
     
     streamer([p.name,' Figure 16']);
-    %hg_save(['tmp',filesep,'16'])
+
     %hgsave('tmp/16')
 end
 

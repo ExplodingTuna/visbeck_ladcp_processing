@@ -280,7 +280,7 @@ if iplot
   xlabel('velocity [m/s]')
   
   streamer([dr.name,'  Figure 3']);
-  hg_save(['tmp',filesep,'3'])
+  img_save(['tmp',filesep,'3'],p.print_formats);
 
   % reset colormap
   sfigure(2);

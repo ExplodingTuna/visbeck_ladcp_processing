@@ -214,7 +214,7 @@ if img16
     title('Weights based on standard deviation of super ensembles')
     
     streamer([p.name,' Figure 16']);
-    hg_save(['tmp',filesep,'16'])
+    img_save(['tmp',filesep,'16'],p.print_formats)
 end
 wm = reshape(wm,nt*nbin,1);
 
@@ -709,7 +709,7 @@ grid
 set(gca,'fontsize',10)
 streamer([p.name,'  Figure 7']);
 orient tall
-hg_save(['tmp',filesep,'7'])
+img_save(['tmp',filesep,'7'],p.print_formats)
 
 % compute velocity error
 der = geterr(dr,di,p,iplot);

@@ -34,7 +34,10 @@ tic;					% start timer
 global fig16h; % handle to  figure 16
 global fig8h;  % handle to figure 8
 if is_octave ==1
+close all;
 warning ('off', 'Octave:divide-by-zero');
+graphics_toolkit('gnuplot');
+set (0, "defaultaxesfontname", "Helvetica");
 end
 if isnumeric(stnS) %Pedro Pena 8.11.16
     stn=stnS;
@@ -104,7 +107,17 @@ cruise_params;
 cast_params;
 files = misc_composefilenames(p,stn,cruiseVars);
 
-
+% clear temp files
+%
+%
+%
+imgFileExt=get_print_format_extension(p.print_formats);
+for n=1:16
+    fName=['tmp',filesep,int2str(n),'.',imgFileExt];
+    if exist(fName);
+        delete(fName);
+    end
+end
 %
 % prepare the various data files for easy loading
 %
@@ -134,8 +147,11 @@ end
 %
 % plot the display menu
 %
-plot_menu
-drawnow
+if is_octave && ~strcmp(graphics_toolkit,'gnuplot')
+plot_menu(imgFileExt);
+drawnow;
+end
+
 
 
 %
@@ -313,7 +329,7 @@ else
 end
 
 streamer([p.name,' Figure 11']);
-hg_save(['tmp',filesep,'11']);
+img_save(['tmp',filesep,'11'],p.print_formats);
 
 
 %----------------------------------------------------------------------
@@ -341,7 +357,8 @@ if length(files.res)>1
     end
     
 %    if noplots==0
-     if isempty(findstr(p.print_formats,'none')) %Pedo Pena
+     %if isempty(findstr(p.print_formats,'none')) %Pedo Pena
+     if 0 %Pedo Pena
         %replaced '\' with filesep & modifed mkdir   pedro pena 8.10.2016
         if ~exist(['plots',filesep,int2str0(p.ladcp_station,3)])
             mkdir('plots',int2str0(p.ladcp_station,3));
@@ -400,8 +417,8 @@ if length(files.res)>1
     if findstr(p.print_formats,'ps')
         %pdf_string = ['! ps2pdf ',files.plots,'_report.ps ',files.plots,'_report.pdf'];
         %eval(pdf_string);
-        pdf_string = ['ps2pdf ',files.plots,'_report.ps ',files.plots,'_report.pdf']; % Pedro Pena 8.18.16
-        system(pdf_string);
+        %pdf_string = ['ps2pdf ',files.plots,'_report.ps ',files.plots,'_report.pdf']; % Pedro Pena 8.18.16
+        %system(pdf_string);
         
     end
     
@@ -417,7 +434,12 @@ if length(files.res)>1
 end
 
 % switch to final result figure
-plot_controls(1)
+if is_octave && strcmp(graphics_toolkit,'gnuplot')
+close all;
+graphics_toolkit('qt');
+plot_menu(imgFileExt);
+plot_controls('1',imgFileExt);
+end
 
 
 %----------------------------------------------------------------------
@@ -425,7 +447,9 @@ plot_controls(1)
 %----------------------------------------------------------------------
 
 
-fclose('all');				%  close all files just to make sure
+
+%fclose('all');				%  close all files just to make sure
+
 %join_images;
 disp(' ')				% final message
 disp(['    Processing took ',int2str(toc),' seconds'])

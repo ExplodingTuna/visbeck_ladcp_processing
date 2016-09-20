@@ -300,7 +300,7 @@ if isfield(d,'xmv')
 
 end
 
-hg_save(['tmp',filesep,'2'])
+img_save(['tmp',filesep,'2'],params.print_formats)
 
 
 

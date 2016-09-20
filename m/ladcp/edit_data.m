@@ -382,7 +382,7 @@ ylabel('Bin #');
 title('After Data Editing');
 
 streamer([p.name,'  Figure 14']);
-hg_save(['tmp',filesep,'14'])
+img_save(['tmp',filesep,'14'],p.print_formats)
 
 
 ind = find(isnan(d.ts_edited));
@@ -418,4 +418,4 @@ ylabel('Bin #');
 title('After Data Editing');
 
 streamer([p.name,'  Figure 15']);
-hg_save(['tmp',filesep,'15'])
+img_save(['tmp',filesep,'15'],p.print_formats)

@@ -1,4 +1,4 @@
-function [] = plot_controls(fig)
+function [] = plot_controls(fig,figExt)
 % function [] = plot_controls(fig)
 %
 % reloads the stored figure into the display window
@@ -17,14 +17,10 @@ sfigure(2);
 clf
 
 if isempty(fig) 
-fig=gcf;
+fig='1';
 end
-if is_octave < 1
-    figExt ='fig';
-else
-    figExt ='ofig';
-end
-fName=['tmp',filesep,int2str(fig),'.jpg'];
+
+fName=['tmp',filesep,int2str(fig),'.',figExt];
 
 if exist(fName,'file')
     clf;

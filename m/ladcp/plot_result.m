@@ -368,4 +368,4 @@ axis off
 
 
 orient tall
-hg_save(['tmp',filesep,'1']);
+img_save(['tmp',filesep,'1'],p.print_formats);
