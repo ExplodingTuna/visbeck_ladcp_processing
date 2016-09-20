@@ -147,7 +147,7 @@ end
 %
 % plot the display menu
 %
-if is_octave && ~strcmp(graphics_toolkit,'gnuplot')
+if is_octave && ~strcmp(graphics_toolkit,'gnuplot') && ~strcmpi(imgFileExt,'pdf')
 plot_menu(imgFileExt);
 drawnow;
 end
@@ -439,11 +439,11 @@ if length(files.res)>1
 end
 
 % switch to final result figure
-if is_octave && strcmp(graphics_toolkit,'gnuplot')
+if is_octave && strcmp(graphics_toolkit,'gnuplot') && ~strcmpi(imgFileExt,'pdf')
 close all;
 graphics_toolkit('qt');
 plot_menu(imgFileExt);
-plot_controls('1',imgFileExt);
+plot_controls(1,imgFileExt);
 end
 
 if ~is_octave && ~strcmpi(imgFileExt,'ps') && ~strcmpi(imgFileExt,'pdf')
