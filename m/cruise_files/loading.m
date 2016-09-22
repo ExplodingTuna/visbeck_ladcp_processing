@@ -1,4 +1,4 @@
-function [data,messages] = loading(files,data,messages,params,ctd_lag)
+function [data,messages] = loading(files,data,messages,params,ctd_lag,remove_zctd_downcast)
 % function [data,messages] = loading(files,data,messages,params)
 %
 % loads LADCP and ancillary data files prepared by routines
@@ -41,7 +41,7 @@ data = ctdtimeload(files,data,ctd_lag);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % load CTD-pressure file
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-data = ctdprofload(files,data);
+data = ctdprofload(files,data,remove_zctd_downcast);
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -118,7 +118,7 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function ndata = ctdprofload(files,ndata);
+function ndata = ctdprofload(files,ndata,remove_zctd_downcast);
 %
 % load CTD-pressure data prepared by prepctdprof.m
 %
@@ -128,6 +128,11 @@ if exist(files.ctdprof,'file')==0
   disp(['>   Can not find ',files.ctdprof])
 else
   load(files.ctdprof);
+       if remove_zctd_downcast == 1 % hopefully removes the upcast part from the ctd data Pedro Pena 9.22.16
+         [maxVal,maxValIndex]=max(ctdprof(:,1));
+         n=1:maxValIndex;
+         ctdprof=ctdprof(n,:);
+     end
   ndata.ctdprof = ctdprof;
   disp([  '      Number of CTD-prof lines: ',int2str(length(ctdprof))])
 end

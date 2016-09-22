@@ -74,7 +74,7 @@ cruiseVars=textscan(fid,'%s%s','Delimiter','=','CommentStyle','#');
 %get_cruise_variable_value(cruiseVars,'')
 fclose(fid);
 %=========================================================================
-
+remove_zctd_downcast=str2num(get_cruise_variable_value(cruiseVars,'remove_zctd_downcast'));
 
 % commented Pedro Pena 8.21.16
 %
@@ -163,7 +163,7 @@ end
 % convolution of the loading routines for the
 % various data sets
 %
-[data,messages] = loading(files,data,messages,p,ctd_lag);
+[data,messages] = loading(files,data,messages,p,ctd_lag,remove_zctd_downcast);
 
 
 %

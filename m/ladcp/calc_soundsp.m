@@ -7,7 +7,7 @@ function [data,params,values,messages]=calc_soundsp(data,params,values,messages)
 %
 % version 0.7	last change 13.05.2014
 
-% Matin Visbeck 
+% Matin Visbeck
 %  December 2002, LDEO
 % G.Krahmann, IFM-GEOMAR, Jul 2005
 
@@ -31,31 +31,34 @@ disp('CALC_SOUNDSP:  calculate sound speed profile and correct the raw data')
 
 values.GEN_Sound_sp_calc = '[NA]';
 if ~isempty(data.ctdprof)
-
-  disp('    Calculating soundspeed from CTD profile ')
-  zctd = sw_dpth(data.ctdprof(:,1),values.lat);
-  zctd(1) = -1e4;
-  zctd(end) = 1e4;
-  data.ctdprof_ss = sw_svel(data.ctdprof(:,3),data.ctdprof(:,2),...
-		data.ctdprof(:,1));
-  data.ss = interp1(-zctd,data.ctdprof_ss,data.z','linear')';
-  values.GEN_Sound_sp_calc = '[CTD]';
-  
+    
+    disp('    Calculating soundspeed from CTD profile ')
+    zctd = sw_dpth(data.ctdprof(:,1),values.lat);
+    zctd(1) = -1e4;
+    zctd(end) = 1e4;
+    data.ctdprof_ss = sw_svel(data.ctdprof(:,3),data.ctdprof(:,2),...
+        data.ctdprof(:,1));
+    
+    
+    
+    data.ss = interp1(-zctd,data.ctdprof_ss,data.z')';
+    values.GEN_Sound_sp_calc = '[CTD]';
+    
 elseif ~isempty(data.ctdtime_data)
-
-  pp = sw_pres(abs(data.z),values.lat);
-  disp('    Calculating soundspeed from CTD pressure and temp timeseries')
-  %data.ss = sw_svel(34.5*ones(1,length(pp)),data.ctdtime_data(:,2)',pp);
-  data.ss = sw_svel(data.ctdtime_data(:,3)',data.ctdtime_data(:,2)',pp);
-  values.GEN_Sound_sp_calc = '[CTD]';
-
+    
+    pp = sw_pres(abs(data.z),values.lat);
+    disp('    Calculating soundspeed from CTD pressure and temp timeseries')
+    %data.ss = sw_svel(34.5*ones(1,length(pp)),data.ctdtime_data(:,2)',pp);
+    data.ss = sw_svel(data.ctdtime_data(:,3)',data.ctdtime_data(:,2)',pp);
+    values.GEN_Sound_sp_calc = '[CTD]';
+    
 else
-
-  pp = sw_pres(abs(data.z),values.lat);
-  disp('    Calculating soundspeed from integrated w and ADCP temp')
-  data.ss = sw_svel(34.5*ones(1,length(pp)),data.temp(1,:),pp);
-  values.GEN_Sound_sp_calc = '[T-P]';
-
+    
+    pp = sw_pres(abs(data.z),values.lat);
+    disp('    Calculating soundspeed from integrated w and ADCP temp')
+    data.ss = sw_svel(34.5*ones(1,length(pp)),data.temp(1,:),pp);
+    values.GEN_Sound_sp_calc = '[T-P]';
+    
 end
 
 
@@ -67,24 +70,24 @@ end
 disp('    Correcting all ADCP velocities for sound speed ')
 sc = meshgrid(data.ss./data.sv(1,:),data.izd);
 if values.up==1
-  sc = [sc;meshgrid(data.ss./data.sv(2,:),data.izu)];
-  sc = flipud(sc);
+    sc = [sc;meshgrid(data.ss./data.sv(2,:),data.izu)];
+    sc = flipud(sc);
 end
 if any(~isnan(sc(:)))
-  data.ru = data.ru.*sc;
-  data.rv = data.rv.*sc;
-  data.rw = data.rw.*sc;
-  if isfield(data,'hbot')
-    data.hbot = data.hbot.*sc(end,:);
-    data.bvel(:,1:3) = data.bvel(:,1:3).*sc(end-[0:2],:)';
-    if isfield(data,'bvel_rdi')
-      data.bvel_rdi(:,1:3) = data.bvel_rdi(:,1:3).*sc(end-[0:2],:)';
+    data.ru = data.ru.*sc;
+    data.rv = data.rv.*sc;
+    data.rw = data.rw.*sc;
+    if isfield(data,'hbot')
+        data.hbot = data.hbot.*sc(end,:);
+        data.bvel(:,1:3) = data.bvel(:,1:3).*sc(end-[0:2],:)';
+        if isfield(data,'bvel_rdi')
+            data.bvel_rdi(:,1:3) = data.bvel_rdi(:,1:3).*sc(end-[0:2],:)';
+        end
+        if isfield(data,'bvel_own')
+            data.bvel_own(:,1:3) = data.bvel_own(:,1:3).*sc(end-[0:2],:)';
+        end
     end
-    if isfield(data,'bvel_own')
-      data.bvel_own(:,1:3) = data.bvel_own(:,1:3).*sc(end-[0:2],:)';
+    if isfield(data,'hsurf')
+        data.hsurf = data.hsurf.*sc(1,:);
     end
-  end
-  if isfield(data,'hsurf')
-    data.hsurf = data.hsurf.*sc(1,:);
-  end
 end
