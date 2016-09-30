@@ -11,8 +11,10 @@ if nargin>=1
 	if ishandle(h)
 		set(0, 'CurrentFigure', h);
 	else
-		h = figure(h);
+		%h = figure(h);
+    h =makefigexact4(8.5,11);
 	end
 else
-	h = figure;
+	%h = figure;
+   h =makefigexact4(8.5,11);
 end

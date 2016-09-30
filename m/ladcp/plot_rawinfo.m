@@ -14,7 +14,7 @@ function plot_rawinfo(d,params,values)
 %
 % open and clear figure
 %
-sfigure(2);
+sfh=sfigure(2);
 clf
 orient tall
 
@@ -83,10 +83,19 @@ subplot(9,2,[3,4,5,6]);
 % contour results
 %
 col = jet(64);
-col = ([[1 1 1]; col]);
-colormap(col)
-gcolor(ind,zz,nmedian(diff(ind))*ones(1,length(ind)),dz,rw);
-set(gca,'xAxisLocation','top');
+
+
+if is_octave && graphics_toolkit=='gnuplot'
+     col(32,:,:)=[1,1,1]; % make background white. Pedro Pena
+     colormap(col);
+     gcolor(ind,zz,rw);
+else
+     col = ([[1 1 1]; col]);
+     colormap(col);
+     gcolor(ind,zz,nmedian(diff(ind))*ones(1,length(ind)),dz,rw);
+end
+
+     set(gca,'xAxisLocation','top');
 hold on
 ax = axis;
 plot(ax(1:2),[0 0],'-k')

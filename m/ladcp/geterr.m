@@ -194,7 +194,10 @@ if iplot
   sfigure(2);
   clf
   orient tall
-  colormap([[1 1 1]; jet(128)])
+  j128=jet(128);
+  j128(64,:,:)=[1,1,1];
+  %j128=[[1 1 1]; jet(128)];
+  colormap(j128);
 
   subplot(231)
   ib = [1:size(l.ru_err,1)];

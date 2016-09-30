@@ -18,7 +18,12 @@ function [h] = gcolor(x,y,xd,yd,c)
 % check input arguments
 if nargin~=5
   if nargin==3
-    pcolor(x,y,xd)
+    h=pcolor(x,y,xd); %added retur handle Pedro Pena
+    % in some versions of matlab greater than 7.2 the plots can't
+    % be seen because the edgle lines blot them out.
+    % the following line removes the edgelines.
+    set(h, 'EdgeColor', 'none'); % Pedro Pena Thomas Sevilla 9.12.16    
+    return; %added return statement Pedro Pena
   else
     error('wrong number of arguments')
   end
