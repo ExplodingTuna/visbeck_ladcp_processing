@@ -68,14 +68,42 @@ end
 
 
 %=========================================================================
+%=========================================================================
+%=========================================================================
 % This piece loads the contents cruise_params.cfg into
 % cell matrix 'cruiseVars'
+% The file is first read and copied to a temporary file without spaces that
+% can confuse textscan.
+
 fileToRead=['cfg',filesep,'cruise_params.cfg'];
+fileToWrite=['cfg',filesep,'cruise_params.cfg.tmp'];
 fid=fopen(fileToRead,'r');
-cruiseVars=textscan(fid,'%s%s','Delimiter','=','CommentStyle','#');
-%get_cruise_variable_value(cruiseVars,'')
+fidW=fopen(fileToWrite,'w');
+
+tline = fgetl(fid);
+while ischar(tline)
+  
+    if ~ischar(tline)
+        break;
+    end
+    
+    if ~isempty(tline)
+       fprintf(fidW,[tline,'\r\n']);
+    end
+    tline = fgetl(fid);
+end
+
+fclose(fidW);
+fidW=fopen(fileToWrite,'r');
+cruiseVars=textscan(fidW,'%s%s','Delimiter','=','CommentStyle','#');
+
 fclose(fid);
+fclose(fidW);
+delete(fileToWrite);
 %=========================================================================
+%=========================================================================
+%=========================================================================
+
 remove_zctd_downcast=str2num(get_cruise_variable_value(cruiseVars,'remove_zctd_downcast'));
 
 % commented Pedro Pena 8.21.16
