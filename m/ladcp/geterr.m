@@ -195,23 +195,41 @@ if iplot
   clf
   orient tall
   j128=jet(128);
-  j128(64,:,:)=[1,1,1];
-  %j128=[[1 1 1]; jet(128)];
+  %j128(64,:,:)=[1,1,1];
+  j128=[[1 1 1]; jet(128)];
   colormap(j128);
 
   subplot(231)
   ib = [1:size(l.ru_err,1)];
   ib = ib-length(d.izu);
-  pcolorn(l.itv2,-ib,l.ru_err) 
+
+  pcolorn(l.itv2,-ib,l.ru_err);
+  p0=gca;
+  p0clim=get(p0,'clim');
+  ruerr=l.ru_err;
+  ruerr(isnan(l.ru_err))=-999;
+  pcolorn(l.itv2,-ib,ruerr);
+  p1=gca;
+  set(p1,'clim',p0clim);
+  
   fac = nmean(l.u_oce_s);
   fac=  max([fac,1e-2]);
-  caxis([-3 3]*fac)
+  %caxis([-3 3]*fac)
   colorbar
   title(['U-err std:',num2str(nmean(nstd(l.ru_err')))])
   ylabel('BINS')
    
   subplot(232)
+  
   pcolorn(l.itv,-l.z_oce,l.u_oce)
+  p2=gca;
+  climp2=get(p2,'clim');
+  uoce=l.u_oce;
+  uoce(isnan(l.u_oce))=-999;
+  pcolorn(l.itv,-l.z_oce,uoce);
+  p3=gca;
+  set(p3,'clim',climp2);
+  
   if isfield(dr,'zbot')
     hold on
     plot(d.z-d.hbot,'.k')
@@ -241,17 +259,34 @@ if iplot
   title('U (.k) up-looker (.b) down-looker')
 
   subplot(234)
-  pcolorn(l.itv2,-ib,l.rv_err) 
+  
+  pcolorn(l.itv2,-ib,l.rv_err)
+  p4=gca;
+  climp4=get(p4,'clim'); 
+  rverr=l.rv_err;
+  rverr(isnan(l.rv_err))=-999;
+  pcolorn(l.itv2,-ib,rverr) 
+  p5=gca;
+  set(p5,'clim',climp4);
+  
   fac = nmean(l.v_oce_s);
   fac = max([fac,1e-2]);
-  caxis([-3 3]*fac)
+  %caxis([-3 3]*fac)
   colorbar
   title(['V-err std:',num2str(nmean(nstd(l.rv_err')))])
   ylabel('BINS')
   xlabel('super ensemble')
 
   subplot(235)
-  pcolorn(l.itv,-l.z_oce,l.v_oce) 
+  pcolorn(l.itv,-l.z_oce,l.v_oce)
+  p6=gca;
+  climp6=get(p6,'clim');
+  voce=l.v_oce;
+  voce(isnan(l.v_oce))=-999;
+   pcolorn(l.itv,-l.z_oce,voce);
+   p7=gca;
+   set(p7,'clim',climp6);
+ 
   hold on
   if isfield(dr,'zbot')
     plot(d.z-d.hbot,'.k')
@@ -287,6 +322,6 @@ if iplot
 
   % reset colormap
   sfigure(2);
-  colormap(jet(128))
+  colormap(j128);
  
 end

@@ -12,9 +12,11 @@ if nargin>=1
 		set(0, 'CurrentFigure', h);
 	else
 		%h = figure(h);
-    h =makefigexact4(8.5,11);
+    h =makefigexact4(4.25,5.5);
+    set(h,'Color',[.867,.867,.867]);
 	end
 else
 	%h = figure;
-   h =makefigexact4(8.5,11);
+   h =makefigexact4(4.25,5.5);
+   set(h,'Color',[.867,.867,.867]);
 end

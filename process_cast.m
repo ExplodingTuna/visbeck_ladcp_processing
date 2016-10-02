@@ -73,7 +73,7 @@ end
 % This piece loads the contents cruise_params.cfg into
 % cell matrix 'cruiseVars'
 % The file is first read and copied to a temporary file without spaces that
-% can confuse textscan.
+% could potentially confuse textscan.
 
 fileToRead=['cfg',filesep,'cruise_params.cfg'];
 fileToWrite=['cfg',filesep,'cruise_params.cfg.tmp'];

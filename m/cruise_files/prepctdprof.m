@@ -1,4 +1,4 @@
-function [values] = prepctdprof(stn,values,files,cruiseVars)
+function [values] = pepctdprof(stn,values,files,cruiseVars)
 % function [values] = prepctdprof(stn,values)
 %
 % prepare CTD profile for LADCP
@@ -10,11 +10,9 @@ function [values] = prepctdprof(stn,values,files,cruiseVars)
 cruise_id=get_cruise_variable_value(cruiseVars,'cruise_id');
 cruise_id_prefix=get_cruise_variable_value(cruiseVars,'cruise_id_prefix');
 cruise_id_suffix=get_cruise_variable_value(cruiseVars,'cruise_id_suffix');
-fName=[cruise_id_prefix,cruise_id,'_profile_',cruise_id_suffix];
 
-cnv=ctd_rd2([files.raw_ctd_prof_dir,filesep,fName,int2str0(stn,3),'.cnv'],'NMEA');
-
-
+fName=[files.raw_ctd_prof_dir,filesep,cruise_id_prefix,cruise_id,'_profile_',cruise_id_suffix,int2str0(stn,3),'.cnv'];
+cnv=ctd_rd2(fName,'NMEA');
 ctdprof = [cnv.prDM, cnv.t090C, cnv.sal00];
 values.ctd_time = julian(cnv.gtime);
 values.ctd_lat = cnv.latitude;

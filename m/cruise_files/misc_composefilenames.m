@@ -26,8 +26,10 @@ end
 
 f.data_directory=[f.working_directory,filesep,'data'];
 f.logs_dir        = [f.working_directory,filesep,'logs'];
-f.plots_dir       = [f.working_directory,filesep,'plots',filesep,int2str0(stn,3)]; %% line modified by RHS 25NOV2013
-f.prof_dir        = [f.working_directory,filesep,'profiles',filesep,int2str0(stn,3)]; %% line modified by RHS 25NOV2013
+f.plot_dir        = [f.working_directory,filesep,'plots'];
+f.profiles_dir    = [f.working_directory,filesep,'profiles'];
+f.plots_dir       = [f.plot_dir,filesep,'plots',filesep,int2str0(stn,3)]; %% line modified by RHS 25NOV2013
+f.prof_dir        = [f.profiles_dir,filesep,int2str0(stn,3)]; %% line modified by RHS 25NOV2013
 f.ctd_ts_dir      = [f.data_directory,filesep,'ctdtime'];
 f.raw_ctd_ts_dir  = [f.data_directory,filesep,'raw_ctdtime'];
 f.ctd_prof_dir    = [f.data_directory,filesep,'ctdprof'];
@@ -38,6 +40,69 @@ f.sadcp_dir       = [f.data_directory,filesep,'sadcp'];
 f.raw_sadcp_dir   = [f.data_directory,filesep,'raw_sadcp'];
 f.ladcp_dir       = [f.data_directory,filesep,'ladcp'];  %% line added by RHS 25NOV2013
 f.raw_dir         = [f.data_directory,filesep,'raw_ladcp'];
+f.raw_cut_dir     = [f.raw_dir ,filesep,'cut'];
+f.tmp_dir         = [f.working_directory,filesep,'tmp'];
+
+if ~exist(f.data_directory)
+    mkdir(f.data_directory);
+end
+
+if ~exist(f.logs_dir)
+    mkdir(f.logs_dir);
+end
+
+if ~exist(f.plot_dir )
+    mkdir(f.plot_dir );
+end
+if ~exist(f.profiles_dir)
+    mkdir(f.profiles_dir);
+end
+if ~exist(f.ctd_ts_dir)
+    mkdir(f.ctd_ts_dir);
+end
+if ~exist(f.ctd_prof_dir)
+    mkdir(f.ctd_prof_dir);
+end
+if ~exist(f.ctd_ts_dir)
+    mkdir(f.ctd_ts_dir);
+end
+if ~exist(f.raw_ctd_ts_dir)
+    mkdir(f.raw_ctd_ts_dir);
+end
+if ~exist(f.ctd_prof_dir)
+    mkdir(f.ctd_prof_dir);
+end
+
+if ~exist(f.raw_ctd_prof_dir)
+    mkdir(f.raw_ctd_prof_dir);
+end  
+
+if ~exist(f.nav_dir)
+    mkdir(f.nav_dir);
+end
+if ~exist(f.raw_nav_dir)
+    mkdir(f.raw_nav_dir);
+end
+if ~exist(f.sadcp_dir)
+    mkdir(f.sadcp_dir);
+end
+if ~exist(f.raw_sadcp_dir)
+    mkdir(f.raw_sadcp_dir);
+end
+if ~exist(f.ladcp_dir)
+    mkdir(f.ladcp_dir);
+end
+if ~exist(f.raw_dir)
+    mkdir(f.raw_dir);
+end
+
+if ~exist(f.tmp_dir)
+    mkdir(f.tmp_dir);
+end
+if ~exist(f.raw_cut_dir )
+    mkdir(f.raw_cut_dir );
+end
+
 
 % file names
 stn_fmt         = '%03d';

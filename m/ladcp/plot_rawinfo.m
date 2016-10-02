@@ -83,15 +83,23 @@ subplot(9,2,[3,4,5,6]);
 % contour results
 %
 col = jet(64);
+col = ([[1 1 1]; col]);
+colormap(col);
+rw1=rw;
+%rw1(isnan(rw))=-999; % remove nans
+%gcolor(ind,zz,nmedian(diff(ind))*ones(1,length(ind)),dz,rw1);
 
-
-if is_octave && graphics_toolkit=='gnuplot'
-     col(32,:,:)=[1,1,1]; % make background white. Pedro Pena
+ if is_octave && graphics_toolkit=='gnuplot'
+     %col(32,:,:)=[1,1,1]; % make background white. Pedro Pena
      colormap(col);
      gcolor(ind,zz,rw);
+     clim=get(gca,'clim')
+     rw1(isnan(rw))=-999;
+     gcolor(ind,zz,rw1);
+     set(gca,'clim',clim);
 else
      col = ([[1 1 1]; col]);
-     colormap(col);
+    
      gcolor(ind,zz,nmedian(diff(ind))*ones(1,length(ind)),dz,rw);
 end
 
