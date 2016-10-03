@@ -1,4 +1,4 @@
-function [values] = pepctdprof(stn,values,files,cruiseVars)
+function [values] = prepctdprof(stn,values,files,cruiseVars)
 % function [values] = prepctdprof(stn,values)
 %
 % prepare CTD profile for LADCP

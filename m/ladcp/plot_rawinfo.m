@@ -93,7 +93,7 @@ rw1=rw;
      %col(32,:,:)=[1,1,1]; % make background white. Pedro Pena
      colormap(col);
      gcolor(ind,zz,rw);
-     clim=get(gca,'clim')
+     clim=get(gca,'clim');
      rw1(isnan(rw))=-999;
      gcolor(ind,zz,rw1);
      set(gca,'clim',clim);

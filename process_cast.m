@@ -104,7 +104,12 @@ delete(fileToWrite);
 %=========================================================================
 %=========================================================================
 
+cruise_id=get_cruise_variable_value(cruiseVars,'cruise_id');%added by Pedro Pena 8.19.16
+cruise_id_prefix=get_cruise_variable_value(cruiseVars,'cruise_id_prefix');
+cruise_id_suffix=get_cruise_variable_value(cruiseVars,'cruise_id_suffix');
+use_mat_for_nav=str2num(get_cruise_variable_value(cruiseVars,'use_mat_for_nav'));
 remove_zctd_downcast=str2num(get_cruise_variable_value(cruiseVars,'remove_zctd_downcast'));
+use_sadcp=str2num(get_cruise_variable_value(cruiseVars,'use_sadcp'));
 
 % commented Pedro Pena 8.21.16
 %
@@ -137,6 +142,64 @@ cruise_params;
 cast_params;
 files = misc_composefilenames(p,stn,cruiseVars);
 
+%check if files exist
+ctdtimeR=[files.raw_ctd_ts_dir,filesep,cruise_id_prefix,cruise_id,'_time_',cruise_id_suffix,int2str0(stn,3),'.cnv'];
+ctdprofR=[files.raw_ctd_prof_dir,filesep,cruise_id_prefix,cruise_id,'_profile_',cruise_id_suffix,int2str0(stn,3),'.cnv'];
+stncaststr = sprintf('%03d_01',stn);
+ladcpdnR=[files.raw_cut_dir,filesep,cruise_id,'_',stncaststr,'m.000'];
+ladcpupR=[files.raw_cut_dir,filesep,cruise_id,'_',stncaststr,'s.000'];
+
+if use_mat_for_nav == 1
+navExt='mat';
+else
+navExt='vis';
+end
+
+navR=[files.raw_nav_dir,filesep,cruise_id_prefix,cruise_id,'_nav',cruise_id_suffix,'.',navExt]
+sadcpR=[files.raw_sadcp_dir,filesep,cruise_id_prefix,cruise_id,'_codas3_sadcp',cruise_id_suffix,'.mat'];
+
+
+if ~exist(ctdtimeR)
+    clc;
+    disp(ctdtimeR);
+    disp('DOES NOT EXIST! EXITING')
+    return;
+end
+
+if ~exist(ctdprofR)
+    clc;
+    disp(ctdprofR);
+    disp('DOES NOT EXIST! EXITING')
+    return;
+end
+
+if ~exist(ladcpdnR)
+    clc;
+    disp(ladcpdnR);
+    disp('DOES NOT EXIST! EXITING')
+    return;
+end
+
+if ~exist(ladcpupR)
+    clc;
+    disp(ladcpupR);
+    disp('DOES NOT EXIST! EXITING')
+    return;
+end
+
+if ~exist(navR)
+    clc;
+    disp(navR);
+    disp('DOES NOT EXIST! EXITING')
+    return;
+end
+
+if use_sadcp==1 && ~exist(sadcpR)
+    clc;
+    disp(sadcpR);
+    disp('DOES NOT EXIST! EXITING')
+    return;
+end
 % clear temp files
 %
 %
@@ -152,7 +215,7 @@ end
 % prepare the various data files for easy loading
 %
 % [values] = prepare_cast(stn);
-cruise_id=get_cruise_variable_value(cruiseVars,'cruise_id');%added by Pedro Pena 8.19.16
+
 [values] = prepare_cast(stn,p,files,cruiseVars); % added p variable RHS MAY 2014
 
 %
