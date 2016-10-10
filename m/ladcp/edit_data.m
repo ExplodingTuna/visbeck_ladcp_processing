@@ -1,4 +1,4 @@
-function d = edit_data(d,p,values)
+function d = edit_data(d,p,values,files)
 % function d = edit_data(d,p,values)
 %
 % perform data editing (e.g. sidelobes, previous-ping interference, &c)
@@ -382,7 +382,7 @@ ylabel('Bin #');
 title('After Data Editing');
 
 streamer([p.name,'  Figure 14']);
-img_save(['tmp',filesep,'14'],p.print_formats)
+img_save('14',p.print_formats,files)
 
 
 ind = find(isnan(d.ts_edited));
@@ -418,4 +418,4 @@ ylabel('Bin #');
 title('After Data Editing');
 
 streamer([p.name,'  Figure 15']);
-img_save(['tmp',filesep,'15'],p.print_formats)
+img_save('15',p.print_formats,files)

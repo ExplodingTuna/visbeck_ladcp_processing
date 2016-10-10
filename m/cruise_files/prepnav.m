@@ -71,5 +71,5 @@ data = [data.latitude,data.longitude];
 % data = data(good,:);
 
 % store data in the standard location
-savefile=['save6 ',files.nav_dir,filesep,'nav',int2str0(stn,3),'.mat',' timnav data'];
+savefile=['save6 ',files.nav,' timnav data'];
 eval(savefile)

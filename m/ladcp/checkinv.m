@@ -1,4 +1,4 @@
-function p = checkinv(dr,de,der,p,ps,values)
+function p = checkinv(dr,de,der,p,ps,values,files)
 % function p = checkinv(dr,de,der,p,ps,values)
 % check inversion for consistency 
 %
@@ -112,5 +112,5 @@ if isfield(de,'type_constraints')
   xlabel('super ensemble')
 
   streamer([p.name,'  Figure 12']);
-  img_save(['tmp',filesep,'12'],p.print_formats)
+  img_save('12',p.print_formats,files)
 end

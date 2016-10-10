@@ -1,5 +1,5 @@
 function [data,params,values,messages]=...
-	misc_cut_profile(data,params,values,messages)
+	misc_cut_profile(data,params,values,messages,files)
 %function [data,params,values,messages]=...
 %	misc_cut_profile(data,params,values,messages)
 %
@@ -218,7 +218,7 @@ values.vship= values.ydisp / params.dt_profile;
 
 streamer([params.name,'   Figure 4']);
 %hgsave('tmp',filesep,'4')
-img_save(['tmp',filesep,'4'],params.print_formats) % Pedro Pena 8.17.16
+img_save('4',params.print_formats,files) % Pedro Pena 8.17.16
 set(fig8h,'Visible','on');
 
 %
@@ -251,6 +251,6 @@ end
 
 streamer([params.name,'   Figure 8']);
 %hgsave('tmp',filesep,'8')
-img_save(['tmp',filesep,'8'],params.print_formats) % Pedro Pena 8.17.16
+img_save('8',params.print_formats,files) % Pedro Pena 8.17.16
 close(fig8h);
 

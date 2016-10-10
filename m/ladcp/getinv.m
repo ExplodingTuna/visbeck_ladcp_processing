@@ -1,4 +1,4 @@
-function [messages,p,dr,ps,de,der]=getinv(messages,values,di,p,ps,dr,iplot,img16)
+function [messages,p,dr,ps,de,der]=getinv(messages,values,di,p,ps,dr,iplot,img16,files)
 % function [messages,p,dr,ps,de,der]=getinv(messages,values,di,p,ps,dr,iplot)
 %
 % solve linear inverse problem for LADCP profiles
@@ -214,7 +214,7 @@ if img16
     title('Weights based on standard deviation of super ensembles')
     
     streamer([p.name,' Figure 16']);
-    img_save(['tmp',filesep,'16'],p.print_formats)
+    img_save('16',p.print_formats,files)
 end
 wm = reshape(wm,nt*nbin,1);
 
@@ -709,10 +709,10 @@ grid
 set(gca,'fontsize',10)
 streamer([p.name,'  Figure 7']);
 orient tall
-img_save(['tmp',filesep,'7'],p.print_formats)
+img_save('7',p.print_formats,files)
 
 % compute velocity error
-der = geterr(dr,di,p,iplot);
+der = geterr(dr,di,p,iplot,files);
 if size(uocean,2)>1
   dr.uerr = dr.uerr/nmedian(dr.uerr)*...
 	nmedian(sqrt(der.u_oce_s.^2+der.v_oce_s.^2));

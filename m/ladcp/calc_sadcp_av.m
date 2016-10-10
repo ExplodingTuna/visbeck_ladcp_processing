@@ -1,4 +1,4 @@
-function   [data,messages] = calc_sadcp_av(data,params,values,messages)
+function   [data,messages] = calc_sadcp_av(data,params,values,messages,files)
 % function   [data,messsages] = calc_sadcp_av(data,params,values,messages)
 %
 % averages shipboard ADCP profiles close in time 
@@ -217,4 +217,4 @@ ylabel('latitude')
 
 suplabel([params.name,' SADCP'],'t');
 
-img_save(['tmp',filesep,'9'],params.print_formats);
+img_save('9',params.print_formats,files);

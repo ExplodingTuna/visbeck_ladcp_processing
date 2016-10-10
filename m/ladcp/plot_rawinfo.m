@@ -1,4 +1,4 @@
-function plot_rawinfo(d,params,values)
+function plot_rawinfo(d,params,values,files)
 % function plotraw(d,params,values)
 %
 % plot some results
@@ -317,7 +317,7 @@ if isfield(d,'xmv')
 
 end
 
-img_save(['tmp',filesep,'2'],params.print_formats)
+img_save('2',params.print_formats,files)
 
 
 

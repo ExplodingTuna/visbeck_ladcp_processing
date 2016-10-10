@@ -1,5 +1,5 @@
 function [messages,p,dr,de,der] =...
-	lanarrow(messages,values,di,p,ps)
+	lanarrow(messages,values,di,p,ps,files)
 %function [messages,p,dr,de,der] =...
 %	lanarrow(messages,values,di,p,ps)
 %
@@ -30,9 +30,9 @@ ps1.down_up = 0;
 ps1.solve = 0;
 for n=1:ps.outlier
   if n>1
-    [messages,p,dr,ps1,de,der] = getinv(messages,values,di,p,ps1,dr,[],0);
+    [messages,p,dr,ps1,de,der] = getinv(messages,values,di,p,ps1,dr,[],0,files);
   else
-    [messages,p,dr,ps1,de,der] = getinv(messages,values,di,p,ps1,[],[],0);
+    [messages,p,dr,ps1,de,der] = getinv(messages,values,di,p,ps1,[],[],0,files);
   end
   dif = (di.ru-der.ru_oce-der.ru_ctd).^2+...
          (di.rv-der.rv_oce-der.rv_ctd).^2;

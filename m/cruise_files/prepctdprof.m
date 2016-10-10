@@ -19,7 +19,7 @@ values.ctd_lat = cnv.latitude;
 values.ctd_lon = cnv.longitude;
 
 % store data at the standard location
-save6([files.ctd_prof_dir,filesep,'ctdprof',int2str0(stn,3),'.mat'],'ctdprof')
+save6(files.ctdprof,'ctdprof')
 % 
 % save filename
-file = [files.ctd_prof_dir,filesep,'ctdprof',int2str0(stn,3),'.mat'];
+%file = f.ctdprof;

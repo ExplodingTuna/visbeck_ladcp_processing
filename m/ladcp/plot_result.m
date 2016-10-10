@@ -1,4 +1,4 @@
-function plot_result(dr,d,p,ps,values)
+function plot_result(dr,d,p,ps,values,files)
 % function plot_result(dr,d,p,ps,values)
 %                              
 % - plot final velocity profile
@@ -368,4 +368,4 @@ axis off
 
 
 orient tall
-img_save(['tmp',filesep,'1'],p.print_formats);
+img_save('1',p.print_formats,files);

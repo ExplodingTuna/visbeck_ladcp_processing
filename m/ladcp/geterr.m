@@ -1,4 +1,4 @@
-function l = geterr(dr,d,p,iplot)
+function l = geterr(dr,d,p,iplot,files)
 % function l = geterr(dr,d,p,iplot)
 %
 % returns predictions of U_ocean and
@@ -318,7 +318,7 @@ if iplot
   xlabel('velocity [m/s]')
   
   streamer([dr.name,'  Figure 3']);
-  img_save(['tmp',filesep,'3'],p.print_formats);
+  img_save('3',p.print_formats,files);
 
   % reset colormap
   sfigure(2);

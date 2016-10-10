@@ -1,4 +1,4 @@
-function [p,d,messages]=prepinv(messages,d,p,dr,values,img16)
+function [p,d,messages]=prepinv(messages,d,p,dr,values,img16,files)
 % function [p,d,messages]=prepinv(messages,d,p,dr,values)
 %
 % prepare for inverse solver
@@ -173,7 +173,7 @@ if values.up==1
     axis([[-1 1]*tiltmax [-1 1]*5])
     
     suplabel([p.name,' Figure 6'],'t');
-    img_save(['tmp',filesep,'6'],p.print_formats);
+    img_save('6',p.print_formats,files);
     
     
     
@@ -276,7 +276,7 @@ if values.up==1
         title('Tilt error [degree] consistent with offset')
         
         streamer([p.name,' Figure 10']);
-        img_save(['tmp',filesep,'10'],p.print_formats)
+        img_save('10',p.print_formats,files)
         
         disp('    Adjusted for velocity offset in up and down looking ADCP')
         
@@ -380,7 +380,7 @@ if values.up==1
         xlabel('ensemble')
         
         streamer([p.name,' Figure 5']);
-        img_save(['tmp',filesep,'5'],p.print_formats)
+        img_save('5',p.print_formats,files)
         
         if isfield(d,'hdg_rot_down')
             disp('    Rotated earlier, using only difference ')

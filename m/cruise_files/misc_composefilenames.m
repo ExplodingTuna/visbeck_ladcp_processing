@@ -18,6 +18,9 @@ function [f] = misc_composefilenames(params,stn,cruiseVars)
 % directory names made relative Pedro Pena 8.21.16
 
 
+cruise_id=get_cruise_variable_value(cruiseVars,'cruise_id');
+cruise_id_prefix=get_cruise_variable_value(cruiseVars,'cruise_id_prefix');
+cruise_id_s=get_cruise_variable_value(cruiseVars,'cruise_id_suffix');
 
 f.working_directory=get_cruise_variable_value(cruiseVars,'working_directory');
 if (f.working_directory == '.')
@@ -28,7 +31,7 @@ f.data_directory=[f.working_directory,filesep,'data'];
 f.logs_dir        = [f.working_directory,filesep,'logs'];
 f.plot_dir        = [f.working_directory,filesep,'plots'];
 f.profiles_dir    = [f.working_directory,filesep,'profiles'];
-f.plots_dir       = [f.plot_dir,filesep,'plots',filesep,int2str0(stn,3)]; %% line modified by RHS 25NOV2013
+f.plots_dir       = [f.plot_dir,filesep,int2str0(stn,3)]; %% line modified by RHS 25NOV2013
 f.prof_dir        = [f.profiles_dir,filesep,int2str0(stn,3)]; %% line modified by RHS 25NOV2013
 f.ctd_ts_dir      = [f.data_directory,filesep,'ctdtime'];
 f.raw_ctd_ts_dir  = [f.data_directory,filesep,'raw_ctdtime'];
@@ -49,6 +52,10 @@ end
 
 if ~exist(f.logs_dir)
     mkdir(f.logs_dir);
+end
+
+if ~exist([f.logs_dir,filesep,int2str0(stn,3)])
+    mkdir([f.logs_dir,filesep,int2str0(stn,3)]);
 end
 
 if ~exist(f.plot_dir )
@@ -153,11 +160,12 @@ end;
 % f.ctdprof = ['data',filesep,'ctdprof',filesep,'ctdprof',int2str0(stn,3),'.mat'];
 % f.ctdtime = ['data',filesep,'ctdtime',filesep,'ctdtime',int2str0(stn,3),'.mat'];
 % f.sadcp = ['data',filesep,'sadcp',filesep,'sadcp',int2str0(stn,3),'.mat'];
+%fName=[cruise_id_prefix,cruise_id,'_ctdprof',int2str0(stn,3),cruise_id_s,'.mat'];
 
-f.nav = [f.nav_dir,filesep,'nav',int2str0(stn,3),'.mat'];
-f.ctdprof = [f.ctd_prof_dir,filesep,'ctdprof',int2str0(stn,3),'.mat'];
-f.ctdtime = [f.ctd_ts_dir,filesep,'ctdtime',int2str0(stn,3),'.mat'];
-f.sadcp = [f.sadcp_dir,filesep,'sadcp',int2str0(stn,3),'.mat'];
+f.nav = [f.nav_dir,filesep,cruise_id_prefix,cruise_id,'_nav_',int2str0(stn,3),cruise_id_s,'.mat'];
+f.ctdprof = [f.ctd_prof_dir,filesep,cruise_id_prefix,cruise_id,'_ctdprof_',int2str0(stn,3),cruise_id_s,'.mat'];
+f.ctdtime = [f.ctd_ts_dir,filesep,cruise_id_prefix,cruise_id,'_ctdtime_',int2str0(stn,3),cruise_id_s,'.mat'];
+f.sadcp = [f.sadcp_dir,filesep,cruise_id_prefix,cruise_id,'_sadcp_',int2str0(stn,3),cruise_id_s,'.mat'];
 
 
 % file name for results (extensions will be added by software)
@@ -173,7 +181,7 @@ f.sadcp = [f.sadcp_dir,filesep,'sadcp',int2str0(stn,3),'.mat'];
 f.res = [f.prof_dir,filesep,params.name];
 f.prof = [f.prof_dir,filesep,params.name];
 f.plots = [f.plots_dir,filesep,params.name];
-f.log = [f.logs_dir,filesep,params.name];
+f.log = [f.logs_dir,filesep,int2str0(stn,3),filesep,params.name];
 
 if length(f.log) > 1                    % open log file
   if exist([f.log,'.log'],'file')==2

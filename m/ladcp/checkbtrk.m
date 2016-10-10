@@ -1,4 +1,4 @@
-function p=checkbtrk(d,di,de,dr,p);
+function p=checkbtrk(d,di,de,dr,p,files);
 % function p=checkbtrk(d,di,de,dr,p);
 
 %
@@ -423,4 +423,4 @@ text(0.54,10,[' Zbottom  ',int2str(p.zbottom),' [m]'])
 suplabel([p.name,' Figure 13'],'t');
 
 orient tall
-img_save(['tmp',filesep,'13'],p.print_formats);
+img_save('13',p.print_formats,files);

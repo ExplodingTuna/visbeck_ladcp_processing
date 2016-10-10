@@ -122,13 +122,6 @@ use_sadcp=str2num(get_cruise_variable_value(cruiseVars,'use_sadcp'));
 %end
 
 
-%
-% clear already loaded and saved data for reloading and reprocessing
-%
-if stn<0
-    clear_prep(-stn);
-    return
-end
 
 
 
@@ -140,7 +133,16 @@ end
 default_params;
 cruise_params;
 cast_params;
-files = misc_composefilenames(p,stn,cruiseVars);
+files = misc_composefilenames(p,abs(stn),cruiseVars);
+
+%
+% clear already loaded and saved data for reloading and reprocessing
+%
+if stn<0
+    clear_prep(stn,files);
+    return
+end
+
 
 %check if files exist
 ctdtimeR=[files.raw_ctd_ts_dir,filesep,cruise_id_prefix,cruise_id,'_time_',cruise_id_suffix,int2str0(stn,3),'.cnv'];
@@ -200,17 +202,12 @@ if use_sadcp==1 && ~exist(sadcpR)
     disp('DOES NOT EXIST! EXITING')
     return;
 end
-% clear temp files
+% clear temp files & plots
 %
-%
-%
-imgFileExt=get_print_format_extension(p.print_formats);
-for n=1:16
-    fName=['tmp',filesep,int2str(n),'.',imgFileExt];
-    if exist(fName);
-        delete(fName);
-    end
-end
+
+delete([files.plot_dir,filesep,'*.*']);
+delete([files.tmp_dir,filesep,'*.*']);
+
 %
 % prepare the various data files for easy loading
 %
@@ -240,13 +237,13 @@ end
 %
 % plot the display menu
 %
-if is_octave && ~strcmp(graphics_toolkit,'gnuplot') && ~strcmpi(imgFileExt,'pdf')
-plot_menu(imgFileExt);
+if is_octave && ~strcmp(graphics_toolkit,'gnuplot')
+plot_menu('jpg',files.tmp_dir);
 drawnow;
 end
 
-if ~is_octave && ~strcmpi(imgFileExt,'ps') && ~strcmpi(imgFileExt,'pdf')
-plot_menu(imgFileExt);
+if ~is_octave
+plot_menu('jpg',files.tmp_dir);
 drawnow;
 end
 
@@ -301,33 +298,33 @@ set(fig8h,'Visible','off');
 % cut off the parts before and after the main profile
 % i.e. the surface soak and similar parts
 %
-[data,p,values,messages] = misc_cut_profile(data,p,values,messages);
+[data,p,values,messages] = misc_cut_profile(data,p,values,messages,files);
 drawnow
 
 %
 % for the real profile time period extract the SADCP data
 % and average it
 %
-[data,messages] = calc_sadcp_av(data,p,values,messages);
+[data,messages] = calc_sadcp_av(data,p,values,messages,files);
 drawnow
 
 
 %
 % Plot a summary plot of the raw data
 %
-plot_rawinfo( data, p, values );
+plot_rawinfo( data, p, values,files );
 drawnow
 
 %
 % apply some editing of the single bins
 %
-data = edit_data(data,p,values);
+data = edit_data(data,p,values,files);
 drawnow
 
 %
 % form super ensembles
 %
-[p,data,messages] = prepinv(messages,data,p,[],values,0);
+[p,data,messages] = prepinv(messages,data,p,[],values,0,files);
 [di,p,data] = calc_ens_av(data,p,values,0);
 drawnow
 if length(di.time_jul)<2
@@ -340,7 +337,7 @@ end
 % remove super ensemble outliers
 %
 if ps.outlier>0 | p.offsetup2down>0
-    [messages,p,dr,de,der] = lanarrow(messages,values,di,p,ps);
+    [messages,p,dr,de,der] = lanarrow(messages,values,di,p,ps,files);
     %  [messages,p,dr1,de1,der1] = lanarrow(messages,values,di1,p,ps);
 end
 
@@ -350,7 +347,7 @@ end
 %
 if (p.offsetup2down>0 & length(data.izu)>0)
     fig16h=sfigure(2);
-    [p,data,messages] = prepinv(messages,data,p,dr,values,1);
+    [p,data,messages] = prepinv(messages,data,p,dr,values,1,files);
     %  [p,data1,messages] = prepinv_with_old_rotation_options(messages,data1,p,dr1,values);
     [di,p,data] = calc_ens_av(data,p,values,1);
 end
@@ -360,15 +357,15 @@ end
 %  take advantage of presolve if it existed  ?? GK
 %  call the main inversion routine
 %
-[messages,p,dr,ps,de] = getinv(messages,values,di,p,ps,dr,1,1);
+[messages,p,dr,ps,de] = getinv(messages,values,di,p,ps,dr,1,1,files);
 drawnow
 
 %
 % check inversion constraints
 %
-p = checkinv(dr,de,der,p,ps,values);
+p = checkinv(dr,de,der,p,ps,values,files);
 if isfield(de,'bvel')
-    p = checkbtrk(data,di,de,dr,p);
+    p = checkbtrk(data,di,de,dr,p,files);
 end
 
 
@@ -389,7 +386,7 @@ end
 %
 % Plot final results
 %
-plot_result(dr,data,p,ps,values)
+plot_result(dr,data,p,ps,values,files)
 drawnow
 
 %
@@ -427,7 +424,7 @@ else
 end
 
 streamer([p.name,' Figure 11']);
-img_save(['tmp',filesep,'11'],p.print_formats);
+img_save('11',p.print_formats,files);
 
 
 %----------------------------------------------------------------------
@@ -532,15 +529,15 @@ if length(files.res)>1
 end
 
 % switch to final result figure
-if is_octave && strcmp(graphics_toolkit,'gnuplot') && ~strcmpi(imgFileExt,'pdf')
+if is_octave && strcmp(graphics_toolkit,'gnuplot')
 close all;
 graphics_toolkit('qt');
-plot_menu(imgFileExt);
-plot_controls(1,imgFileExt);
+plot_menu('jpg',files.tmp_dir);
+plot_controls(1,'jpg',files.tmp_dir);
 end
 
-if ~is_octave && ~strcmpi(imgFileExt,'ps') && ~strcmpi(imgFileExt,'pdf')
-plot_controls(1,imgFileExt);
+if ~is_octave
+plot_controls(1,'jpg',files.tmp_dir);
 end
 
 %----------------------------------------------------------------------

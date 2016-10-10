@@ -36,9 +36,9 @@ stncaststr = sprintf('%03d_01',stn);
     mkdir([files.ladcp_dir ,filesep,int2str0(stn,3)])
   end
   
-  if ~exist([files.raw_dir,filesep,'cut',filesep,int2str0(stn,3)])
-    mkdir([files.raw_dir,filesep,'cut',filesep,int2str0(stn,3)])
-  end
+%   if ~exist([files.raw_dir,filesep,'cut',filesep,int2str0(stn,3)])
+%     mkdir([files.raw_dir,filesep,'cut',filesep,int2str0(stn,3)])
+%   end
 
 %eval(['!del data\raw_ladcp\',int2str0(stn,3),'\*.000'])
 %eval(['! copy data\raw_ladcp\cut\',cruise_str,stncaststr,'m.000 data\ladcp\',int2str0(stn,3),'\',int2str0(stn,3),'DN000.000'])

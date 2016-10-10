@@ -1,4 +1,4 @@
-function [] = plot_controls(fig,figExt)
+function [] = plot_controls(fig,figExt,files)
 % function [] = plot_controls(fig)
 %
 % reloads the stored figure into the display window
@@ -20,7 +20,7 @@ if isempty(fig)
 fig=1;
 end
 
-fName=['tmp',filesep,int2str(fig),'.',figExt];
+fName=[files,filesep,int2str(fig),'.',figExt];
 
 if exist(fName,'file')
     clf;

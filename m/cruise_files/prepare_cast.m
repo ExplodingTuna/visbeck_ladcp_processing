@@ -71,12 +71,12 @@ values.initial = [];
 % data. This information will subsequently be used to cut the
 % navigational and SADCP data (just to reduce the loading times and the
 % necessary storage space)
-if exist([files.ctd_prof_dir,filesep,'ctdprof',int2str0(stn,3),'.mat'],'file')
+if exist(files.ctdprof,'file')
   disp(['    Found previously prepared CTD-PROFILE data.'])
 else
   [values] = prepctdprof(stn,values,files,cruiseVars);
 end
-if exist([files.ctd_prof_dir,filesep,'ctdprof',int2str0(stn,3),'.mat'],'file')
+if exist(files.ctdprof,'file')
   values.ctdprofdata=1;
 else
   values.ctdprofdata=0;
@@ -89,12 +89,12 @@ end
 % 1 sec steps are necessary
 % the data will be stored in a mat-file named 'data/ctd/ctdtimeSTN.mat'
 % where STN is the 3-digit station number
-if exist([files.ctd_ts_dir,filesep,'ctdtime',int2str0(stn,3),'.mat'],'file')
+if exist(files.ctdtime,'file')
   disp(['    Found previously prepared CTD-TIME data.'])
 else
   [values] = prepctdtime(stn,values,files,cruiseVars);
 end
-if exist([files.ctd_ts_dir,filesep,'ctdtime',int2str0(stn,3),'.mat'],'file')
+if exist(files.ctdtime,'file')
    values.ctdtimedata=1;
 else
    values.ctdtimedata=0;
@@ -125,12 +125,12 @@ end
 % 1 sec steps are necessary
 % the data will be stored in a mat-file named 'data/nav/navSTN.mat'
 % where STN is the 3-digit station number
-if exist([files.nav_dir,filesep,'nav',int2str0(stn,3),'.mat'],'file')
+if exist(files.nav,'file')
   disp(['    Found previously prepared NAV data.'])
 else
   prepnav(stn,values,files,cruiseVars);
 end
-if exist([files.nav_dir,filesep,'nav',int2str0(stn,3),'.mat'],'file')
+if exist(files.nav,'file')
    values.navdata=1;
 else
    values.navdata=0;
@@ -155,12 +155,12 @@ prepladcp(stn,files,cruiseVars);
 % u_sadcp		matrix containing zonal velocities in m/s
 % v_sadcp		matrix containing meridional velocities in m/s
 % z_sadcp		vector containing the depths of the velocity data in m
-if exist([files.sadcp_dir,filesep,'sadcp',int2str0(stn,3),'.mat'],'file')
+if exist(files.sadcp,'file')
   disp('    Found previously prepared SADCP data.')
 else
   prepsadcp(stn,values,p,files,cruiseVars);
 end
-if exist([files.sadcp_dir,filesep,'sadcp',int2str0(stn,3),'.mat'],'file')
+if exist(files.sadcp,'file')
   values.sadcpdata=1;
 else  
   values.sadcpdata=0;
