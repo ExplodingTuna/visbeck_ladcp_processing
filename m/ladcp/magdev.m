@@ -1,4 +1,4 @@
-function  [dev,d,h,i,f,x,y,z]=magdev(flat,flon,elevkm,year);
+function  [dev,d,h,i,f,x,y,z]=magdev(flat,flon,elevkm,year,files);
 % function [dev,d,h,i,f,x,y,z]=magdev(flat,flon,elevkm,year);
 % 
 % compute magnetic deviation
@@ -29,7 +29,7 @@ function  [dev,d,h,i,f,x,y,z]=magdev(flat,flon,elevkm,year);
 %
 % read the coefficients
 %
-fname = 'igrf11coeffs';
+fname = [files.cfg_dir,filesep,'igrfcoeffs'];
 warning off			% avoid non-sensical warning in >=R14
 
 if is_octave < 1
@@ -37,7 +37,7 @@ if is_octave < 1
     gh = xlsread(fname);
 else
     fname =[fname,'.csv']
-    gh = dlmread(['m',filesep,'ladcp',filesep,'igrf11coeffs.csv'],',');
+    gh = dlmread(fname,',');
 end
 
 warning on

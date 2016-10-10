@@ -1,0 +1,225 @@
+<deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
+  <configuration build-checksum="2335707753" file="/home/pena/Documents/NOAA/Projects/matlabStandalones/visbeck_ladcp_processing/process_ladcp_cast.prj" location="/home/pena/Documents/NOAA/Projects/matlabStandalones/visbeck_ladcp_processing" name="process_ladcp_cast" preferred-package-location="/home/pena/Documents/NOAA/Projects/matlabStandalones/visbeck_ladcp_processing/process_ladcp_cast/for_redistribution" preferred-package-type="package.type.install" target="target.ezdeploy.standalone" target-name="MATLAB Compiler for Standalone Applications">
+    <param.appname>process_ladcp_cast</param.appname>
+    <param.icon />
+    <param.icons />
+    <param.version>1.0</param.version>
+    <param.authnamewatermark />
+    <param.email />
+    <param.company />
+    <param.summary>Modified version of the Visbeck ladcp processing program 10.20.</param.summary>
+    <param.description>This version of the Visbeck ladcp processing program has been modified to run as a standlaone without the need for matlab.</param.description>
+    <param.screenshot />
+    <param.guid />
+    <param.installpath.string>/process_ladcp_cast/</param.installpath.string>
+    <param.installpath.combo>option.installpath.user</param.installpath.combo>
+    <param.logo />
+    <param.install.notes>On the target computer, append the following to your LD_LIBRARY_PATH environment variable (Where {MCR_ROOT} is the directory the MCR has been installed into):&lt;br&gt; {MCR_ROOT}/runtime/glnxa64&lt;br&gt; {MCR_ROOT}/bin/glnxa64&lt;br&gt; {MCR_ROOT}/sys/os/glnxa64&lt;br&gt;{MCR_ROOT}/sys/opengl/lib/glnxa64&lt;br&gt;</param.install.notes>
+    <param.intermediate>${PROJECT_ROOT}/process_ladcp_cast/for_testing</param.intermediate>
+    <param.files.only>${PROJECT_ROOT}/process_ladcp_cast/for_redistribution_files_only</param.files.only>
+    <param.output>${PROJECT_ROOT}/process_ladcp_cast/for_redistribution</param.output>
+    <param.enable.clean.build>false</param.enable.clean.build>
+    <param.user.defined.mcr.options />
+    <param.embed.ctf>true</param.embed.ctf>
+    <param.server.ctf>${PROJECT_ROOT}/process_ladcp_cast/for_testing/.ctf</param.server.ctf>
+    <param.server.readme>${PROJECT_ROOT}/process_ladcp_cast/for_testing/readme.txt</param.server.readme>
+    <param.target.type>subtarget.standalone</param.target.type>
+    <param.support.packages />
+    <param.required.mcr.products>
+      <item>35000</item>
+      <item>35001</item>
+    </param.required.mcr.products>
+    <param.web.mcr>true</param.web.mcr>
+    <param.package.mcr>false</param.package.mcr>
+    <param.no.mcr>false</param.no.mcr>
+    <param.web.mcr.name>MyAppInstaller_web</param.web.mcr.name>
+    <param.package.mcr.name>MyAppInstaller_mcr</param.package.mcr.name>
+    <param.no.mcr.name>MyAppInstaller_app</param.no.mcr.name>
+    <param.windows.command.prompt>true</param.windows.command.prompt>
+    <param.create.log>false</param.create.log>
+    <param.log.file />
+    <unset>
+      <param.icon />
+      <param.icons />
+      <param.version />
+      <param.authnamewatermark />
+      <param.email />
+      <param.company />
+      <param.screenshot />
+      <param.guid />
+      <param.installpath.string />
+      <param.installpath.combo />
+      <param.logo />
+      <param.install.notes />
+      <param.intermediate />
+      <param.files.only />
+      <param.output />
+      <param.enable.clean.build />
+      <param.user.defined.mcr.options />
+      <param.embed.ctf />
+      <param.server.ctf />
+      <param.server.readme />
+      <param.target.type />
+      <param.support.packages />
+      <param.web.mcr />
+      <param.package.mcr />
+      <param.no.mcr />
+      <param.web.mcr.name />
+      <param.package.mcr.name />
+      <param.no.mcr.name />
+      <param.windows.command.prompt />
+      <param.create.log />
+      <param.log.file />
+    </unset>
+    <fileset.main>
+      <file>${PROJECT_ROOT}/process_cast.m</file>
+    </fileset.main>
+    <fileset.resources>
+      <file>${PROJECT_ROOT}/apath.m</file>
+      <file>${PROJECT_ROOT}/cfg/cast_params.m</file>
+      <file>${PROJECT_ROOT}/cfg/cruise_params.m</file>
+      <file>${PROJECT_ROOT}/m/cruise_files/ctd_rd2.m</file>
+      <file>${PROJECT_ROOT}/m/cruise_files/ismac.m</file>
+      <file>${PROJECT_ROOT}/m/cruise_files/loading.m</file>
+      <file>${PROJECT_ROOT}/m/cruise_files/misc_composefilenames.m</file>
+      <file>${PROJECT_ROOT}/m/cruise_files/prepare_cast.m</file>
+      <file>${PROJECT_ROOT}/m/cruise_files/prepctdprof.m</file>
+      <file>${PROJECT_ROOT}/m/cruise_files/prepctdtime.m</file>
+      <file>${PROJECT_ROOT}/m/cruise_files/prepladcp.m</file>
+      <file>${PROJECT_ROOT}/m/cruise_files/prepnav.m</file>
+      <file>${PROJECT_ROOT}/m/cruise_files/prepsadcp.m</file>
+      <file>${PROJECT_ROOT}/m/cruise_files/rdihead.m</file>
+      <file>${PROJECT_ROOT}/m/cruise_files/saveres.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/bestlag.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/bestlag2.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/calc_adcp_ctd_lag.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/calc_battery.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/calc_depth.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/calc_ens_av.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/calc_rdi_std.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/calc_sadcp_av.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/calc_shear2.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/calc_soundsp.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/checkbtrk.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/checkinv.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/checktilt.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/clear_prep.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/cos_d.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/cutstruct.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/default_params.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/edit_data.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/figload.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/findany.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/gcolor.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/getbtrack.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/geterr.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/getinv.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/gregoria.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/improve.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/int2str0.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/julian.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/lanarrow.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/lesqchol.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/localmax2.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/magdev.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/meanfilt.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/meanmediannan.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/mergedata.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/misc_cut_profile.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/misc_fix_compass.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/misc_prepare_rdi.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/misc_switchbeams.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/nbread.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/nmax.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/nmean.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/nmedian.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/nmin.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/nstd.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/nsum.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/num3str.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/outlier.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/pcolorn.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/plot_controls.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/plot_menu.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/plot_rawinfo.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/plot_result.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/pos2str.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/prepinv.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/rdiload.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/rditype.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/replace.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/rms.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/save6.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/saveprot.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/setdefv.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/sfigure.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/simple_bar.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/sin_d.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/streamer.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/suplabel.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/uvrot.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/uvwrot.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/whoami.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/whread.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/whread_multi.m</file>
+      <file>${PROJECT_ROOT}/m/ladcp/xcorr3.m</file>
+      <file>${PROJECT_ROOT}/m/misc/center_caxis.m</file>
+      <file>${PROJECT_ROOT}/m/misc/get_cruise_variable_value.m</file>
+      <file>${PROJECT_ROOT}/m/misc/get_matlab_version.m</file>
+      <file>${PROJECT_ROOT}/m/misc/get_print_format_extension.m</file>
+      <file>${PROJECT_ROOT}/m/misc/hg_save.m</file>
+      <file>${PROJECT_ROOT}/m/misc/img_save.m</file>
+      <file>${PROJECT_ROOT}/m/misc/is_octave.m</file>
+      <file>${PROJECT_ROOT}/m/misc/join_images.m</file>
+      <file>${PROJECT_ROOT}/m/misc/makeaxis.m</file>
+      <file>${PROJECT_ROOT}/m/misc/makebars.m</file>
+      <file>${PROJECT_ROOT}/m/misc/makefigexact4.m</file>
+      <file>${PROJECT_ROOT}/m/misc/to_date.m</file>
+      <file>${PROJECT_ROOT}/m/misc/xychk.m</file>
+      <file>${PROJECT_ROOT}/m/sw/sw_dpth.m</file>
+      <file>${PROJECT_ROOT}/m/sw/sw_pres.m</file>
+      <file>${PROJECT_ROOT}/m/sw/sw_svel.m</file>
+      <file>${PROJECT_ROOT}/process_cast.m</file>
+    </fileset.resources>
+    <fileset.package />
+    <build-deliverables>
+      <file location="${PROJECT_ROOT}/process_ladcp_cast/for_testing" name="process_ladcp_cast" optional="false">/home/pena/Documents/NOAA/Projects/matlabStandalones/visbeck_ladcp_processing/process_ladcp_cast/for_testing/process_ladcp_cast</file>
+      <file location="${PROJECT_ROOT}/process_ladcp_cast/for_testing" name="splash.png" optional="false">/home/pena/Documents/NOAA/Projects/matlabStandalones/visbeck_ladcp_processing/process_ladcp_cast/for_testing/splash.png</file>
+      <file location="${PROJECT_ROOT}/process_ladcp_cast/for_testing" name="run_process_ladcp_cast.sh" optional="false">/home/pena/Documents/NOAA/Projects/matlabStandalones/visbeck_ladcp_processing/process_ladcp_cast/for_testing/run_process_ladcp_cast.sh</file>
+      <file location="${PROJECT_ROOT}/process_ladcp_cast/for_testing" name="readme.txt" optional="true">/home/pena/Documents/NOAA/Projects/matlabStandalones/visbeck_ladcp_processing/process_ladcp_cast/for_testing/readme.txt</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>/usr/local/MATLAB/R2014b</root>
+      <toolboxes>
+        <toolbox name="embeddedcoder" />
+        <toolbox name="matlabcoder" />
+      </toolboxes>
+      <toolbox>
+        <embeddedcoder>
+          <enabled>true</enabled>
+        </embeddedcoder>
+      </toolbox>
+      <toolbox>
+        <matlabcoder>
+          <enabled>true</enabled>
+        </matlabcoder>
+      </toolbox>
+    </matlab>
+    <platform>
+      <unix>true</unix>
+      <mac>false</mac>
+      <windows>false</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>true</linux>
+      <solaris>false</solaris>
+      <osver>3.10.0-327.36.1.el7.x86_64</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>glnxa64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>

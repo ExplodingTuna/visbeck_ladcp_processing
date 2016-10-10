@@ -1,4 +1,4 @@
-function [data,params,values,messages] = improve(data,params,values,messages)
+function [data,params,values,messages] = improve(data,params,values,messages,files)
 % function [data,params,values,messages] = improve(data,params,values,messages)
 %
 % improve the data
@@ -54,7 +54,7 @@ else
   values.magdev = 0;
   [a,b] = gregoria(values.start_time);
   decyear = a+(values.start_time-julian([a,1,1,0,0,0]))/365.25;
-  values.magdev = magdev(values.lat,values.lon,0,decyear);
+  values.magdev = magdev(values.lat,values.lon,0,decyear,files);
   [data.ru,data.rv] = uvrot(data.ru,data.rv,values.magdev);
   [data.bvel(:,1),data.bvel(:,2)] = ...
 	uvrot(data.bvel(:,1),data.bvel(:,2),values.magdev);

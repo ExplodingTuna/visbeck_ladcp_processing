@@ -45,6 +45,7 @@ f.ladcp_dir       = [f.data_directory,filesep,'ladcp'];  %% line added by RHS 25
 f.raw_dir         = [f.data_directory,filesep,'raw_ladcp'];
 f.raw_cut_dir     = [f.raw_dir ,filesep,'cut'];
 f.tmp_dir         = [f.working_directory,filesep,'tmp'];
+f.cfg_dir         = [pwd(),filesep,'cfg'];
 
 if ~exist(f.data_directory)
     mkdir(f.data_directory);

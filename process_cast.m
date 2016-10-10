@@ -268,7 +268,7 @@ clf;
 %
 % improve the data quality by removing spikes etc
 %
-[data,p,values,messages] = improve(data,p,values,messages);
+[data,p,values,messages] = improve(data,p,values,messages,files);
 if isempty(data)
     disp('>   Processing is stopped.')
     return
