@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration build-checksum="2335707753" file="/home/pena/Documents/NOAA/Projects/matlabStandalones/visbeck_ladcp_processing/process_ladcp_cast.prj" location="/home/pena/Documents/NOAA/Projects/matlabStandalones/visbeck_ladcp_processing" name="process_ladcp_cast" preferred-package-location="/home/pena/Documents/NOAA/Projects/matlabStandalones/visbeck_ladcp_processing/process_ladcp_cast/for_redistribution" preferred-package-type="package.type.install" target="target.ezdeploy.standalone" target-name="MATLAB Compiler for Standalone Applications">
+  <configuration build-checksum="1090550293" file="/home/pena/Documents/NOAA/Projects/matlabStandalones/visbeck_ladcp_processing/process_ladcp_cast.prj" location="/home/pena/Documents/NOAA/Projects/matlabStandalones/visbeck_ladcp_processing" name="process_ladcp_cast" preferred-package-location="/home/pena/Documents/NOAA/Projects/matlabStandalones/visbeck_ladcp_processing/process_ladcp_cast/for_redistribution" preferred-package-type="package.type.install" target="target.ezdeploy.standalone" target-name="MATLAB Compiler for Standalone Applications">
     <param.appname>process_ladcp_cast</param.appname>
     <param.icon />
     <param.icons />
@@ -75,7 +75,6 @@
       <file>${PROJECT_ROOT}/process_cast.m</file>
     </fileset.main>
     <fileset.resources>
-      <file>${PROJECT_ROOT}/apath.m</file>
       <file>${PROJECT_ROOT}/cfg/cast_params.m</file>
       <file>${PROJECT_ROOT}/cfg/cruise_params.m</file>
       <file>${PROJECT_ROOT}/m/cruise_files/ctd_rd2.m</file>
