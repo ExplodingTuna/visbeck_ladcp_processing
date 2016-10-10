@@ -552,4 +552,4 @@ end
 disp(' ')				% final message
 disp(['    Processing took ',int2str(toc),' seconds'])
 
-save(['tmp',filesep,'last_processed.mat']);
+save([files.tmp_dir,filesep,'last_processed.mat']);
