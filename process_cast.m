@@ -182,12 +182,12 @@ if ~exist(ladcpdnR)
     return;
 end
 
-if ~exist(ladcpupR)
-    clc;
-    disp(ladcpupR);
-    disp('DOES NOT EXIST! EXITING')
-    return;
-end
+% if ~exist(ladcpupR)
+%     clc;
+%     disp(ladcpupR);
+%     disp('DOES NOT EXIST! EXITING')
+%     return;
+% end
 
 if ~exist(navR)
     clc;
@@ -325,7 +325,7 @@ drawnow
 % form super ensembles
 %
 [p,data,messages] = prepinv(messages,data,p,[],values,0,files);
-[di,p,data] = calc_ens_av(data,p,values,0);
+[di,p,data] = calc_ens_av(data,p,values,1);
 drawnow
 if length(di.time_jul)<2
     disp('>   Processing is stopped.')
