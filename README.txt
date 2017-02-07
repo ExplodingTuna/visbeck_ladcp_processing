@@ -17,6 +17,7 @@ use_mat_for_nav=0
 use_sadcp=0
 print_formats=jpg
 remove_zctd_downcast=0
+use_master_only=0
 
 for the Abaco cast set "cruise_params.cfg" as follows
 
@@ -28,6 +29,7 @@ use_mat_for_nav=1
 use_sadcp=1
 print_formats=jpg
 remove_zctd_downcast=1
+use_master_only=0
 
 ====================================================
 -----------------PROCESS CAST-----------------------
