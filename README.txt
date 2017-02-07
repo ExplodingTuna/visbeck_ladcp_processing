@@ -37,6 +37,34 @@ To process the cast
 -run the "apath" script first to set the paths
 apath
 
+Make sure the follwoing files are in the correct folders.
+For cast 4 of cruise_id=TEST_CAST, the files will be named in the following way.
+
+-Raw CTD profile
+
+    $DATADIR/raw_ctdprof/TEST_CAST_profile_004.cnv
+
+-Raw CTD time
+
+    $DATADIR/raw_ctdtime/TEST_CAST_time_004.cnv
+
+
+-Raw LADCP
+
+    $DATADIR/raw_ladcp/cut/TEST_CAST_004_01m.000    --master adcp file
+    $DATADIR/raw_ladcp/cut/TEST_CAST_004_01s.000    --slave  adcp file
+
+-Raw nav
+
+    $DATADIR/raw_nav/TEST_CAST_nav.vis  (or TEST_CAST_nav.mat if use_mat_for_nav=1)
+
+
+-Raw SADCP
+
+    $DATADIR/raw_sadcp/TEST_CAST_codas3_sadcp.mat  (if use_sadcp=1)
+
+
+
 -to process  TEST CAST
 
 process_cast(004)
@@ -44,3 +72,19 @@ process_cast(004)
 -to process AB1403
 
 process_cast(019)
+
+
+====================================================
+----------------DELETE CAST FILES-------------------
+====================================================
+
+To remove previously processed cast files, just run process cast  with a minus sign "-"
+in front of the cast number.
+
+For example, to remove processed files for cast 004 of cruise_id=TEST_CAST, simply type.
+
+process_cast(-004)
+
+
+
+
