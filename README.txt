@@ -76,6 +76,17 @@ process_cast(004)
 process_cast(019)
 
 
+
+Make sure the nav file has three columns in it.
+column 1 is time in decimal year day   
+column 2 is lat in decimal degrees
+coulmn 3 is lon in decimal degrees
+
+example
+
+37.5001464   25.713988   -80.179005
+
+
 ====================================================
 ----------------DELETE CAST FILES-------------------
 ====================================================
