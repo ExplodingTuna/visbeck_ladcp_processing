@@ -1,12 +1,55 @@
 # visbeck_ladcp_processing
-Modified  version of the visbeck ladcp processing script, modified to be compiled as a standalone
+A modified version of the visbeck ladcp processing script that can also run under Octave 4.02. 
+This version has been modified to be compiled as a standalone program with Matlab.
+
+When compiled as a stand alone program, one only needs to modify "cruise_params.cfg".
+This text file contains all the variables needed to configure the program for
+processing a cast.
+
+
+====================================================
+--------------------OCTAVE--------------------------
+====================================================
+
+Octave doesn't yet have a mature JIT compiler so this script will run about 3 to 4
+times faster in Matlab.
+
+if running under octave make sure you install the nan package.
+you can do this from octave by running 
+
+"pkg -forge install nan"
+
+Debian systems like Ubuntu, might complain about "liboctave-dev"
+
+"pkg: please install the Debian package "liboctave-dev" to get the mkoctfile command"
+
+to install liboctave-dev open a terminal and type
+sudo apt-get install liboctave-dev
+
+====================================================
+-----------------QUICK START------------------------
+====================================================
+
+The "cruise_params.cfg" file is preconfigured to process cast 004 of the "TEST_CAST" cruise.
+
+To quickly test the script, open Matlab or Octave and enter the directory that contains "process_cast.m".
+run apath by typing "apath" <--this will add the paths that contain the files needed for processing
+and it will load the nan package if run under Octave.
+
+
+type "process_cast 004"
+
+
+
+
+====================================================
+----------------CONFIGURATION-----------------------
+====================================================
 
 Configure to use for a cruise.
 Edit the configuration file "cruise_params.cfg" located in the "cfg" folder.
 The following are the typical values to modify to quickly use the program
-====================================================
-----------------CONFIGURATION-----------------------
-====================================================
+
 for the TEST CAST set "cruise_params.cfg" as follows
 
 cruise_id=TEST_CAST
@@ -36,11 +79,15 @@ use_master_only=0
 ====================================================
 
 To process the cast
--run the "apath" script first to set the paths
+-run the "apath" script first to set the paths and load the nan package
 apath
 
-Make sure the follwoing files are in the correct folders.
+Make sure the following files are in the correct folders.
+Keep in mind that case matters and that sometimes a space in your filename can 
+go undetected and drive you crazy when the filenames seem to be named correctly.
+
 For cast 4 of cruise_id=TEST_CAST, the files will be named in the following way.
+
 
 -Raw CTD profile
 
