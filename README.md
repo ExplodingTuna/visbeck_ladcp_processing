@@ -7,9 +7,9 @@ This text file contains all the variables needed to configure the program for
 processing a cast.
 
 
-================================
-----------OCTAVE----------------
-================================
+
+#----------OCTAVE----------------
+
 
 Octave doesn't yet have a mature JIT compiler so this script will run about 3 to 4
 times faster in Matlab.
@@ -26,9 +26,9 @@ Debian systems like Ubuntu, might complain about "liboctave-dev"
 to install liboctave-dev open a terminal and type
 sudo apt-get install liboctave-dev
 
-================================
-----------QUICK START-----------
-================================
+
+#----------QUICK START-----------
+
 
 The "cruise_params.cfg" file is preconfigured to process cast 004 of the "TEST_CAST" cruise.
 
@@ -42,9 +42,9 @@ type "process_cast 004"
 
 
 
-================================
----------CONFIGURATION----------
-================================
+
+#---------CONFIGURATION----------
+
 
 Configure to use for a cruise.
 Edit the configuration file "cruise_params.cfg" located in the "cfg" folder.
@@ -74,9 +74,9 @@ print_formats=jpg
 remove_zctd_downcast=1
 use_master_only=0
 
-================================
-----------PROCESS CAST----------
-================================
+
+#----------PROCESS CAST----------
+
 
 To process the cast
 -run the "apath" script first to set the paths and load the nan package
@@ -134,9 +134,9 @@ example
 37.5001464   25.713988   -80.179005
 
 
-================================
--------DELETE CAST FILES--------
-================================
+
+#-------DELETE CAST FILES--------
+
 
 To remove previously processed cast files, just run process cast  with a minus sign "-"
 in front of the cast number.
