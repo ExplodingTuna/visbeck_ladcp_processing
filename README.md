@@ -40,9 +40,6 @@ and it will load the nan package if run under Octave.
 type "process_cast 004"
 
 
-
-
-
 #---------CONFIGURATION----------
 
 
@@ -52,27 +49,27 @@ The following are the typical values to modify to quickly use the program
 
 for the TEST CAST set "cruise_params.cfg" as follows
 
-cruise_id=TEST_CAST
-cruise_id_prefix=
-cruise_id_suffix=
-correct_year=2015
-use_mat_for_nav=0
-use_sadcp=0
-print_formats=jpg
-remove_zctd_downcast=0
-use_master_only=0
+cruise_id=TEST_CAST<br>
+cruise_id_prefix=<br>
+cruise_id_suffix=<br>
+correct_year=2015<br>
+use_mat_for_nav=0<br>
+use_sadcp=0<br>
+print_formats=jpg<br>
+remove_zctd_downcast=0<br>
+use_master_only=0<br>
 
 for the Abaco cast set "cruise_params.cfg" as follows
 
-cruise_id=AB1403
-cruise_id_prefix=
-cruise_id_suffix=
-correct_year=2014
-use_mat_for_nav=1
-use_sadcp=1
-print_formats=jpg
-remove_zctd_downcast=1
-use_master_only=0
+cruise_id=AB1403<br>
+cruise_id_prefix=<br>
+cruise_id_suffix=<br>
+correct_year=2014<br>
+use_mat_for_nav=1<br>
+use_sadcp=1<br>
+print_formats=jpg<br>
+remove_zctd_downcast=1<br>
+use_master_only=0<br>
 
 
 #----------PROCESS CAST----------
