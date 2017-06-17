@@ -8,7 +8,7 @@ processing a cast.
 
 
 
-#----------OCTAVE----------------
+<h3>OCTAVE</h3>
 
 
 Octave doesn't yet have a mature JIT compiler so this script will run about 3 to 4
@@ -27,7 +27,7 @@ to install liboctave-dev open a terminal and type
 sudo apt-get install liboctave-dev
 
 
-#----------QUICK START-----------
+<h3>QUICK START</h3>
 
 
 The "cruise_params.cfg" file is preconfigured to process cast 004 of the "TEST_CAST" cruise.
@@ -40,7 +40,7 @@ and it will load the nan package if run under Octave.
 type "process_cast 004"
 
 
-#---------CONFIGURATION----------
+<h3>CONFIGURATION</h3>
 
 
 Configure to use for a cruise.
@@ -72,7 +72,7 @@ remove_zctd_downcast=1<br>
 use_master_only=0<br>
 
 
-#----------PROCESS CAST----------
+<h3>PROCESS CAST</h3>
 
 
 To process the cast
@@ -132,7 +132,7 @@ example
 
 
 
-#-------DELETE CAST FILES--------
+<h3>DELETE CAST FILES</h3>
 
 
 To remove previously processed cast files, just run process cast  with a minus sign "-"
