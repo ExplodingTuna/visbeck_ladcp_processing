@@ -13,6 +13,6 @@ val=str2num(vers);
 if is_octave < 1
     retval=val;
 else
-    retval=7.01;
+    retval=7.02;
 end
 end
