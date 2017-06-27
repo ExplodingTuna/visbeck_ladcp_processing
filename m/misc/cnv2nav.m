@@ -22,7 +22,7 @@
 ## Author: user <user@ubuntu>
 ## Created: 2017-06-27
 
-function getPos(fileName)
+function cnv2nav(fileName)
 % yo
 fid=fopen(fileName);
 numOfColumns=0;
@@ -30,17 +30,17 @@ numOfColumns=0;
         tline = fgetl(fid);
          if strfind(tline,'timeJ:') && strfind(tline,'name')
                  match = regexp( tline,'^#\s*name\s*(\d+)\s*=\s*(.+?):\s*(.+?)$', 'tokens');
-                 match{1}{1}
+                 timeIndex=str2num(match{1}{1});
             %disp(tline);
          end          
          if strfind(tline,'longitude:') && strfind(tline,'name')
-         match = regexp( tline,'^#\s*name\s*(\d+)\s*=\s*(.+?):\s*(.+?)$', 'tokens');
-         match{1}{1}
+                 match = regexp( tline,'^#\s*name\s*(\d+)\s*=\s*(.+?):\s*(.+?)$', 'tokens');
+                 lonIndex=str2num(match{1}{1});
             %disp(tline);
          end
          if strfind(tline,'latitude:') && strfind(tline,'name')
-         match = regexp( tline,'^#\s*name\s*(\d+)\s*=\s*(.+?):\s*(.+?)$', 'tokens');
-         match{1}{1}
+                 match = regexp( tline,'^#\s*name\s*(\d+)\s*=\s*(.+?):\s*(.+?)$', 'tokens');
+                 latIndex=str2num(match{1}{1});
             %disp(tline);
          end         
         if ~isempty(strfind(tline,'*END'))  % end of header
@@ -51,7 +51,18 @@ numOfColumns=0;
                  match = regexp( tline,'^#\s*name\s*(\d+)\s*=\s*(.+?):\s*(.+?)$', 'tokens');
                  numOfColumns++;
             %disp(tline);
-         end          
+         end        
        end
        fclose(fid);
-       disp(numOfColumns);
+       
+       %disp(numOfColumns);
+       fSpec='';
+       for n = 0:numOfColumns-1
+           if n == latIndex || n == lonIndex || n == timeIndex
+               fSpec=[fSpec,'%f'];
+               else
+               fSpec=[fSpec,'%*f'];   
+               
+           end
+       end
+       disp(fSpec);
