@@ -22,10 +22,11 @@
 ## Author: user <user@ubuntu>
 ## Created: 2017-06-27
 
-function cnv2nav(fileName)
+function retval=cnv2nav(fileName)
 % yo
 fid=fopen(fileName);
 numOfColumns=0;
+numOfLines=1;
       while ~feof(fid)
         tline = fgetl(fid);
          if strfind(tline,'timeJ:') && strfind(tline,'name')
@@ -51,9 +52,11 @@ numOfColumns=0;
                  match = regexp( tline,'^#\s*name\s*(\d+)\s*=\s*(.+?):\s*(.+?)$', 'tokens');
                  numOfColumns++;
             %disp(tline);
-         end        
+         end
+ numOfLines++;        
        end
        fclose(fid);
+       fid=fopen(fileName);
        
        %disp(numOfColumns);
        fSpec='';
@@ -64,5 +67,10 @@ numOfColumns=0;
                fSpec=[fSpec,'%*f'];   
                
            end
+           
        end
        disp(fSpec);
+       disp(numOfLines);
+       
+       retval=textscan(fid,fSpec,'headerlines',numOfLines);
+       fclose(fid);
