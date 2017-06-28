@@ -108,6 +108,7 @@ cruise_id=get_cruise_variable_value(cruiseVars,'cruise_id');%added by Pedro Pena
 cruise_id_prefix=get_cruise_variable_value(cruiseVars,'cruise_id_prefix');
 cruise_id_suffix=get_cruise_variable_value(cruiseVars,'cruise_id_suffix');
 use_mat_for_nav=str2num(get_cruise_variable_value(cruiseVars,'use_mat_for_nav'));
+make_nav_from_cnv=str2num(get_cruise_variable_value(cruiseVars,'make_nav_from_cnv'));
 remove_zctd_downcast=str2num(get_cruise_variable_value(cruiseVars,'remove_zctd_downcast'));
 use_sadcp=str2num(get_cruise_variable_value(cruiseVars,'use_sadcp'));
 
@@ -151,14 +152,22 @@ stncaststr = sprintf('%03d_01',stn);
 ladcpdnR=[files.raw_cut_dir,filesep,cruise_id,'_',stncaststr,'m.000'];
 ladcpupR=[files.raw_cut_dir,filesep,cruise_id,'_',stncaststr,'s.000'];
 
-if use_mat_for_nav == 1
+if make_nav_from_cnv == 0 && use_mat_for_nav == 1
 navExt='mat';
 else
 navExt='vis';
 end
 
+
+
 navR=[files.raw_nav_dir,filesep,cruise_id_prefix,cruise_id,'_nav',cruise_id_suffix,'.',navExt]
 sadcpR=[files.raw_sadcp_dir,filesep,cruise_id_prefix,cruise_id,'_codas3_sadcp',cruise_id_suffix,'.mat'];
+
+if make_nav_from_cnv == 1
+   fidout=fopen(navR,'w');
+   navDat=cnv2nav(ctdtimeR);
+   fprintf(fidout,'%10.7f %12.6f %12.6f \n',navDat');
+end
 
 
 if ~exist(ctdtimeR)
