@@ -35,6 +35,8 @@ latOrder=-1;
 timeIndex=-1;
 lonIndex=-1;
 latIndex=-1;
+time_start=[];
+jd=[];
 while ~feof(fid)
     tline = fgetl(fid);
     
@@ -44,15 +46,18 @@ while ~feof(fid)
         month = match{4};
         day = match{5};
         time =match{7};
+%         c=regexp(time,'(\d\d)','tokens');
+%         hour=c{1};
+%         min=c{2};
+%         sec=c{3};
+        formatIn='dd-mmm-yyyy HH:MM:SS';
+        dateString=[day,'-',month,'-',year,'-',' ',time];
+        jd=datenum(dateString,formatIn);
+        time_start=str2double(strsplit(datestr(jd,'yyyy mm dd HH MM SS')));
+       
         
-        
-        %disp(match);
-        
-        year
-        month
-        day
-        time
-        c
+
+
         
     end    
     if ~isempty(strfind(tline,'timeS:')) && ~isempty(strfind(tline,'name'))
@@ -113,13 +118,13 @@ end
 
 navVar=textscan(fid,fSpec,'headerlines',numOfLines);
 x=navVar;
-x{1}=navVar{timeOrder}/24/3600;
+x{1}=navVar{timeOrder};%/24/3600 + julian(time_start);
 x{2}=navVar{latOrder};
 x{3}=navVar{lonOrder};
 
-
-retval=cell2mat(x);
-
+asd=cell2mat(x);
+asd=asd/24/3600 + julian(time_start);
+retval=asd;
 
 fclose(fid);
 end
