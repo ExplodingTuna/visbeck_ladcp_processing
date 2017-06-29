@@ -37,7 +37,25 @@ lonIndex=-1;
 latIndex=-1;
 while ~feof(fid)
     tline = fgetl(fid);
-    if ~isempty(strfind(tline,'timeJ:')) && ~isempty(strfind(tline,'name'))
+    
+    if ~isempty(strfind(tline,'# start_time')) && ~isempty(strfind(tline,'[NMEA time, header]'))
+        match = strsplit(tline);
+        year = match{6};
+        month = match{4};
+        day = match{5};
+        time =match{7};
+        
+        
+        %disp(match);
+        
+        year
+        month
+        day
+        time
+        c
+        
+    end    
+    if ~isempty(strfind(tline,'timeS:')) && ~isempty(strfind(tline,'name'))
         match = regexp( tline,'^#\s*name\s*(\d+)\s*=\s*(.+?):\s*(.+?)$', 'tokens');
         timeIndex=str2num(match{1}{1});
         columnOrder = columnOrder +1;
@@ -95,7 +113,7 @@ end
 
 navVar=textscan(fid,fSpec,'headerlines',numOfLines);
 x=navVar;
-x{1}=navVar{timeOrder};
+x{1}=navVar{timeOrder}/24/3600;
 x{2}=navVar{latOrder};
 x{3}=navVar{lonOrder};
 
