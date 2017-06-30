@@ -36,7 +36,11 @@ timeIndex=-1;
 lonIndex=-1;
 latIndex=-1;
 time_start=[];
-jd=[];
+gooddate=0;
+
+% tempdate = datenum(gYear,gMonth,gDay,gHour,gMinutes,gSeconds);
+% refdate  = datenum(gYear-1,12,31,0,0,0 );
+% gooddate = (tempdate-refdate-1);
 while ~feof(fid)
     tline = fgetl(fid);
     
@@ -46,15 +50,27 @@ while ~feof(fid)
         month = match{4};
         day = match{5};
         time =match{7};
-%         c=regexp(time,'(\d\d)','tokens');
-%         hour=c{1};
-%         min=c{2};
-%         sec=c{3};
+        c=regexp(time,'(\d\d)','tokens');
+        hour=c{1};
+        min=c{2};
+        sec=c{3};        
+        
+        yy=str2double(year);
+%         mm=str2double(month)
+%         dd=str2double(day)
+%         HH=str2double(hour)
+%         MM=str2double(min)
+%         SS=str2double(sec)
+%        tempdate = datenum(yy,mm,dd,HH,MM,SS)
+
+
         formatIn='dd-mmm-yyyy HH:MM:SS';
         dateString=[day,'-',month,'-',year,'-',' ',time];
         jd=datenum(dateString,formatIn);
         time_start=str2double(strsplit(datestr(jd,'yyyy mm dd HH MM SS')));
-       
+        tempdate = datenum(dateString,formatIn);
+        refdate  = datenum(yy-1,12,31,0,0,0 );
+        gooddate = (tempdate-refdate-1);
         
 
 
@@ -118,12 +134,13 @@ end
 
 navVar=textscan(fid,fSpec,'headerlines',numOfLines);
 x=navVar;
-x{1}=navVar{timeOrder};%/24/3600 + julian(time_start);
+x{1}=navVar{timeOrder};
 x{2}=navVar{latOrder};
 x{3}=navVar{lonOrder};
 
 asd=cell2mat(x);
-asd=asd/24/3600 + julian(time_start);
+asd(:,1)=(asd(:,1)/24/3600) + gooddate;
+
 retval=asd;
 
 fclose(fid);
