@@ -140,8 +140,9 @@ x{3}=navVar{lonOrder};
 
 asd=cell2mat(x);
 asd(:,1)=(asd(:,1)/24/3600) + gooddate;
+[x,y] = find(asd(:,3)~=-9.990e-29); % remove bad values
 
-retval=asd;
+retval=asd(x,:);
 
 fclose(fid);
 end
