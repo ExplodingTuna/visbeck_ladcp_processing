@@ -56,16 +56,9 @@ while ~feof(fid)
         sec=c{3};        
         
         yy=str2double(year);
-%         mm=str2double(month)
-%         dd=str2double(day)
-%         HH=str2double(hour)
-%         MM=str2double(min)
-%         SS=str2double(sec)
-%        tempdate = datenum(yy,mm,dd,HH,MM,SS)
-
-
+        
         formatIn='dd-mmm-yyyy HH:MM:SS';
-        dateString=[day,'-',month,'-',year,'-',' ',time];
+        dateString=[day,'-',month,'-',year,' ',time];
         jd=datenum(dateString,formatIn);
         time_start=str2double(strsplit(datestr(jd,'yyyy mm dd HH MM SS')));
         tempdate = datenum(dateString,formatIn);
