@@ -167,6 +167,7 @@ if make_nav_from_cnv == 1
    fidout=fopen(navR,'w');
    navDat=cnv2nav(ctdtimeR);
    fprintf(fidout,'%10.7f %12.6f %12.6f \n',navDat');
+   fclose(fidout);
 end
 
 
