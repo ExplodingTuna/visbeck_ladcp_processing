@@ -36,11 +36,11 @@ use_mat_for_nav=str2num(get_cruise_variable_value(cruiseVars,'use_mat_for_nav'))
 
 if use_mat_for_nav == 1
     ext='mat';
-    fName=[cruise_id_prefix,cruise_id,'_nav',cruise_id_s,'.',ext];
+    fName=[cruise_id_prefix,cruise_id,'_nav',cruise_id_s,int2str0(stn,3),'.',ext];
     load([files.raw_nav_dir,filesep,fName]);
 else
-    ext='vis'
-    fName=[cruise_id_prefix,cruise_id,'_nav',cruise_id_s,'.',ext];
+    ext='vis';
+    fName=[cruise_id_prefix,cruise_id,'_nav_',cruise_id_s,int2str0(stn,3),'.',ext];
     navtemp=load([files.raw_nav_dir,filesep,fName]);
     navgood=[navtemp(:,1),navtemp(:,2),navtemp(:,3)];
 end

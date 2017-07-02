@@ -151,6 +151,7 @@ ctdprofR=[files.raw_ctd_prof_dir,filesep,cruise_id_prefix,cruise_id,'_profile_',
 stncaststr = sprintf('%03d_01',stn);
 ladcpdnR=[files.raw_cut_dir,filesep,cruise_id,'_',stncaststr,'m.000'];
 ladcpupR=[files.raw_cut_dir,filesep,cruise_id,'_',stncaststr,'s.000'];
+sadcpR=[files.raw_sadcp_dir,filesep,cruise_id_prefix,cruise_id,'_codas3_sadcp',cruise_id_suffix,'.mat'];
 
 if make_nav_from_cnv == 0 && use_mat_for_nav == 1
 navExt='mat';
@@ -158,17 +159,10 @@ else
 navExt='vis';
 end
 
+navR=[files.raw_nav_dir,filesep,cruise_id_prefix,cruise_id,'_nav_',cruise_id_suffix,int2str0(stn,3),'.',navExt];
 
 
-navR=[files.raw_nav_dir,filesep,cruise_id_prefix,cruise_id,'_nav',cruise_id_suffix,'.',navExt]
-sadcpR=[files.raw_sadcp_dir,filesep,cruise_id_prefix,cruise_id,'_codas3_sadcp',cruise_id_suffix,'.mat'];
 
-if make_nav_from_cnv == 1
-   fidout=fopen(navR,'w');
-   navDat=cnv2nav(ctdtimeR);
-   fprintf(fidout,'%10.7f %12.6f %12.6f \n',navDat');
-   fclose(fidout);
-end
 
 
 if ~exist(ctdtimeR)
@@ -198,6 +192,16 @@ end
 %     disp('DOES NOT EXIST! EXITING')
 %     return;
 % end
+
+
+
+if make_nav_from_cnv == 1
+   fidout=fopen(navR,'w');
+   navDat=cnv2nav(ctdtimeR);
+   fprintf(fidout,'%10.7f %12.6f %12.6f \n',navDat');
+   fclose(fidout);
+end
+
 
 if ~exist(navR)
     clc;
@@ -280,7 +284,7 @@ clf;
 %
 [data,p,values,messages] = improve(data,p,values,messages,files);
 if isempty(data)
-    disp('>   Processing is stopped.')
+    disp('>   Processing is stopped.');
     return
 end
 
@@ -396,7 +400,7 @@ end
 %
 % Plot final results
 %
-plot_result(dr,data,p,ps,values,files)
+plot_result(dr,data,p,ps,values,files);
 drawnow
 
 %
@@ -448,7 +452,7 @@ if length(files.res)>1
     %
     % save results to ASCII, MATLAB and NETCDF files
     %
-    saveres(data,dr,p,ps,files,values)
+    saveres(data,dr,p,ps,files,values);
     %  da = savearch(values,dr,data,p,ps,f);
     
     %
@@ -490,30 +494,30 @@ if length(files.res)>1
             warning off
             if imac
                 if findstr(p.print_formats,'ps')
-                    eval(['print -depsc ',files.plots,'_' int2str(j) '.eps '])
+                    eval(['print -depsc ',files.plots,'_' int2str(j) '.eps ']);
                     
                 end
             else
                 if findstr(p.print_formats,'ps')
-                    eval(['print -dpsc2 ',files.plots,'_' int2str(j) '.ps'])
+                    eval(['print -dpsc2 ',files.plots,'_' int2str(j) '.ps']);
                     %% lines added by RHS 25NOV2013
                     if j==1
-                        eval(['print -dpsc2 ',files.plots,'_report.ps'])
+                        eval(['print -dpsc2 ',files.plots,'_report.ps']);
                     else
-                        eval(['print -dpsc2 -append ',files.plots,'_report.ps'])
+                        eval(['print -dpsc2 -append ',files.plots,'_report.ps']);
                     end
                     %% end lines added...
                 end
             end
             if findstr(p.print_formats,'jpg')
                 if is_octave < 1
-                    eval(['print -djpeg ',files.plots,'_' int2str(j) '.jpg '])
+                    eval(['print -djpeg ',files.plots,'_' int2str(j) '.jpg ']);
                 else
-                    eval(['print -djpg ',files.plots,'_' int2str(j) '.jpg '])
+                    eval(['print -djpg ',files.plots,'_' int2str(j) '.jpg ']);
                 end
                 
             end
-            warning on
+            warning on;
             %close gcf;
         end
     end
@@ -532,8 +536,8 @@ if length(files.res)>1
     
     % save full information into mat file
     if p.savemat==1
-        disp(['    Saving full information to ',files.res,'_full.mat'])
-        save6([files.res,'_full.mat'])
+        disp(['    Saving full information to ',files.res,'_full.mat']);
+        save6([files.res,'_full.mat']);
     end
     
 end
@@ -559,7 +563,7 @@ end
 %fclose('all');				%  close all files just to make sure
 
 %join_images;
-disp(' ')				% final message
-disp(['    Processing took ',int2str(toc),' seconds'])
+disp(' ')	;			% final message
+disp(['    Processing took ',int2str(toc),' seconds']);
 
 save([files.tmp_dir,filesep,'last_processed.mat']);

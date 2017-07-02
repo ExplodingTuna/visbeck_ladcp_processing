@@ -67,7 +67,7 @@ v=get_matlab_version;
 if v<4
   v2 = ver;
   save version_info v2 v
-  warning('please send the file version_info.mat to gkrahmann@ifm-geomar.de')
+  warning('please send the file version_info.mat to gkrahmann@ifm-geomar.de');
 end
 
 % just incase this is called from version 6

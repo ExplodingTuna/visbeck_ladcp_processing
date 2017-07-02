@@ -72,7 +72,7 @@ values.initial = [];
 % navigational and SADCP data (just to reduce the loading times and the
 % necessary storage space)
 if exist(files.ctdprof,'file')
-  disp(['    Found previously prepared CTD-PROFILE data.'])
+  disp(['    Found previously prepared CTD-PROFILE data.']);
 else
   [values] = prepctdprof(stn,values,files,cruiseVars);
 end
@@ -90,7 +90,7 @@ end
 % the data will be stored in a mat-file named 'data/ctd/ctdtimeSTN.mat'
 % where STN is the 3-digit station number
 if exist(files.ctdtime,'file')
-  disp(['    Found previously prepared CTD-TIME data.'])
+  disp(['    Found previously prepared CTD-TIME data.']);
 else
   [values] = prepctdtime(stn,values,files,cruiseVars);
 end
@@ -126,7 +126,7 @@ end
 % the data will be stored in a mat-file named 'data/nav/navSTN.mat'
 % where STN is the 3-digit station number
 if exist(files.nav,'file')
-  disp(['    Found previously prepared NAV data.'])
+  disp(['    Found previously prepared NAV data.']);
 else
   prepnav(stn,values,files,cruiseVars);
 end
@@ -156,7 +156,7 @@ prepladcp(stn,files,cruiseVars);
 % v_sadcp		matrix containing meridional velocities in m/s
 % z_sadcp		vector containing the depths of the velocity data in m
 if exist(files.sadcp,'file')
-  disp('    Found previously prepared SADCP data.')
+  disp('    Found previously prepared SADCP data.');
 else
   prepsadcp(stn,values,p,files,cruiseVars);
 end
