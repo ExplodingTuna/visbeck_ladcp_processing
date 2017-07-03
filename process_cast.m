@@ -112,20 +112,6 @@ make_nav_from_cnv=str2num(get_cruise_variable_value(cruiseVars,'make_nav_from_cn
 remove_zctd_downcast=str2num(get_cruise_variable_value(cruiseVars,'remove_zctd_downcast'));
 use_sadcp=str2num(get_cruise_variable_value(cruiseVars,'use_sadcp'));
 
-% commented Pedro Pena 8.21.16
-%
-% check current directory
-%
-%if exist('logs')~=exist(pwd);
-%    disp('>   This directory is not prepared for the LADCP software ')
-%    disp('>   Sorry EXIT ')
-%    return
-%end
-
-
-
-
-
 
 %
 % Initialize the processing by loading parameters
@@ -186,21 +172,38 @@ if ~exist(ladcpdnR)
     return;
 end
 
-% if ~exist(ladcpupR)
-%     clc;
-%     disp(ladcpupR);
-%     disp('DOES NOT EXIST! EXITING')
+if ~exist(ladcpupR)
+    clc;
+    disp(ladcpupR);
+    cruiseVars=set_cruise_variable_value(cruiseVars,'use_master_only','1');
+    disp('DOES NOT EXIST! WILL ATTEMPT TO PROCESS WITHOUT SLAVE')
 %     return;
-% end
+end
+
+navDat=cnv2nav(ctdtimeR);
+
+if isempty(navDat)
+    disp(['CAN''T CREATE NAV FILE FROM ',ctdtimeR]);
+    disp(['ATTEMPTING TO CREATE NAV FILE FROM ',ctdprofR]);
+    navDat=cnv2nav(ctdprofR);
+end
 
 
+if isempty(navDat)
+    
+    disp('COULD NOT CREATE NAVIGATIONAL FILE FROM A CNV FILE. IN ORDER TO CREATE ONE,');
+    disp('THE CNV FILE MUST CONTAIN the timeS: , Lattitude: AND Longitude: COLUMNS');
+    
+end
 
-if make_nav_from_cnv == 1
+if make_nav_from_cnv == 1 && ~isempty(navDat)
    fidout=fopen(navR,'w');
-   navDat=cnv2nav(ctdtimeR);
    fprintf(fidout,'%10.7f %12.6f %12.6f \n',navDat');
    fclose(fidout);
 end
+
+
+
 
 
 if ~exist(navR)

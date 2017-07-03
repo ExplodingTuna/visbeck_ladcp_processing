@@ -37,9 +37,6 @@ latIndex=-1;
 time_start=[];
 gooddate=0;
 
-% tempdate = datenum(gYear,gMonth,gDay,gHour,gMinutes,gSeconds);
-% refdate  = datenum(gYear-1,12,31,0,0,0 );
-% gooddate = (tempdate-refdate-1);
 while ~feof(fid)
     tline = fgetl(fid);
     
@@ -101,8 +98,9 @@ while ~feof(fid)
     numOfLines = numOfLines + 1;
 end
 fclose(fid);
+
   if latIndex == -1 || lonIndex == -1 || timeIndex == -1
-  retval = -1;
+  retval = [];
   return;
   end
 
@@ -132,7 +130,9 @@ x{3}=navVar{lonOrder};
 
 asd=cell2mat(x);
 asd(:,1)=(asd(:,1)/24/3600) + gooddate;
-[x,y] = find(asd(:,3)~=-9.990e-29); % remove bad values
+[x,y] = find(asd(:,3)~=-9.990e-29); % remove bad values from longitude.
+asd=asd(x,:);
+[x,y] = find(asd(:,2)~=-9.990e-29); % remove bad values from latitude.
 fclose(fid);
 retval=asd(x,:);
 
