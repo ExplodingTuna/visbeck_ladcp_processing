@@ -53,7 +53,7 @@ correct_year=2017<br>
 use_mat_for_nav=0<br>
 make_nav_from_cnv=1<br>
 use_sadcp=0<br>
-print_formats=jpg<br>
+print_formats=png<br>
 remove_zctd_downcast=1<br>
 use_master_only=0<br>
 
@@ -62,7 +62,7 @@ use_master_only=0<br>
 
 
 To process the cast
--firs trun the "apath" script to set the paths and load the nan package<br>
+-first run the "apath" script to set the paths and load the nan package<br>
 apath<br>
 
 Make sure the following files are in the correct folders.<br>
