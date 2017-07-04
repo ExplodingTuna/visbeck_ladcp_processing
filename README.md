@@ -74,26 +74,26 @@ For cast 4 of cruise_id=AB1705, the files will be named in the following way.<br
 
 -Raw CTD profile
 
-    ./raw_ctdprof/AB1705_profile_004.cnv
+    ./data/raw_ctdprof/AB1705_profile_004.cnv
 
 -Raw CTD time
 
-    ./raw_ctdtime/AB1705_time_004.cnv
+    ./data/raw_ctdtime/AB1705_time_004.cnv
 
 
 -Raw LADCP
 
-    ./raw_ladcp/cut/AB1705_004_01m.000    <------master adcp file
-    ./raw_ladcp/cut/AB1705_004_01s.000    <------slave  adcp file
+    ./data/raw_ladcp/cut/AB1705_004_01m.000    <------master adcp file
+    ./data/raw_ladcp/cut/AB1705_004_01s.000    <------slave  adcp file
 
 -Raw nav
 
-    ./raw_nav/AB1705_nav_004.vis  (or AB1705_nav_004.mat if use_mat_for_nav=1)
+    ./data/raw_nav/AB1705_nav_004.vis  (or AB1705_nav_004.mat if use_mat_for_nav=1)
 
 
 -Raw SADCP
 
-    ./raw_sadcp/AB1705_codas3_sadcp.mat  (if use_sadcp=1)
+    ./data/raw_sadcp/AB1705_codas3_sadcp.mat  (if use_sadcp=1)
 
 
 
