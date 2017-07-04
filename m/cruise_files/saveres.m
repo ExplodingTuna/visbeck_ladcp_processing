@@ -85,7 +85,8 @@ if isfield(dr,'ubot')
   fprintf(fid,['Filename    = %s\n'],f.res);
   fprintf(fid,['Date        = %s\n'],datestr(p.time_start,26));
   fprintf(fid,['Start_Time  = %s\n'],datestr(p.time_start,13));
-  [lats,lons] = pos2str([p.poss(1)+p.poss(2)/60,p.poss(3)+p.poss(4)/60]);
+  %[lats,lons] = pos2str([p.poss(1)+p.poss(2)/60,p.poss(3)+p.poss(4)/60]);
+  [lats,lons] = pos2str(values.start_pos);
   fprintf(fid,['Start_Lat   = %s\n'],lats);
   fprintf(fid,['Start_Lon   = %s\n'],lons);
   fprintf(fid,['Deviation   = %f\n'],values.magdev);

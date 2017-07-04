@@ -400,7 +400,7 @@ params.nav_1200 = str2num(get_cruise_variable_value(cruiseVars,'nav_1200'));
 % this parameter sets the threshold of values to be discarded
 %
 params.error_limit_1200 = str2num(get_cruise_variable_value(cruiseVars,'error_limit_1200'));	% not used GK
-params.extra_blank_1200 = str2num(get_cruise_variable_value(cruiseVars,'extra_blank_1200'));		% extra blank in meters
+params.extra_blank_1200 = str2num(get_cruise_variable_value(cruiseVars,'extra_blank_1200'));    % extra blank in meters
 
 
 %

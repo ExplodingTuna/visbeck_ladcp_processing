@@ -271,7 +271,7 @@ if isnan(ax(1))
   ax(1) = axi(1);
 end
 axis(ax)
-ylabel('depth [km]')
+%ylabel('depth [km]')
 xlabel('target strength [dB]','color','b')
 set(gca,'fontsize',10);
 
@@ -345,7 +345,7 @@ plot(xctd(ib),yctd(ib),'g+','markersize',9)
 if isfield(dr,'xship')
   plot(dr.xship,dr.yship,'-g',dr.xship(ii),dr.yship(ii),'k.','markersize',10)
   plot([xctd(ii);dr.xship(ii)],[yctd(ii); dr.yship(ii)],'-y','linewidth',0.5)
-  xlabel('CTD-position (blue) and ship (green) east-west [m]')
+  xlabel(['CTD-position (blue)',char(10),'ship (green) east-west [m]']);
 else
   xlabel('CTD-position east-west [m]')
 end
@@ -369,4 +369,5 @@ axis off
 
 
 orient tall
+set(findall(gcf,'-property','FontSize'),'FontSize',9,'FontWeight','Normal')
 img_save('1',p.print_formats,files);
