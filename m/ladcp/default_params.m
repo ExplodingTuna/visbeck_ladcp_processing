@@ -28,7 +28,7 @@ else
 vv=['Processed with Octave ',version];
 end
 
-params.software = ['GEOMAR LADCP software: Version 10.20: ' ,vv,' (Modified for NOAA/AOML, May 15, 2014)'];
+params.software = ['GEOMAR LADCP software: Version 10.20: ' ,vv,char(10),'(Modified for NOAA/AOML, May 15, 2014)'];
 
 %
 % unix computers know this

@@ -363,7 +363,8 @@ grid
 set(gca,'fontsize',10)
 
 suplabel(['Station : ',p.name,'  Figure 1'],'t');
-suplabel(p.software,'x');
+[ax1,h1]=suplabel([char(10),p.software],'x');
+ set(h1,'FontSize',9);
 axis off
 
 

@@ -52,7 +52,7 @@ fprintf(fid,['Start_Time  = %s\n'],datestr(p.time_start,13));
 fprintf(fid,['Latitude    = %s\n'],num2str(values.lat));
 fprintf(fid,['Longitude   = %s\n'],num2str(values.lon));
 fprintf(fid,['Deviation   = %f\n'],values.magdev);
-fprintf(fid,['Version     = %s\n'],p.software);
+fprintf(fid,['Version     = %s\n'],strrep(p.software,char(10),' '));
 fprintf(fid,['Processed   = %s\n'],datestr(clock));
 fprintf(fid,['Units       = m:m/s:m/s:m/s\n'],[]);
 fprintf(fid,['Columns     = z:u:v:ev\n'],[]);
@@ -90,7 +90,7 @@ if isfield(dr,'ubot')
   fprintf(fid,['Start_Lon   = %s\n'],lons);
   fprintf(fid,['Deviation   = %f\n'],values.magdev);
   fprintf(fid,['Bottom depth= %d\n'],fix(p.zbottom));
-  fprintf(fid,['Version     = %s\n'],p.software);
+  fprintf(fid,['Version     = %s\n'],strrep(p.software,char(10),' '));
   fprintf(fid,['Processed   = %s\n'],datestr(clock));
   fprintf(fid,['Units       = m:m/s:m/s:m/s\n'],[]);
   fprintf(fid,['Columns     = z:u:v:err\n'],[]);
