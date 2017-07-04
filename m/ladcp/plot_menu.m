@@ -15,7 +15,7 @@ function plot_menu(figExt,files)
 % else
 %     figExt ='ofig';
 % end
-figExt='jpg';
+figExt='png';
 %dd = dir(['tmp',filesep,'*.',figExt]);
 
 %for n=1:length(dd)

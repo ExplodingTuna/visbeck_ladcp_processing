@@ -1,7 +1,7 @@
 function img_save(fileName,print_formats,files)
 ext=get_print_format_extension(print_formats);
 fName=[fileName,'.',ext];
-tmpFName=[files.tmp_dir,filesep,fileName,'.','jpg'];
+tmpFName=[files.tmp_dir,filesep,fileName,'.','png'];
 
 if ~exist(files.plots_dir,'file')
     mkdir(files.plots_dir);

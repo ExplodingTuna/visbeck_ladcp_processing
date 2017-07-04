@@ -21,7 +21,14 @@
 
 
 % params.software = 'GEOMAR LADCP software: Version 10.20: 2014-05-13';
-params.software = 'GEOMAR LADCP software: Version 10.20: 2014-05-13 (Modified for NOAA/AOML, May 15, 2014)';
+vv='';
+if is_octave < 1
+vv=['Processed with Matlab ',version];
+else
+vv=['Processed with Octave ',version];
+end
+
+params.software = ['GEOMAR LADCP software: Version 10.20: ' ,vv,' (Modified for NOAA/AOML, May 15, 2014)'];
 
 %
 % unix computers know this

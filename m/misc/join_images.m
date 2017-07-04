@@ -1,6 +1,6 @@
 disp('Merging image files into out.pdf');
 fPath=[pwd,filesep,'tmp'];
-fName=[fPath,filesep,'1.jpg'];
+fName=[fPath,filesep,'1.png'];
 outFile=[fPath,filesep,'out.pdf'];
 
 if exist(outFile,'file')
@@ -8,7 +8,7 @@ if exist(outFile,'file')
 end
 
 if exist(fName,'file')
-    system(['convert -quality 100 -density 300 ',fPath,filesep,'1.jpg -quality 100 -density 300 ',outFile]);
+    system(['convert -quality 100 -density 300 ',fPath,filesep,'1.png -quality 100 -density 300 ',outFile]);
     disp(['Merged ',fName]);
 else
     return;
@@ -17,7 +17,7 @@ end
 
 for n=2:16
     
-    fName=[fPath,filesep,int2str(n),'.jpg'];
+    fName=[fPath,filesep,int2str(n),'.png'];
     if exist(fName,'file')
         system(['convert -quality 100 -density 300 ',outFile,' ',fName,' -quality 100 -density 300 ',outFile]);
         disp(['Merged ',fName]);

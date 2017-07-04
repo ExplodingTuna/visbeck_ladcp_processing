@@ -255,12 +255,12 @@ end
 % plot the display menu
 %
 if is_octave && ~strcmp(graphics_toolkit,'gnuplot')
-plot_menu('jpg',files.tmp_dir);
+plot_menu('png',files.tmp_dir);
 drawnow;
 end
 
 if ~is_octave
-plot_menu('jpg',files.tmp_dir);
+plot_menu('png',files.tmp_dir);
 drawnow;
 end
 
@@ -549,12 +549,12 @@ end
 if is_octave && strcmp(graphics_toolkit,'gnuplot')
 close all;
 graphics_toolkit('qt');
-plot_menu('jpg',files.tmp_dir);
-plot_controls(1,'jpg',files.tmp_dir);
+plot_menu('png',files.tmp_dir);
+plot_controls(1,'png',files.tmp_dir);
 end
 
 if ~is_octave
-plot_controls(1,'jpg',files.tmp_dir);
+plot_controls(1,'png',files.tmp_dir);
 end
 
 %----------------------------------------------------------------------
