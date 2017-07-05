@@ -87,6 +87,7 @@ while ischar(tline)
         break;
     end
     
+    tline=strrep(tline,'%','percent');
     if ~isempty(tline)
        fprintf(fidW,[tline,'\r\n']);
     end
