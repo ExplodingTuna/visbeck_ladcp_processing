@@ -160,6 +160,10 @@ idy = 1/8;
 
 iy = iy-idy;
 [slat,slon] = pos2str(values.start_pos);
+if is_octave > 0
+    slat=strrep(slat,'''','\deg');
+    slon=strrep(slon,'''','\deg');    
+end
 text(ix,iy,[' Start:'])
 text(ix+0.2,iy,[slat])
 text(ix+0.7,iy,[slon])
@@ -170,6 +174,10 @@ iy = iy-idy;
 text(ix+0.2,iy,[datestr(ds,0)])
 
 [slat,slon] = pos2str(values.end_pos);
+if is_octave > 0
+    slat=strrep(slat,'''','\deg');
+    slon=strrep(slon,'''','\deg');    
+end
 iy = iy-idy;
 text(ix,iy,[' End:'])
 text(ix+0.2,iy,[slat])
