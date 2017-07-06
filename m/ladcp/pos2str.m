@@ -47,7 +47,9 @@ else
         strlat = sprintf(['%2d',char(176),' %7.4f''',ns],abs([latd,latm]));
         strlon = sprintf(['%3d',char(176),' %7.4f''',ew],abs([lond,lonm]));
     else
-        strlat = sprintf(['%2d','''',' %7.4f''',ns],abs([latd,latm]));
-        strlon = sprintf(['%3d','''',' %7.4f''',ew],abs([lond,lonm]));
+        slat = sprintf(['%2d','Deg',' %7.4f''',ns],abs([latd,latm]));
+        slon = sprintf(['%3d','Deg',' %7.4f''',ew],abs([lond,lonm]));
+        strlat=strrep(slat,'Deg','^o');
+        strlon=strrep(slon,'Deg','^o');  
     end
 end
