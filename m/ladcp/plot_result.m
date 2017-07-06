@@ -330,7 +330,7 @@ if isfield(dr,'ensemble_vel_err')==1;
   plot(dr.ensemble_vel_err,-dr.z/1000,'-b');
   ax(2) = max([2.5*nmedian(ue),2.5*nmedian(dr.ensemble_vel_err)]);
   axis(ax);
-  title(['\color[rgb]{0 0 1}single ping',char(10),'\color[rgb]{0 0 0}vel error [m/s]']);
+  title(['\color{0 0 1}single ping',char(10),'\color{0 0 0}vel error [m/s]']);
   ylabel('depth [km]');
   set (gca,'YAxisLocation','right'); 
 end
