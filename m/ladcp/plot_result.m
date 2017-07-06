@@ -257,7 +257,7 @@ axis off
 %
 % plot profiles of target strength
 %
-axes('position',[0.58 0.39 0.1 .25])
+axes('position',[0.58 0.36 0.1 .25])
 plot(dr.ts,-dr.z/1000,'b-','linewidth',1.5)
 hold on
 plot(dr.ts_out,(-max(d.zd)-dr.z)/1000,'k-')
@@ -272,14 +272,18 @@ if isnan(ax(1))
 end
 axis(ax)
 %ylabel('depth [km]')
-xlabel('target strength [dB]','color','b')
+%set (gca,'YAxisLocation','right'); 
+title(['target',char(10),'strength [dB]'],'color','b');
+%set(gca, 'XTickLabelMode', 'Manual');
+%set(gca, 'XTick', []);
+%set (gca,'XAxisLocation','top');
 set(gca,'fontsize',10);
 
 
 %
 % plot profiles of super ensemble data range
 %
-axes('position',[0.70 0.39 0.1 .25])
+axes('position',[0.70 0.36 0.1 .25])
 
 plot(sum(dr.range,2),-dr.z/1000,'r-','linewidth',1.5)
 if isfield(dr,'range_up')
@@ -304,7 +308,7 @@ set(gca,'fontsize',10)
 if isfield(dr,'uerr')==1
 
   % plot profiles of velocity error
-  axes('position',[0.82 0.39 0.1 .25])
+  axes('position',[0.82 0.36 0.1 .25])
 % function plot_result(dr,d,p,ps,values)
   ue = dr.uerr;
   plot(ue,-dr.z/1000,'k-','linewidth',1.5)
@@ -312,7 +316,7 @@ if isfield(dr,'uerr')==1
   ax(1) = 0; 
   ax(2) = min([0.001,3*nmedian(ue)]);
   axis(ax)
-  xlabel('vel error (-k) [m/s]')
+  %xlabel('vel error [m/s]')
   set(gca,'fontsize',10)
   set(gca,'YtickLabel',[])
 
@@ -322,11 +326,13 @@ end
 %
 % add single ping accuracy
 %% function plot_result(dr,d,p,ps,values)
-if isfield(dr,'ensemble_vel_err')==1
-  plot(dr.ensemble_vel_err,-dr.z/1000,'-b')
+if isfield(dr,'ensemble_vel_err')==1;
+  plot(dr.ensemble_vel_err,-dr.z/1000,'-b');
   ax(2) = max([2.5*nmedian(ue),2.5*nmedian(dr.ensemble_vel_err)]);
-  axis(ax)
-  title('single ping (-b)','color','b')
+  axis(ax);
+  title(['\color[rgb]{0 0 1}single ping',char(10),'\color[rgb]{0 0 0}vel error [m/s]']);
+  ylabel('depth [km]');
+  set (gca,'YAxisLocation','right'); 
 end
 
 
@@ -345,20 +351,23 @@ plot(xctd(ib),yctd(ib),'g+','markersize',9)
 if isfield(dr,'xship')
   plot(dr.xship,dr.yship,'-g',dr.xship(ii),dr.yship(ii),'k.','markersize',10)
   plot([xctd(ii);dr.xship(ii)],[yctd(ii); dr.yship(ii)],'-y','linewidth',0.5)
-  xlabel(['CTD-position (blue)',char(10),'ship (green) east-west [m]']);
+  %xlabel(['CTD-position (blue)',char(10),'ship (green) east-west [m]']);
+   title(['CTD-position (blue)',char(10),'ship (green) east-west [m]']);
 else
-  xlabel('CTD-position east-west [m]')
+  %xlabel('CTD-position east-west [m]');
+  title('CTD-position east-west [m]');
 end
 uship_a = values.uship+sqrt(-1)*values.vship;
 if ~(abs(uship_a)==0 & values.lat==0 & values.lon==0)
-  plot(values.xdisp,values.ydisp,'gp')
-  text(values.xdisp,values.ydisp,' GPS-end')
+  plot(values.xdisp,values.ydisp,'gp');
+  text(values.xdisp,values.ydisp-.1*values.ydisp,' GPS-end','Color','green');
 end
-text(xctd(ib),yctd(ib),' bottom')
-text(xctd(end),yctd(end),' end')
+text(xctd(ib),yctd(ib),' bottom');
+text(xctd(end),yctd(end),' end');
 axis equal
-text(xctd(1),yctd(1),' start')
-ylabel('north-south [m]')
+text(xctd(1),yctd(1),' start');
+ylabel('north-south [m]');
+set (gca,'YAxisLocation','right'); 
 grid
 set(gca,'fontsize',10)
 
