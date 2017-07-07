@@ -1,14 +1,15 @@
-function rmc2nav(inFile,outFile)
-%    rmc2nav converts a text file of properly formtted RMC Strings into nav data
+function retval=rmc2nav(inFile,skip)
+%    rmc2nav converts a text file of properly formatted RMC Strings into nav data
 %    that the Visbeck LADCP processing program can use.
 %    this script was written in vectorized form to decrease processing time.
+%    
 %
-%    rmc2nav(inFile,outFile)
+%    rmc2nav(inFile)
 %    
 
-fidout = fopen(outFile,'w');
+
 % parse file 
-[a,gCtime,c,Clat,ClatDir,Clon,ClonDir,h,i,gCdate,k,l]=textread(inFile,'%s %s %s %s %s %s %s %s %s %s %s %s','delimiter',',');
+[a,gCtime,c,Clat,ClatDir,Clon,ClonDir,h,i,gCdate,k,l]=textread(inFile,'%s %s %s %s %s %s %s %s %s %s %s %s','delimiter',',','headerlines',skip);
 
 gTime=cell2mat(gCtime);
 gDate=cell2mat(gCdate);
@@ -58,7 +59,6 @@ gooddate(bad+1)=[];decLat(bad+1)=[];decLon(bad+1)=[];
 clear bad
 %%% CSM edits here
 
+retval=[gooddate, decLat, decLon];
 
-fprintf(fidout,'%10.7f %12.6f %12.6f \n',[gooddate, decLat, decLon]');
-fclose(fidout);
 
