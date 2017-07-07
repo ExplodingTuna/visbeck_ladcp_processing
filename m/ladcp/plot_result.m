@@ -49,7 +49,11 @@ end
 %
 sfigure(2);
 clf
-axes('position',[0.1 0.23 0.4 0.7])
+if (p.btrk_used>0 && isfield(dr,'zbot') )
+axes('position',[0.1 0.34 0.4 0.56]);
+else
+  axes('position',[0.1 0.1 0.4 0.80]);  
+end
 plot(ua*100,-z,'-r','linewidth',2.5)
 grid
 hold on
@@ -67,8 +71,8 @@ if isfield(dr,'u_do')
   plot((dr.v_do+dr.vbar)*100,-z,'--g','linewidth',0.5)
   plot((dr.v_up+dr.vbar)*100,-z,'--g','linewidth',0.5)
   iz =[3:5:length(dr.u_do)];
-  plot((dr.u_do(iz)+dr.ubar)*100,-z(iz),'.b','markersize',6)
-  plot((dr.v_do(iz)+dr.vbar)*100,-z(iz),'.b','markersize',6)
+  plot((dr.u_do(iz)+dr.ubar)*100,-z(iz),'.b','markersize',15)
+  plot((dr.v_do(iz)+dr.vbar)*100,-z(iz),'.b','markersize',15)
   ct = [ct,'; blue dots down cast'];
   if nstd(dr.u_do)+nstd(dr.v_do)==0
     keyboard
@@ -78,8 +82,8 @@ if isfield(dr,'u_shear_method')
   plot((dr.u_shear_method+dr.ubar)*100,-dr.z,'-r','linewidth',0.9)
   plot((dr.v_shear_method+dr.vbar)*100,-dr.z,'--g','linewidth',0.9)
   iz = [2:4:length(dr.u_shear_method)];
-  plot((dr.u_shear_method(iz)+dr.ubar)*100,-dr.z(iz),'.r','markersize',7)
-  plot((dr.v_shear_method(iz)+dr.vbar)*100,-dr.z(iz),'.g','markersize',7)
+  plot((dr.u_shear_method(iz)+dr.ubar)*100,-dr.z(iz),'.r','markersize',15)
+  plot((dr.v_shear_method(iz)+dr.vbar)*100,-dr.z(iz),'.g','markersize',15)
   ct=[ct,'; dotted shear'];
 end
 if isfield(dr,'u_sadcp')
@@ -120,11 +124,11 @@ ylabel('depth [m]')
 
 % plot bottom track data
 
-if (p.btrk_used>0 & isfield(dr,'zbot') )
+if (p.btrk_used>0 && isfield(dr,'zbot') )
   plot(p.plot_range(1:2),[1 1]*abs(p.plot_range(3)),'-k','linewidth',2)
   set(gca,'XTickLabel',[]);
   zbprofr=-dr.zbot+p.zbottom;
-  axes('position',[0.1 0.1 0.4 0.12])
+  axes('position',[0.1 0.1 0.4 0.19])
   iz = find(zbprofr>10 & zbprofr <p.btrk_plot_range);
   plot(dr.ubot(iz)*100,zbprofr(iz),'r-','linewidth',2.5)
   grid
@@ -137,7 +141,8 @@ if (p.btrk_used>0 & isfield(dr,'zbot') )
     plot([dr.vbot(iz)-dr.uerrbot(iz)]*100,zbprofr(iz),':g','linewidth',1.8)
   end
   plot([0 0],[0 -nmax(-[p.btrk_plot_range, p.zbottom])],'-k')
-  xlabel('velocity [cm/s]')
+  %xlabel('velocity [cm/s]')
+  title('velocity [cm/s]');
   ylabel('above bottom [m]')
   ax2 = [p.plot_range(1:2) 0 min([p.btrk_plot_range, p.zbottom])];
   axis(ax2);
@@ -146,38 +151,43 @@ if (p.btrk_used>0 & isfield(dr,'zbot') )
   else
     text(0.9*ax2(1),ax2(4)*0.92,'RDI bottom track')
   end
+else
+ %axes('position',[0.1 0.1 0.4 0.19]) 
+ 
 end
 
 
 %
 % write some text information
 %
-subplot(322)
-
-iy =1.2;
+%subplot(322)
+axes('position',[0.58 0.70 0.4 0.19])
+iy =1.11;
 ix = - 0.1;
-idy = 1/8;
+idy = 1/9;
 
 iy = iy-idy;
 [slat,slon] = pos2str(values.start_pos);
-text(ix,iy,[' Start:'])
+text(ix,iy,['Start:'])
 text(ix+0.2,iy,[slat])
-text(ix+0.7,iy,[slon])
+text(ix+0.6,iy,[slon])
 
 date1 = gregoria(values.start_time);  
 ds = datenum(date1(1),date1(2),date1(3),date1(4),date1(5),date1(6));
 iy = iy-idy;
-text(ix+0.2,iy,[datestr(ds,0)])
+text(ix,iy,'Date:');
+text(ix+0.2,iy,datestr(ds,0));
 
 [slat,slon] = pos2str(values.end_pos);
 iy = iy-idy;
-text(ix,iy,[' End:'])
-text(ix+0.2,iy,[slat])
-text(ix+0.7,iy,[slon])
+text(ix,iy,['End:'])
+text(ix+0.2,iy,[slat]),
+text(ix+0.6,iy,[slon])
 
 date2 = gregoria(values.end_time);    
 ds = datenum(date2(1),date2(2),date2(3),date2(4),date2(5),date2(6));
 iy = iy-idy;
+text(ix,iy,'Date:');
 text(ix+0.2,iy,[datestr(ds,0)])
 
 iy = iy-idy;
@@ -191,7 +201,7 @@ if length(d)>0
   else, 
    zu = [0 0]; 
   end
-  text(ix,iy,['binsize do: ',num2str(diff(d.zd([1,2]))),...
+  text(ix,iy,['binsize dn: ',num2str(diff(d.zd([1,2]))),...
 	' m  binsize up:  ', num2str(diff(zu([1,2]))),' m'])
 end
 
@@ -220,24 +230,24 @@ text(ix,iy,['wdiff: ',num2str(p.wlim),...
 iy = iy-idy;
 dum=' ';
 if ps.smoofac~=0
-  dum=[dum,'smo:',num3str(ps.smoofac,3,2)];
+  dum=[dum,'smo:',num3str(ps.smoofac,3,2),' '];
 end
 if ps.dragfac~=0
-  dum=[dum,' dra:',num3str(ps.dragfac,3,2)]; 
+  dum=[dum,'dra:',num3str(ps.dragfac,3,2),' ']; 
 end
 if sum(ps.smallfac(:,2))>0
-  dum=[dum,' smal:',int2str(ps.smallfac(1,1)),'-',int2str(ps.smallfac(end,1))]; 
+  dum=[dum,'smal:',int2str(ps.smallfac(1,1)),'-',int2str(ps.smallfac(end,1)),' ']; 
 end
 if ps.barofac~=0
-  dum=[dum,' bar:',num3str(ps.barofac,3,1)];
+  dum=[dum,'bar:',num3str(ps.barofac,3,1),' '];
 end
 if ps.botfac~=0
-  dum=[dum,' bot:',num3str(ps.botfac,3,1)];
+  dum=[dum,'bot:',num3str(ps.botfac,3,1),' '];
 end
 if ps.sadcpfac~=0
-  dum=[dum,' sad:',num3str(ps.sadcpfac,3,1)]; 
+  dum=[dum,'sad:',num3str(ps.sadcpfac,3,1),' ']; 
 end
-text(ix,iy,dum)
+text(ix-.018,iy,dum)
 
 iy = iy-idy;
 text(ix,iy,['weightmin ',num3str(ps.weightmin,3,1),...
@@ -257,10 +267,16 @@ axis off
 %
 % plot profiles of target strength
 %
-axes('position',[0.58 0.36 0.1 .25])
+axes('position',[0.58 0.34 0.1 .25])
 plot(dr.ts,-dr.z/1000,'b-','linewidth',1.5)
 hold on
 plot(dr.ts_out,(-max(d.zd)-dr.z)/1000,'k-')
+%  L = get(gca,'XLim');
+%  xTick = get(gca,'xTick');
+%  xTickLabel = arrayfun(@(x) sprintf('%3.0f',x),xTick,'uniformoutput', false);
+ % set(gca, 'XTickLabel',[]);
+  %  set(gca, 'xTickLabel', xTickLabel,'XTick',linspace(L(1),L(end),2));
+
 axi = axis;
 if isfinite(nmax(dr.ts))
   ax(1) = -0.9*nmax(-dr.ts_out); 
@@ -271,19 +287,15 @@ if isnan(ax(1))
   ax(1) = axi(1);
 end
 axis(ax)
-%ylabel('depth [km]')
-%set (gca,'YAxisLocation','right'); 
 title(['target',char(10),'strength [dB]'],'color','b');
-%set(gca, 'XTickLabelMode', 'Manual');
-%set(gca, 'XTick', []);
-%set (gca,'XAxisLocation','top');
 set(gca,'fontsize',10);
+
 
 
 %
 % plot profiles of super ensemble data range
 %
-axes('position',[0.70 0.36 0.1 .25])
+axes('position',[0.70 0.34 0.1 .25])
 
 plot(sum(dr.range,2),-dr.z/1000,'r-','linewidth',1.5)
 if isfield(dr,'range_up')
@@ -302,13 +314,14 @@ end
 axis(ax)
 title('range [m]','color','r')
 set(gca,'YtickLabel',[])
-set(gca,'fontsize',10)
+set(gca,'fontsize',8)
+%set(gca, 'XTickLabel',[]);
 
 
 if isfield(dr,'uerr')==1
 
   % plot profiles of velocity error
-  axes('position',[0.82 0.36 0.1 .25])
+  axes('position',[0.82 0.34 0.1 .25])
 % function plot_result(dr,d,p,ps,values)
   ue = dr.uerr;
   plot(ue,-dr.z/1000,'k-','linewidth',1.5)
@@ -316,9 +329,11 @@ if isfield(dr,'uerr')==1
   ax(1) = 0; 
   ax(2) = min([0.001,3*nmedian(ue)]);
   axis(ax)
-  %xlabel('vel error [m/s]')
-  set(gca,'fontsize',10)
-  set(gca,'YtickLabel',[])
+  title('vel error [m/s]')
+  ylabel('depth [km]');
+  set (gca,'YAxisLocation','right');
+  set(gca,'fontsize',8)
+
 
 end
 
@@ -332,14 +347,26 @@ if isfield(dr,'ensemble_vel_err')==1;
   axis(ax);
   title(['\color{blue}single ping',char(10),'\color{black}vel error [m/s]']);
   ylabel('depth [km]');
-  set (gca,'YAxisLocation','right'); 
+  set (gca,'YAxisLocation','right');
+
+  %L = get(gca,'XLim');
+  %xTick = get(gca,'xTick');
+  %xTickLabel = arrayfun(@(x) sprintf('%1d',x),xTick,'uniformoutput', false);
+  %set(gca, 'xTickLabel', xTickLabel,'XTick',linspace(L(1),L(2),3));
+
+
 end
 
+ % L = get(gca,'XLim');
+ % xTick = get(gca,'xTick');
+ % xTickLabel = arrayfun(@(x) sprintf('%1d',x),xTick,'uniformoutput', false);
+ % set(gca, 'xTickLabel', xTickLabel,'XTick',linspace(L(1),L(2),2));
 
 %
 % plot position of CTD
 %
-subplot(326)% function plot_result(dr,d,p,ps,values)
+%subplot(326)% function plot_result(dr,d,p,ps,values)
+axes('position',[0.58 0.09 0.3 .19])
 xctd = dr.xctd;
 yctd = dr.yctd;
 ii = fix(linspace(1,length(xctd),10));
@@ -371,12 +398,18 @@ set (gca,'YAxisLocation','right');
 grid
 set(gca,'fontsize',10)
 
-suplabel(['Station : ',p.name,'  Figure 1'],'t');
-[ax1,h1]=suplabel([char(10),p.software],'x');
+
+[ax1,h1]=suplabel(p.software,'x');
  set(h1,'FontSize',9);
 axis off
 
 
 orient tall
 set(findall(gcf,'-property','FontSize'),'FontSize',9,'FontWeight','Normal')
+lw=.1;
+if is_octave > 0
+lw=1.2;
+end
+set( findall(gcf,'-property','LineWidth'), 'LineWidth', lw);
+suplabel(['Station : ',p.name,'  Figure 1'],'t');
 img_save('1',p.print_formats,files);
