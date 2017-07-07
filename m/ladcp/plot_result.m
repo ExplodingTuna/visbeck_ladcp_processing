@@ -71,8 +71,8 @@ if isfield(dr,'u_do')
   plot((dr.v_do+dr.vbar)*100,-z,'--g','linewidth',0.5)
   plot((dr.v_up+dr.vbar)*100,-z,'--g','linewidth',0.5)
   iz =[3:5:length(dr.u_do)];
-  plot((dr.u_do(iz)+dr.ubar)*100,-z(iz),'.b','markersize',15)
-  plot((dr.v_do(iz)+dr.vbar)*100,-z(iz),'.b','markersize',15)
+  plot((dr.u_do(iz)+dr.ubar)*100,-z(iz),'.b','markersize',7)
+  plot((dr.v_do(iz)+dr.vbar)*100,-z(iz),'.b','markersize',7)
   ct = [ct,'; blue dots down cast'];
   if nstd(dr.u_do)+nstd(dr.v_do)==0
     keyboard
@@ -82,8 +82,8 @@ if isfield(dr,'u_shear_method')
   plot((dr.u_shear_method+dr.ubar)*100,-dr.z,'-r','linewidth',0.9)
   plot((dr.v_shear_method+dr.vbar)*100,-dr.z,'--g','linewidth',0.9)
   iz = [2:4:length(dr.u_shear_method)];
-  plot((dr.u_shear_method(iz)+dr.ubar)*100,-dr.z(iz),'.r','markersize',15)
-  plot((dr.v_shear_method(iz)+dr.vbar)*100,-dr.z(iz),'.g','markersize',15)
+  plot((dr.u_shear_method(iz)+dr.ubar)*100,-dr.z(iz),'.r','markersize',7)
+  plot((dr.v_shear_method(iz)+dr.vbar)*100,-dr.z(iz),'.g','markersize',7)
   ct=[ct,'; dotted shear'];
 end
 if isfield(dr,'u_sadcp')
