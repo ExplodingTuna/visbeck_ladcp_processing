@@ -4,7 +4,7 @@ function retval=posmv2nav(inFile,skip)
 %    This script is a modified version of th rmc2nav.m script for GPRMC data
 %    This script was written in vectorized form to decrease processing time.
 %
-%    posmv2nav(inFile,outFile,skip)
+%    posmv2nav(inFile,skip)
 %
 %    inFile -The input filename
 %    skip   -Lines to skip at the beginning of the file. This is useful
