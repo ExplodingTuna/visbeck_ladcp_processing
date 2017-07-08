@@ -1,0 +1,10 @@
+#!/bin/bash
+
+fileOut="$2"
+filePath=`dirname $1 | tail -n1`
+echo '' > $fileOut
+for fName in $1
+do
+    tail --lines=+3 $fName >> $fileOut
+
+done
