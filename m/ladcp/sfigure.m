@@ -7,16 +7,20 @@ function h = sfigure(h)
 %
 % See also figure
 
-if nargin>=1 
-	if ishandle(h)
-		set(0, 'CurrentFigure', h);
-	else
-		%h = figure(h);
+if nargin>=1
+    if ishandle(h)
+        name=get(h,'name');
+        if ~strcmp(name,'LADCP 1')
+            %makefigexact5(h,4.25,5.5);
+        end
+        set(0, 'CurrentFigure', h);
+    else
+        %h = figure(h);
+        h =makefigexact4(4.25,5.5);
+        set(h,'Color',[.867,.867,.867]);
+    end
+else
+    %h = figure;
     h =makefigexact4(4.25,5.5);
     set(h,'Color',[.867,.867,.867]);
-	end
-else
-	%h = figure;
-   h =makefigexact4(4.25,5.5);
-   set(h,'Color',[.867,.867,.867]);
 end

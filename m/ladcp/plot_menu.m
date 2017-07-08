@@ -34,7 +34,7 @@ end
 % create 2 windows
 % one for the control menu and one for the actual plots
 sfigure(1);
-pause(0.1);
+pause(0.5);
 clf
 set(gcf,'position',[10,10+imac*100,170,800],'numbertitle','off','menubar',...
 	'none','name','LADCP 1');
@@ -42,11 +42,12 @@ set(gcf,'position',[10,10+imac*100,170,800],'numbertitle','off','menubar',...
 
 
 sfigure(2);
-pause(0.1);
+pause(0.5);
 clf
-set(gcf,'position',[220,100,700,800],'numbertitle','off',...
+pos = get(gcf,'pos');
+set(gcf,'position',pos,'numbertitle','off',...
 	'name','LADCP 2');
-set(gcf,'Units','inches','Color', 'white');
+%set(gcf,'Units','inches','Color', 'white');
 
 % create the menu
 sfigure(1);

@@ -1,28 +1,14 @@
-%% Copyright (C) 2017 Pedro Pena
-%%
-%% This program is free software; you can redistribute it and/or modify it
-%% under the terms of the GNU General Public License as published by
-%% the Free Software Foundation; either version 3 of the License, or
-%% (at your option) any later version.
-%%
-%% This program is distributed in the hope that it will be useful,
-%% but WITHOUT ANY WARRANTY; without even the implied warranty of
-%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-%% GNU General Public License for more details.
-%%
-%% You should have received a copy of the GNU General Public License
-%% along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-%% -*- texinfo -*-
-%% @deftypefn {Function File} {@var{retval} =} getPos (@var{input1}, @var{input2})
-%%
-%% @seealso{}
-%% @end deftypefn
-
-%% Author: user <PedroPenar@ubuntu>
-%% Created: 2017-06-27
-
 function retval=cnv2nav(fileName)
+%    cnv2nav converts a properly formatted processed Seabird  data file 
+%    into nav data
+%    that the Visbeck LADCP processing program can use.
+%    this script was written in vectorized form to decrease processing 
+%    time.
+%    
+%
+%    cnv2nav(inFile)
+%    
+
 
 fid=fopen(fileName);
 numOfColumns=0;
