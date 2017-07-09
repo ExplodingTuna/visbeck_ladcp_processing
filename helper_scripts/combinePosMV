@@ -1,10 +1,28 @@
 #!/bin/bash
-
+#
+# This sctipt will combine and filter files containing posmv data in the following formats.
+#
+# Format 1
+# 02/08/2017	07:00:00.938	70000.790	26	59.582200	N	79	39.378620	W	-1.800000	0.000000	1.000000	18	2	$INGGA	20
+#
+# Format 2
+# 07/09/2008	06:00:01	55949.1	27	0.812570	N	79	54.566790	W	6.430000	0.000000	1.000000	0	2
+#
+# It assumes that the beginning two lines are part of the header and filter them out.
+#
+# Example usage
+#
+# ./combinePosMV './pos_mv_files/*.dat' './out.txt'
+#
+# Where *.dat tells the script to combine all files with that extension 
+#
+# Use the single quotes.
+#
 fileOut="$2"
 filePath=`dirname $1 | tail -n1`
 echo '' > $fileOut
 for fName in $1
 do
-    tail --lines=+3 $fName >> $fileOut
+    tail --lines=+3 $fName | grep -oE '[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]	[0-9][0-9]:[0-9][0-9]:[0-9][0-9](\.[0-9]+)?	[0-9]+(\.[0-9]+)?	[0-9][0-9]	[0-9]+\.[0-9]+	(N|S)	[0-9]+	[0-9]+\.[0-9]+	(E|W).*' >> $fileOut
 
 done

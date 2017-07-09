@@ -1,10 +1,24 @@
-function retval=rmc2nav(inFile,skip)
-%    rmc2nav converts a text file of properly formatted RMC Strings into nav data
+function retval=rmc2nav(inFile,hourOffset,skip)
+%
+%    Converts a text file of properly formatted RMC Strings into nav data
 %    that the Visbeck LADCP processing program can use.
+%
+%    [gooddate, latitude, longitude] = rmc2nav(inFile,hourOffset,skip)
+%
+%       inFile     -The input filename
+%       hourOffset -Hours to add or subtract. Helpful if time isn't in UTC. 
+%       skip       -Lines to skip at the beginning of the file. This is useful
+%                   for skipping header info.
+%
+%    it will parse the following format.
+%
+%    $GPRMC,142436,A,2607.7739,N,07954.0164,W,10.9,82.9,080517,7.3,W*71
+%    $GPRMC,203043,A,2603.1339,N,07851.2177,W,10.2,9.4,080517,8.0,W*4A
+%
 %    this script was written in vectorized form to decrease processing time.
 %    
 %
-%    rmc2nav(inFile)
+%    [gooddate, latitude, longitude] = rmc2nav(inFile,hourOffset,skip)
 %    
 
 
@@ -42,7 +56,7 @@ lonNegVal=find(lonDir == 'W');
 decLon(lonNegVal)=decLon(lonNegVal).* -1;
 
 % Convert time to Julian time 
-tempdate = datenum(gYear,gMonth,gDay,gHour,gMinutes,gSeconds);
+tempdate = datenum(gYear,gMonth,gDay,gHour,gMinutes,gSeconds) + (hourOffset/86400);
 refdate  = datenum(gYear-1,12,31,0,0,0 );
 gooddate = (tempdate-refdate-1);
 

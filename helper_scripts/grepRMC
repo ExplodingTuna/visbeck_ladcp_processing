@@ -1,11 +1,17 @@
 #!/bin/bash
-# This script will take gps text and filter out any lines matching a 
-# properly formatted RMC string
-# Below is a properly formatted RMC string
+# This script will take gps text and return any lines matching a 
+# You can use this script to clean up a gps capture text file.
+# properly formatted RMC string.
+# Below is a properly formatted RMC string.
+#
 #$GPRMC,142436,A,2607.7739,N,07954.0164,W,10.9,82.9,080517,7.3,W*71
 #$GPRMC,203043,A,2603.1339,N,07851.2177,W,10.2,9.4,080517,8.0,W*4A
 #
-
+# Example usage
+# ./grepRMC gps.txt > gprmcOut.txt
+#
+# where gps.txt is a gps capture file that contains gprmc strings.
+#
 
 grep -o 'RMC,[0-9]\{6\},A,[0-9]\{3,\}\.[0-9]\{3,\},[NS],[0-9]\{4,\}\.[0-9]\{3,\},[WE],[0-9]\{1,\}\.[0-9]\{1,\},[0-9]\{1,\}\.[0-9]\{1,\},[0-9]\{6\},[0-9]\{1,\}\.[0-9]\{1,\},[A-Z]\*[0-9A-Z][0-9A-Z]' "$@"
 

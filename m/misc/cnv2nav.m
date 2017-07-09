@@ -115,7 +115,7 @@ x{2}=navVar{latOrder};
 x{3}=navVar{lonOrder};
 
 asd=cell2mat(x);
-asd(:,1)=(asd(:,1)/24/3600) + gooddate;
+asd(:,1)=(asd(:,1)/24/3600) + gooddate; % add time offset to gooddate.
 [x,y] = find(asd(:,3)~=-9.990e-29); % remove bad values from longitude.
 asd=asd(x,:);
 [x,y] = find(asd(:,2)~=-9.990e-29); % remove bad values from latitude.
