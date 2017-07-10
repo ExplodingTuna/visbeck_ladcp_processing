@@ -1,7 +1,10 @@
 #!/bin/bash
-# This script will take gps text and return any lines matching a 
+# This script will take gps text and return any lines matching a GPRMC
+# NMEA string.
 # You can use this script to clean up a gps capture text file.
-# properly formatted RMC string.
+# If the file isn't executable issue "chmod +x ./grepRMC" to make it
+# executable.
+#
 # Below is a properly formatted RMC string.
 #
 #$GPRMC,142436,A,2607.7739,N,07954.0164,W,10.9,82.9,080517,7.3,W*71

@@ -51,9 +51,9 @@ cruise_id_prefix=<br>
 cruise_id_suffix=<br>
 correct_year=2017<br>
 use_mat_for_nav=0<br>
-make_nav_from_cnv=1<br>
+make_nav=1<br>
 use_sadcp=0<br>
-print_formats=png<br>
+print_formats=psc<br>
 remove_zctd_downcast=1<br>
 use_master_only=0<br>
 

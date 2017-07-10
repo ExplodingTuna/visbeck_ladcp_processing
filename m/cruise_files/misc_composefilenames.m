@@ -39,6 +39,7 @@ f.ctd_prof_dir    = [f.data_directory,filesep,'ctdprof'];
 f.raw_ctd_prof_dir= [f.data_directory,filesep,'raw_ctdprof'];
 f.nav_dir         = [f.data_directory,filesep,'nav'];
 f.raw_nav_dir     = [f.data_directory,filesep,'raw_nav'];
+f.external_nav_dir    = [f.data_directory,filesep,'external_nav'];
 f.sadcp_dir       = [f.data_directory,filesep,'sadcp'];
 f.raw_sadcp_dir   = [f.data_directory,filesep,'raw_sadcp'];
 f.ladcp_dir       = [f.data_directory,filesep,'ladcp'];  %% line added by RHS 25NOV2013
@@ -90,6 +91,9 @@ if ~exist(f.nav_dir)
 end
 if ~exist(f.raw_nav_dir)
     mkdir(f.raw_nav_dir);
+end
+if ~exist(f.external_nav_dir)
+    mkdir(f.external_nav_dir);
 end
 if ~exist(f.sadcp_dir)
     mkdir(f.sadcp_dir);
@@ -163,11 +167,12 @@ end;
 % f.sadcp = ['data',filesep,'sadcp',filesep,'sadcp',int2str0(stn,3),'.mat'];
 %fName=[cruise_id_prefix,cruise_id,'_ctdprof',int2str0(stn,3),cruise_id_s,'.mat'];
 
-f.nav = [f.nav_dir,filesep,cruise_id_prefix,cruise_id,'_nav_',int2str0(stn,3),cruise_id_s,'.mat'];
-f.ctdprof = [f.ctd_prof_dir,filesep,cruise_id_prefix,cruise_id,'_ctdprof_',int2str0(stn,3),cruise_id_s,'.mat'];
-f.ctdtime = [f.ctd_ts_dir,filesep,cruise_id_prefix,cruise_id,'_ctdtime_',int2str0(stn,3),cruise_id_s,'.mat'];
-f.sadcp = [f.sadcp_dir,filesep,cruise_id_prefix,cruise_id,'_sadcp_',int2str0(stn,3),cruise_id_s,'.mat'];
-
+f.nav = [f.nav_dir,filesep,cruise_id_prefix,cruise_id,'_nav_',cruise_id_s,int2str0(stn,3),'.mat'];
+f.ctdprof = [f.ctd_prof_dir,filesep,cruise_id_prefix,cruise_id,'_ctdprof_',cruise_id_s,int2str0(stn,3),'.mat'];
+f.ctdtime = [f.ctd_ts_dir,filesep,cruise_id_prefix,cruise_id,'_ctdtime_',cruise_id_s,int2str0(stn,3),'.mat'];
+f.sadcp = [f.sadcp_dir,filesep,cruise_id_prefix,cruise_id,'_sadcp_',cruise_id_s,int2str0(stn,3),'.mat'];
+% delete this one too.
+f.rawnav = [f.raw_nav_dir,filesep,cruise_id_prefix,cruise_id,'_nav_',cruise_id_s,int2str0(stn,3),'.vis'];
 
 % file name for results (extensions will be added by software)
 %  *.bot            bottom referenced ASCII data

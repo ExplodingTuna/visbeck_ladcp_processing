@@ -25,6 +25,10 @@ if exist(files.nav,'file')
     delete(files.nav);
 end
 
+if exist(files.rawnav,'file')
+    delete(files.rawnav);
+end
+
 if exist(files.sadcp,'file')
     delete(files.sadcp);
 end

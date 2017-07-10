@@ -109,7 +109,7 @@ cruise_id=get_cruise_variable_value(cruiseVars,'cruise_id');%added by Pedro Pena
 cruise_id_prefix=get_cruise_variable_value(cruiseVars,'cruise_id_prefix');
 cruise_id_suffix=get_cruise_variable_value(cruiseVars,'cruise_id_suffix');
 use_mat_for_nav=str2num(get_cruise_variable_value(cruiseVars,'use_mat_for_nav'));
-make_nav_from_cnv=str2num(get_cruise_variable_value(cruiseVars,'make_nav_from_cnv'));
+make_nav=str2num(get_cruise_variable_value(cruiseVars,'make_nav'));
 remove_zctd_downcast=str2num(get_cruise_variable_value(cruiseVars,'remove_zctd_downcast'));
 use_sadcp=str2num(get_cruise_variable_value(cruiseVars,'use_sadcp'));
 
@@ -135,12 +135,15 @@ end
 %check if files exist
 ctdtimeR=[files.raw_ctd_ts_dir,filesep,cruise_id_prefix,cruise_id,'_time_',cruise_id_suffix,int2str0(stn,3),'.cnv'];
 ctdprofR=[files.raw_ctd_prof_dir,filesep,cruise_id_prefix,cruise_id,'_profile_',cruise_id_suffix,int2str0(stn,3),'.cnv'];
+rmcFile=[files.external_nav_dir,filesep,cruise_id_prefix,cruise_id,'_rmc_',cruise_id_suffix,int2str0(stn,3),'.txt'];
+pos_mvFile=[files.external_nav_dir,filesep,cruise_id_prefix,cruise_id,'_pos_mv_',cruise_id_suffix,int2str0(stn,3),'.txt'];
+
 stncaststr = sprintf('%03d_01',stn);
 ladcpdnR=[files.raw_cut_dir,filesep,cruise_id,'_',stncaststr,'m.000'];
 ladcpupR=[files.raw_cut_dir,filesep,cruise_id,'_',stncaststr,'s.000'];
 sadcpR=[files.raw_sadcp_dir,filesep,cruise_id_prefix,cruise_id,'_codas3_sadcp',cruise_id_suffix,'.mat'];
 
-if make_nav_from_cnv == 0 && use_mat_for_nav == 1
+if make_nav == 0 && use_mat_for_nav == 1
 navExt='mat';
 else
 navExt='vis';
@@ -180,37 +183,65 @@ if ~exist(ladcpupR)
     disp('DOES NOT EXIST! WILL ATTEMPT TO PROCESS WITHOUT SLAVE')
 %     return;
 end
+% use cnv file to create nav file.
+navDat=[];
 
-navDat=cnv2nav(ctdtimeR);
-
-if isempty(navDat)
-    disp(['CAN''T CREATE NAV FILE FROM ',ctdtimeR]);
-    disp(['ATTEMPTING TO CREATE NAV FILE FROM ',ctdprofR]);
-    navDat=cnv2nav(ctdprofR);
-end
-
-
-if isempty(navDat)
+if make_nav == 1
+    navDat=cnv2nav(ctdtimeR);
     
-    disp('COULD NOT CREATE NAVIGATIONAL FILE FROM A CNV FILE. IN ORDER TO CREATE ONE,');
-    disp('THE CNV FILE MUST CONTAIN the timeS: , Lattitude: AND Longitude: COLUMNS');
+    if isempty(navDat)
+        disp(['CAN''T CREATE NAV FILE FROM ',ctdtimeR]);
+        disp(['ATTEMPTING TO CREATE NAV FILE FROM ',ctdprofR]);
+        navDat=cnv2nav(ctdprofR);
+    end
+    
+    
+    if isempty(navDat)
+        
+        disp('COULD NOT CREATE NAVIGATIONAL FILE FROM A CNV FILE. IN ORDER TO CREATE ONE,');
+        disp('THE CNV FILE MUST CONTAIN the timeS: , Lattitude: AND Longitude: COLUMNS');
+        
+    end
+    
+
     
 end
+%generate vis file from a gprmc file
+if make_nav == 2
+    navDat=rmc2nav(rmcFile,0,0);
+    
+    if isempty(navDat)
+        disp([char(10),'CAN''T CREATE VIS FILE FROM ',rmcFile]);
+        disp('CREATE A FILE WITH GPRMC STRINGS AND PLACE IT IN THE');
+        disp('"external_nav" FOLDER OR CHANGE the "make_nav" VARIABLE IN "cruise_params.cfg."');
+    end
 
-if make_nav_from_cnv == 1 && ~isempty(navDat)
-   fidout=fopen(navR,'w');
-   fprintf(fidout,'%10.7f %12.6f %12.6f \n',navDat');
-   fclose(fidout);
+end
+%generate a vis file from a posmv file
+if make_nav == 3
+    navDat=posmv2nav(pos_mvFile,0,0);
+    
+    if isempty(navDat)
+        disp([char(10),'CAN''T CREATE VIS FILE FROM ',pos_mvFile]);
+        disp('CREATE A FILE WITH POSMV STRINGS AND PLACE IT IN THE');
+        disp('"external_nav" FOLDER OR CHANGE the "make_nav" VARIABLE IN "cruise_params.cfg."');
+    end
+
 end
 
-
-
-
+%create vis file if nav exists.
+if  ~isempty(navDat)
+    fidout=fopen(navR,'w');
+    fprintf(fidout,'%10.7f %12.6f %12.6f \n',navDat');
+    fclose(fidout);
+end
 
 if ~exist(navR)
-    clc;
-    disp(navR);
-    disp('DOES NOT EXIST! EXITING')
+    %clc;
+    disp([char(10),navR]);
+    disp('DOES NOT EXIST! THIS FILE MUST BE CREATED TO CONTINUE PROCESSING.')
+    disp('PROVIDE THE FILE DIRECTLY OR GENERATE IT FROM A SEABIRD CNV FILE,A GPRMC FILE OR');
+    disp('OR A POSMV FILE. EXITING!');
     return;
 end
 

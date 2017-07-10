@@ -57,9 +57,9 @@ cruise_id_prefix=
 cruise_id_suffix=
 correct_year=2017
 use_mat_for_nav=0
-make_nav_from_cnv=1
+make_nav=1
 use_sadcp=0
-print_formats=png
+print_formats=psc
 remove_zctd_downcast=0
 use_master_only=0
 
@@ -104,13 +104,9 @@ For cast 4 of cruise_id=AB1705, the files will be named in the following way.
 
 
 
--to process  TEST CAST
+-to process  AB1705
 
 process_cast(004)
-
--to process AB1403
-
-process_cast(019)
 
 
 

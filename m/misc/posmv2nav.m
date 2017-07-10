@@ -36,6 +36,10 @@ function retval=posmv2nav(inFile,hourOffset,skip)
 
 
 % parse file 
+if ~exist(inFile)
+    retval=[];
+    return ;
+end
 [cellComputerDate,cellComputerTime,GPSTime,latitudeIntegerPart,latitudeDecimalPart,cellLatitudeDirection,longitudeIntegerPart,longitudeDecimalPart,cellLongitudeDirection,a,b,c,d,e,f,g]=textread(inFile,'%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s','headerlines',skip);
 
 StrComputerTime=cell2mat(cellComputerTime);

@@ -23,6 +23,10 @@ function retval=rmc2nav(inFile,hourOffset,skip)
 
 
 % parse file 
+if ~exist(inFile)
+    retval=[];
+    return ;
+end
 [a,gCtime,c,Clat,ClatDir,Clon,ClonDir,h,i,gCdate,k,l]=textread(inFile,'%s %s %s %s %s %s %s %s %s %s %s %s','delimiter',',','headerlines',skip);
 
 gTime=cell2mat(gCtime);
