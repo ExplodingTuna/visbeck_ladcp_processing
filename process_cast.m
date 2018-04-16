@@ -96,6 +96,11 @@ end
 
 fclose(fidW);
 fidW=fopen(fileToWrite,'r');
+
+%[a,b]=textread(fileToWrite,'%s%s','Delimiter','=','CommentStyle','#');
+%x=[a,b];
+%[p,q]=size(x);
+%cruiseVars=mat2cell(x,[p],[1,1]);
 cruiseVars=textscan(fidW,'%s%s','Delimiter','=','CommentStyle','#');
 
 fclose(fid);
