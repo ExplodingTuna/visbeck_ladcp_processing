@@ -51,18 +51,18 @@ function [ctd,varlabel,names,sensors]=ctd_rd2(cnv_file,FMT);
 %  20-5-11 modified by Rowan Fox (ro1@uvic.ca), adding in model #, temp
 %  sensor SN # & cond sensor SN
 
-if nargin==1,
+if nargin==1
  FMT='IR';
-end;
+end
 
 ctd.name='ctd';
 ctd.station='';
 
 % Open the .cnv file as read-only text
 
-if isempty(findstr(lower(cnv_file),'.cnv')),
+if isempty(findstr(lower(cnv_file),'.cnv'))
   cnv_file=[cnv_file '.cnv'];
-end;
+end
   
 fid=fopen(cnv_file,'r');
 
@@ -70,7 +70,7 @@ fid=fopen(cnv_file,'r');
 % Stop at line that starts with '*END*'
 
 str='*START*';
-while (~strncmp(str,'*END*',5));
+while (~strncmp(str,'*END*',5))
   
     str=fgetl(fid);
     
@@ -83,9 +83,9 @@ while (~strncmp(str,'*END*',5));
             elseif (strncmp(str,'* NMEA UTC',10))
                 gtime=get_timestamp(str);
                 tzone='UTC';
-            end;
+            end
 
-        case 'IR',
+        case 'IR'
             if any(findstr(str,'Latitude')) | any(findstr(str,'Lat'))
                 lat=get_lat(str);
             elseif any(findstr(str,'Longitude')) | any(findstr(str,'Long'))
@@ -95,37 +95,37 @@ while (~strncmp(str,'*END*',5));
             %      ** xxxxxxxxxxTimexxxx = 21 Dec 2005 hh:mm:ss
             %     where timezone may also be in there somewhere.
    
-            elseif strncmp(str,'**',2) & any(findstr(str,'Time')),
+            elseif strncmp(str,'**',2) & any(findstr(str,'Time'))
                 gtime=get_timestamp(str);
                 tzone='unknown';
-                if any(findstr(str,'PST')),
+                if any(findstr(str,'PST'))
                     tzone='PST';
-                elseif any(findstr(str,'PDT')),
+                elseif any(findstr(str,'PDT'))
                     tzone='PDT';
-                elseif any(findstr(str,'UTC')),
+                elseif any(findstr(str,'UTC'))
                     tzone='UTC';
-                elseif any(findstr(str,'EST')),
+                elseif any(findstr(str,'EST'))
                     tzone='EST';
-                elseif any(findstr(str,'EDT')),
+                elseif any(findstr(str,'EDT'))
                     tzone='EDT';
-                end;  
+                end  
             % The default - get a time from the 'upload' string (usually the other time
             % strings are later in the file so they will overwrite this, if they exist).	
-            elseif (strncmp(str,'* System UpLoad',15)),
+            elseif (strncmp(str,'* System UpLoad',15))
                 tzone='unknown';
                 gtime=get_timestamp(str);
-            end;	
+            end	
         
-        case 'LAB',  	
+        case 'LAB'  	
        
             lat=0;lon=0;tzone='unknown';
   
-            if (strncmp(str,'* System UpLoad',15)),
+            if (strncmp(str,'* System UpLoad',15))
                 tzone='unknown';
                 gtime=get_timestamp(str);
-            end;
+            end
 	
-        case 'RP',  
+        case 'RP'  
       	
             lat=0;lon=0;tzone='unknown';
 
@@ -133,7 +133,7 @@ while (~strncmp(str,'*END*',5));
                 is=findstr(str,'=');
                 % EXTRACT THE UPLOAD YEAR FOR CAST START TIME Roger 2003sep04
                 upyearstr=str(is+9:is+12);
-            end;
+            end
 
             %-------------------------------------------------------------------
             % READ CAST START TIME, SAMPLE RATE, COMPUTE mtime Roger 2003sep04
@@ -155,38 +155,38 @@ while (~strncmp(str,'*END*',5));
                     fprintf('Date from CAST START TIME in timezone of SBE clock\n');
                 else
                     error('ERROR: CAST START TIME: str does not have expected form')
-                end;
+                end
 
             end
 
             %
-        otherwise,
+        otherwise
             error('Unrecognized format specifier');
-    end;
+    end
     
     %-----------------------------
     %
     % Read the station name from a comment line
     %
-    if (strncmp(lower(str),'** station',10)),
+    if (strncmp(lower(str),'** station',10))
         ctd.station=fliplr(deblank(fliplr(deblank(str(min(findstr(str,':'))+2:end)))));
     %-----------------------------
     %
     % Read the ctd model from a comment line
     %
-    elseif (strncmp(str,'* Sea-Bird',10)),
+    elseif (strncmp(str,'* Sea-Bird',10))
         ctd.model=str(findstr(str,'Sea-Bird SBE ')+13:findstr(str,' Data File')-1);
     %-----------------------------
     %
     % Read the ctd temperature sensor SN from a comment line
     %
-    elseif (strncmp(str,'* Temperature SN = ',19)),
+    elseif (strncmp(str,'* Temperature SN = ',19))
         ctd.tempsn=str(findstr(str,'* Temperature SN = ')+19:end);
     %-----------------------------
     %
     % Read the ctd conductivity sensor SN from a comment line
     %
-    elseif (strncmp(str,'* Conductivity SN = ',20)),
+    elseif (strncmp(str,'* Conductivity SN = ',20))
         ctd.condsn=str(findstr(str,'* Conductivity SN = ')+20:end);
         
     %-----------------------------
@@ -194,25 +194,25 @@ while (~strncmp(str,'*END*',5));
     % Read the depth from a comment line
     %
      
-    elseif (strncmp(lower(str),'** depth',8)),
+    elseif (strncmp(lower(str),'** depth',8))
         idelim=findstr(str,':');
         ctd.depth=sscanf(str(idelim+1:end),'%f');
-	if isempty(ctd.depth) 
-        ctd.depth=NaN; 
-    end;
-	% Units?
-	strrem=str(idelim+1:end);strrem(strrem>=48 & strrem<=57)=' ';
-	if any(findstr(str(idelim+1:end),' m')),
-	   % OK
-	elseif any(findstr(str(idelim+1:end),' ft')) ,
-	   ctd.depth=ctd.depth*0.3048;
-	end;    
+        if isempty(ctd.depth)
+            ctd.depth=NaN;
+        end
+        % Units?
+        strrem=str(idelim+1:end);strrem(strrem>=48 & strrem<=57)=' ';
+        if any(findstr(str(idelim+1:end),' m'))
+            % OK
+        elseif any(findstr(str(idelim+1:end),' ft')) 
+            ctd.depth=ctd.depth*0.3048;
+        end;
 
     %------------------------------
     %
     % Get sampling interval
     %
-    elseif (strncmp(str,'# interval',10)),
+    elseif (strncmp(str,'# interval',10))
        ctd.samp_interval=sscanf(str(findstr(str,':')+1:end),'%f');
 	
     %------------------------------
@@ -334,13 +334,20 @@ nvars=var;  %number of variables
 
 % Read the data into one big matrix
 
+%datas=fscanf(fid,'%c',[nvars inf]).';
 data=fscanf(fid,'%f',[nvars inf]).';
 fclose(fid);
 
 
 % Flag bad values with NaN
-
-data(data==bad_flag)=NaN;
+for i=1:size(data,2)
+    badx=find(data(:,i)==bad_flag); 
+    if ~isempty(badx) 
+        goodx=find(~ismember([1:size(data,1)],badx));
+        data(badx,i)=interp1(data(goodx,1),data(goodx,i),data(badx,1),'linear','extrap'); 
+    end
+end
+% data(data==bad_flag)=NaN;
 
 if exist('sensors'), ctd.sensors=char(sensors); end;
 
