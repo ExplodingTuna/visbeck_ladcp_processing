@@ -167,8 +167,9 @@ Append your `bin` directory to the PATH variable in `.bashrc` to easily run scri
 ```bash
 mkdir -p $HOME/bin
 source ~/.bashrc
+sudo nano .bashrc
 ```
-Type PATH=$HOME/bin:$PATH at the bottom.
+Type PATH=$HOME/bin:$PATH at the bottom. Copy the files from the repository's bin into the bin you just created.
 
 ### Make MATLAB Files Executable
 
