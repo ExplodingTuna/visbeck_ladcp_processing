@@ -171,20 +171,14 @@ sudo nano .bashrc
 ```
 Type PATH=$HOME/bin:$PATH at the bottom. Copy the files from the repository's bin into the bin you just created.
 
-### Make MATLAB Files Executable
-
-Change the permissions of the MATLAB script and executable to make them runnable:
-
-For `process_cast.m`:
+### Modify File Permissions
+By default some files need to be made executable.
 
 ```bash
-chmod +x ~/visbeck_ladcp_processing/process_cast.m
-```
-
-And for `process_ladcp_cast` within the `visbeck_process_ladcp_cast` folder:
-
-```bash
-chmod +x ~/visbeck_ladcp_processing/visbeck_process_ladcp_cast/process_ladcp_cast
+mv visbeck_ladcp_processing/visbeck_process_ladcp_cast ~/
+chmod +x ~/bin/process_cast
+chmod +x ~/visbeck_process_ladcp_cast/process_ladcp_cast
+chmod +x ~/visbeck_process_ladcp_cast/run_process_ladcp_cast.sh
 ```
 
 ### Running the Application
