@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# This is a synchronization script to copy local processed data to a 
+# shared network folder mounted in $HOME/science
+# remember to mount the shared network folder in $HOME/sciene
+
+rsync -r -t --info=progress2 $HOME/data/ladcp_proc $HOME/science
+rsync -r -t --info=progress2 $HOME/data/ladcp_terminal_logs $HOME/science
+
+echo sync finished. 
+echo ladcp_proc and ladcp_terminal_logs directories copied

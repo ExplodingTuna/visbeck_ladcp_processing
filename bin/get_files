@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# This is to grab the processed CTD files over the network and put them
+# in the right folders for ladcp processing. Change the NAME variable
+# value to match the name of the files.
+
+NAME="PNE2021b"
+
+cp $HOME/science/$NAME/data/1hz/$NAME_$1.cnv $HOME/data/ladcp_proc/data/raw_ctdtime/$NAME_time_$1.cnv
+
+cp $HOME/science/$NAME/data/1db/d$NAME_$1.cnv $HOME/data/ladcp_proc/data/raw_ctdprof/$NAME_profile_$1.cnv
+
+cp $HOME/data/ladcp_proc/raw_ladcp/cut/$NAME_$1_01m.dat $HOME/data/ladcp_proc/data/raw_ladcp/cut/$NAME_$1_01m.000
+
+cp $HOME/data/ladcp_proc/raw_ladcp/cut/$NAME_$1_01s.dat $HOME/data/ladcp_proc/data/raw_ladcp/cut/$NAME_$1_01s.000
+
+#process_cast $1
+
