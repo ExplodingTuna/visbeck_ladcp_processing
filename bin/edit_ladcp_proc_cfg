@@ -1,0 +1,3 @@
+#!/bin/bash
+cfgDir=$HOME'/visbeck_process_ladcp_cast/cfg/cruise_params.cfg'
+geany $cfgDir

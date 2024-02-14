@@ -1,0 +1,6 @@
+#!/bin/bash
+args='/usr/local/MATLAB/MATLAB_Compiler_Runtime/v84/ '"$@"
+wDir=$HOME'/visbeck_process_ladcp_cast'
+cd $wDir
+./run_process_ladcp_cast.sh $args
+
