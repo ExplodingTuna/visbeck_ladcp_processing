@@ -137,30 +137,34 @@ process_cast(-004)
 
 
 
-## Setup Instructions for Debian Bookworm
+# Setup Instructions for Debian Bookworm
 
 This guide provides step-by-step instructions to set up the visbeck_ladcp_processing environment on Debian Bookworm.
 
-### Install libncurses5
+## Installation Steps 
+### 1. Install libncurses5
 
-First, ensure your package lists are updated and install libncurses5:
+Update your package list and install `libncurses5` which is required for the processing environment.
 
 ```bash
 sudo apt-get update
 sudo apt-get install libncurses5
 ```
 
-### Clone the Repository
+## 2. Clone the Repository
 
 ```bash
 git clone https://github.com/pedrolpena/visbeck_ladcp_processing.git
 ```
 
-### Download MATLAB Runtime R2014b
+### 3. Download MATLAB Runtime R2014b
 
-The MATLAB Runtime R2014b is required to run compiled MATLAB applications. Download it from the official MathWorks website at https://www.mathworks.com/products/compiler/matlab-runtime.html. Follow the installation instructions provided on the MathWorks website to install MATLAB Runtime R2014b.
+MATLAB Runtime R2014b is essential to run compiled MATLAB applications.
 
-### Update .bashrc
+- Download from MathWorks: [MCR R2014b Installer](https://ssd.mathworks.com/supportfiles/downloads/R2014b/deployment_files/R2014b/installers/glnxa64/MCR_R2014b_glnxa64_installer.zip)
+- Follow the provided instructions on the MathWorks website to install the MATLAB Runtime R2014b.
+
+### 4. Update System Path
 
 Append your `bin` directory to the PATH variable in `.bashrc` to easily run scripts:
 
@@ -169,11 +173,14 @@ mkdir -p $HOME/bin
 source ~/.bashrc
 sudo nano .bashrc
 ```
-Type PATH=$HOME/bin:$PATH at the bottom. Copy the files from the repository's bin into the bin you just created.
+Type the following at the bottom:
+```bash 
+PATH=$HOME/bin:$PATH
+```
+Then, copy the files from the repository's bin into the bin you just created.
 
-### Modify File Permissions
-By default some files need to be made executable.
-
+### 5. Modify File Permissions
+Adjust file permissions to make certain scripts executable.
 ```bash
 mv visbeck_ladcp_processing/visbeck_process_ladcp_cast ~/
 chmod +x ~/bin/process_cast
@@ -181,10 +188,8 @@ chmod +x ~/visbeck_process_ladcp_cast/process_ladcp_cast
 chmod +x ~/visbeck_process_ladcp_cast/run_process_ladcp_cast.sh
 ```
 
-### Running the Application
-
-After completing the setup, you can run:
-
+### 6. Running the Application
+With the setup complete, you can process a data cast by running:
 ```bash
 process_cast 004
 ```
