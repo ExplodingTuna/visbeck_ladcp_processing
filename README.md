@@ -179,7 +179,7 @@ To remove previously processed cast files, just run process cast  with a minus s
 For example, to remove processed files for cast 004 of cruise_id=AB1705, simply type:
 
 ```bash
-process_cast(-004)
+process_cast -004
 ```
 
 
