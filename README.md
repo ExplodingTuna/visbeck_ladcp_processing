@@ -77,69 +77,60 @@ process_cast 004
 ```
 
 
-# Setup Instructions for Octave
-
+# Octave Setup Instructions
 Octave doesn't yet have a mature JIT compiler so this script will run about 3 to 4
-times faster in Matlab.<br>
-if running under octave make sure you install the nan package.
-you can do this from octave by running<br>
+times faster in Matlab. If running under octave make sure you install the nan package.
+you can do this from octave by running:
 
-"pkg -forge install nan"<br>
+## Install Dependencies
 
-Debian systems like Ubuntu, might complain about "liboctave-dev"<br>
+```bash
+pkg -forge install nan
+```
 
-"pkg: please install the Debian package "liboctave-dev" to get the mkoctfile command"<br>
+Debian systems like Ubuntu, might need "liboctave-dev" to be installed. To install liboctave-dev open a terminal and type:
+```bash
+sudo apt-get install liboctave-dev
+```
 
-to install liboctave-dev open a terminal and type<br>
-sudo apt-get install liboctave-dev<br>
+## QUICK START
+Jumpstart your processing with the pre-configured `cruise_params.cfg` for cast 004 of the "AB1705" cruise.
 
+1. Open Octave or MATLAB: Navigate to the directory containing process_cast.m.
+2. Initialize Path Settings: Execute apath to include necessary file paths and load the nan package for Octave users:
 
-<h3>QUICK START</h3>
+```bash
+apath
+```
 
+## CONFIGURATION
 
-The "cruise_params.cfg" file is preconfigured to process cast 004 of the "AB1705" cruise. <br>
+Tailor the processing script to fit your cruise by editing cruise_params.cfg located within the cfg folder.
+The following are the typical values to modify to quickly use the program. For the AB1705 set "cruise_params.cfg" as follows:
 
-To quickly test the script, open Matlab or Octave and enter the directory that contains "process_cast.m". <br>
-run apath by typing "apath" <--this will add the paths that contain the files needed for processing <br>
-and it will load the nan package if run under Octave. <br>
+```bash
+cruise_id=AB1705
+cruise_id_prefix=
+cruise_id_suffix=
+correct_year=2017
+use_mat_for_nav=0
+make_nav=1
+use_sadcp=0
+print_formats=psc
+remove_zctd_downcast=1
+use_master_only=0
+```
 
-
-type "process_cast 004"
-
-
-<h3>CONFIGURATION</h3>
-
-
-Configure to use for a cruise. <br>
-Edit the configuration file "cruise_params.cfg" located in the "cfg" folder. <br>
-The following are the typical values to modify to quickly use the program <br>
-
-for the AB1705 set "cruise_params.cfg" as follows <br>
-
-cruise_id=AB1705<br>
-cruise_id_prefix=<br>
-cruise_id_suffix=<br>
-correct_year=2017<br>
-use_mat_for_nav=0<br>
-make_nav=1<br>
-use_sadcp=0<br>
-print_formats=psc<br>
-remove_zctd_downcast=1<br>
-use_master_only=0<br>
-
-
-<h3>PROCESS CAST</h3>
-
+## PROCESS CAST
 
 To process the cast
--first run the "apath" script to set the paths and load the nan package<br>
-apath<br>
+-First run the `apath` script to set the paths and load the nan package.
+```bash
+apath
+```
 
-Make sure the following files are in the correct folders.<br>
-Keep in mind that case matters and that sometimes a space in your filename can <br>
-go undetected and drive you crazy when the filenames seem to be named correctly.<br>
-
-For cast 4 of cruise_id=AB1705, the files will be named in the following way.<br>
+Make sure the following files are in the correct folders. Keep in mind that case matters and that sometimes a space in your filename can go undetected and drive you crazy when the filenames seem to be named correctly.
+For cast 4 of cruise_id=AB1705, the files will be named in the following way:
 
 
 -Raw CTD profile
@@ -172,26 +163,24 @@ For cast 4 of cruise_id=AB1705, the files will be named in the following way.<br
 process_cast(004)
 
 Make sure the nav file has three columns in it.<br>
-column 1 is time in decimal year day<br>   
-column 2 is lat in decimal degrees<br>
-coulmn 3 is lon in decimal degrees<br>
+Column 1 is time in decimal year day<br>   
+Column 2 is lat in decimal degrees<br>
+Coulmn 3 is lon in decimal degrees<br>
 
-example
+Example:
 
 37.5001464   25.713988   -80.179005
 
 
 
-<h3>DELETE CAST FILES</h3>
+## DELETE CAST FILES
 
+To remove previously processed cast files, just run process cast  with a minus sign "-" in front of the cast number.
+For example, to remove processed files for cast 004 of cruise_id=AB1705, simply type:
 
-To remove previously processed cast files, just run process cast  with a minus sign "-"<br>
-in front of the cast number.
-
-For example, to remove processed files for cast 004 of cruise_id=AB1705, simply type.<br>
-
+```bash
 process_cast(-004)
-
+```
 
 
 
