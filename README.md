@@ -19,8 +19,65 @@ favoring by the Department of Commerce. The Department of Commerce seal and logo
 DOC bureau, shall not be used in any manner to imply endorsement of any commercial product or activity by
 DOC or the United States Government.
 
-<h3>OCTAVE</h3>
+# Setup Instructions for Debian Bookworm
 
+This guide provides step-by-step instructions to set up the visbeck_ladcp_processing environment on Debian Bookworm.
+
+## Installation Steps 
+### 1. Install libncurses5
+
+Update your package list and install `libncurses5` which is required for the processing environment.
+
+```bash
+sudo apt-get update
+sudo apt-get install libncurses5
+```
+
+## 2. Clone the Repository
+
+```bash
+git clone https://github.com/pedrolpena/visbeck_ladcp_processing.git
+```
+
+### 3. Download MATLAB Runtime R2014b
+
+MATLAB Runtime R2014b is essential to run compiled MATLAB applications.
+
+- Download from MathWorks: [MCR R2014b Installer](https://ssd.mathworks.com/supportfiles/downloads/R2014b/deployment_files/R2014b/installers/glnxa64/MCR_R2014b_glnxa64_installer.zip)
+- Follow the provided instructions on the MathWorks website to install the MATLAB Runtime R2014b.
+
+### 4. Update System Path
+
+Append your `bin` directory to the PATH variable in `.bashrc` to easily run scripts:
+
+```bash
+mkdir -p $HOME/bin
+source ~/.bashrc
+sudo nano .bashrc
+```
+Type the following at the bottom:
+```bash 
+PATH=$HOME/bin:$PATH
+```
+Then, copy the files from the repository's bin into the bin you just created.
+
+### 5. Modify File Permissions
+Adjust file permissions to make certain scripts executable.
+```bash
+mv visbeck_ladcp_processing/visbeck_process_ladcp_cast ~/
+chmod +x ~/bin/process_cast
+chmod +x ~/visbeck_process_ladcp_cast/process_ladcp_cast
+chmod +x ~/visbeck_process_ladcp_cast/run_process_ladcp_cast.sh
+```
+
+### 6. Running the Application
+With the setup complete, you can process a data cast by running:
+```bash
+process_cast 004
+```
+
+
+# Setup Instructions for Octave
 
 Octave doesn't yet have a mature JIT compiler so this script will run about 3 to 4
 times faster in Matlab.<br>
@@ -134,65 +191,6 @@ in front of the cast number.
 For example, to remove processed files for cast 004 of cruise_id=AB1705, simply type.<br>
 
 process_cast(-004)
-
-
-
-# Setup Instructions for Debian Bookworm
-
-This guide provides step-by-step instructions to set up the visbeck_ladcp_processing environment on Debian Bookworm.
-
-## Installation Steps 
-### 1. Install libncurses5
-
-Update your package list and install `libncurses5` which is required for the processing environment.
-
-```bash
-sudo apt-get update
-sudo apt-get install libncurses5
-```
-
-## 2. Clone the Repository
-
-```bash
-git clone https://github.com/pedrolpena/visbeck_ladcp_processing.git
-```
-
-### 3. Download MATLAB Runtime R2014b
-
-MATLAB Runtime R2014b is essential to run compiled MATLAB applications.
-
-- Download from MathWorks: [MCR R2014b Installer](https://ssd.mathworks.com/supportfiles/downloads/R2014b/deployment_files/R2014b/installers/glnxa64/MCR_R2014b_glnxa64_installer.zip)
-- Follow the provided instructions on the MathWorks website to install the MATLAB Runtime R2014b.
-
-### 4. Update System Path
-
-Append your `bin` directory to the PATH variable in `.bashrc` to easily run scripts:
-
-```bash
-mkdir -p $HOME/bin
-source ~/.bashrc
-sudo nano .bashrc
-```
-Type the following at the bottom:
-```bash 
-PATH=$HOME/bin:$PATH
-```
-Then, copy the files from the repository's bin into the bin you just created.
-
-### 5. Modify File Permissions
-Adjust file permissions to make certain scripts executable.
-```bash
-mv visbeck_ladcp_processing/visbeck_process_ladcp_cast ~/
-chmod +x ~/bin/process_cast
-chmod +x ~/visbeck_process_ladcp_cast/process_ladcp_cast
-chmod +x ~/visbeck_process_ladcp_cast/run_process_ladcp_cast.sh
-```
-
-### 6. Running the Application
-With the setup complete, you can process a data cast by running:
-```bash
-process_cast 004
-```
 
 
 
